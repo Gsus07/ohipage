@@ -95,7 +95,7 @@ const GlobalStyles = () => (
     /* ── Service cards ───────────────────────── */
     .service-card {
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
       cursor: default;
     }
     .service-card::before {
@@ -122,14 +122,14 @@ const GlobalStyles = () => (
 
     /* ── Pillar cards ────────────────────────── */
     .pillar-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease;
     }
     .pillar-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 16px 40px rgba(6,47,135,0.12);
     }
     .pillar-card-dark {
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.35s ease !important;
+      transition: box-shadow 0.3s ease, border-color 0.35s ease !important;
     }
     .pillar-card-dark:hover {
       transform: translateY(-6px) !important;
@@ -309,24 +309,8 @@ const GlobalStyles = () => (
     }
 
     /* ── Scroll Reveal ─────────────────────── */
-    /* GSAP handles scroll reveal — CSS sets initial hidden state only */
-    [data-reveal] { will-change: opacity, transform; }
-    [data-reveal="up"]    { opacity: 0; transform: translateY(36px); }
-    [data-reveal="left"]  { opacity: 0; transform: translateX(-36px); }
-    [data-reveal="right"] { opacity: 0; transform: translateX(36px); }
-    [data-reveal="scale"] { opacity: 0; transform: scale(0.86); }
-    [data-reveal="fade"]  { opacity: 0; }
-    [data-reveal].is-visible { opacity: 1 !important; transform: none !important; }
-    [data-delay="50"]  { transition-delay: 0.05s; }
-    [data-delay="100"] { transition-delay: 0.1s; }
-    [data-delay="150"] { transition-delay: 0.15s; }
-    [data-delay="200"] { transition-delay: 0.2s; }
-    [data-delay="250"] { transition-delay: 0.25s; }
-    [data-delay="300"] { transition-delay: 0.3s; }
-    [data-delay="350"] { transition-delay: 0.35s; }
-    [data-delay="400"] { transition-delay: 0.4s; }
-    [data-delay="450"] { transition-delay: 0.45s; }
-    [data-delay="500"] { transition-delay: 0.5s; }
+    /* Initial hidden state — GSAP takes over on hydration */
+    [data-reveal] { opacity: 0; }
   `}</style>
 );
 
@@ -505,22 +489,27 @@ export default function OHILanding() {
     return () => clearInterval(t);
   }, []);
 
-  // Scroll reveal via GSAP ScrollTrigger
+  // Scroll reveal via GSAP ScrollTrigger.batch (one trigger per group, no per-element overhead)
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const reveal = (selector, from, to) =>
-        document.querySelectorAll(selector).forEach(el =>
-          gsap.fromTo(el, { ...from, clearProps: "transition" }, {
-            ...to,
-            scrollTrigger: { trigger: el, start: "top 88%", once: true },
-          })
-        );
+      // Pre-hide all reveal elements synchronously before ScrollTrigger wires up
+      gsap.set('[data-reveal="up"]',    { autoAlpha: 0, y: 28 });
+      gsap.set('[data-reveal="left"]',  { autoAlpha: 0, x: -28 });
+      gsap.set('[data-reveal="right"]', { autoAlpha: 0, x: 28 });
+      gsap.set('[data-reveal="scale"]', { autoAlpha: 0, scale: 0.88 });
+      gsap.set('[data-reveal="fade"]',  { autoAlpha: 0 });
 
-      reveal('[data-reveal="up"]',    { autoAlpha: 0, y: 36 },      { autoAlpha: 1, y: 0,      duration: 0.75, ease: "power3.out" });
-      reveal('[data-reveal="left"]',  { autoAlpha: 0, x: -36 },     { autoAlpha: 1, x: 0,      duration: 0.75, ease: "power3.out" });
-      reveal('[data-reveal="right"]', { autoAlpha: 0, x: 36 },      { autoAlpha: 1, x: 0,      duration: 0.75, ease: "power3.out" });
-      reveal('[data-reveal="scale"]', { autoAlpha: 0, scale: 0.86 },{ autoAlpha: 1, scale: 1,  duration: 0.65, ease: "back.out(1.3)" });
-      reveal('[data-reveal="fade"]',  { autoAlpha: 0 },             { autoAlpha: 1,            duration: 0.85, ease: "power2.out" });
+      const batchIn = (to) => ({
+        start: "top 90%",
+        once: true,
+        onEnter: (batch) => gsap.to(batch, { ...to, stagger: 0.06, overwrite: "auto" }),
+      });
+
+      ScrollTrigger.batch('[data-reveal="up"]',    batchIn({ autoAlpha: 1, y: 0,     duration: 0.65, ease: "power3.out",   clearProps: "transform" }));
+      ScrollTrigger.batch('[data-reveal="left"]',  batchIn({ autoAlpha: 1, x: 0,     duration: 0.65, ease: "power3.out",   clearProps: "transform" }));
+      ScrollTrigger.batch('[data-reveal="right"]', batchIn({ autoAlpha: 1, x: 0,     duration: 0.65, ease: "power3.out",   clearProps: "transform" }));
+      ScrollTrigger.batch('[data-reveal="scale"]', batchIn({ autoAlpha: 1, scale: 1, duration: 0.6,  ease: "back.out(1.3)", clearProps: "transform" }));
+      ScrollTrigger.batch('[data-reveal="fade"]',  batchIn({ autoAlpha: 1,           duration: 0.75, ease: "power2.out" }));
     });
     return () => ctx.revert();
   }, []);

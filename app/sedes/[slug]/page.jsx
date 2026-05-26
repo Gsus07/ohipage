@@ -566,17 +566,17 @@ export default async function SedePage({ params }) {
         /* Hero elements start hidden — GSAP animates them in */
         .hero-badge, .hero-title, .hero-desc, .hero-chip, .hero-stat { opacity: 0; }
         /* Card layout: stacked on mobile, horizontal on tablet+ */
-        .service-card { display: flex; flex-direction: column; transition: box-shadow 0.4s ease, transform 0.4s ease; }
-        .service-card:hover { transform: translateY(-4px); box-shadow: 0 24px 64px rgba(6,47,135,0.13) !important; }
-        .card-img-wrap { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; flex-shrink: 0; background: linear-gradient(145deg,#062F87,#1347bf); }
-        .card-img-wrap::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#C2D501,#d4e818 60%,transparent); pointer-events: none; z-index: 1; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.75s ease; }
-        .service-card:hover .card-img { transform: scale(1.04); }
-        .card-body { flex: 1; min-width: 0; }
+        .service-card { display: flex; flex-direction: column; transition: box-shadow 0.45s ease, border-color 0.35s ease; border-left: 4px solid transparent; will-change: transform, opacity; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 28px 80px rgba(6,47,135,0.16) !important; border-left-color: #C2D501; }
+        .card-img-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0; background: linear-gradient(145deg,#062F87,#1347bf); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.85s ease; }
+        .service-card:hover .card-img { transform: scale(1.06); }
+        .card-body { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+        .card-num { position: absolute; top: -1rem; right: 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 700; line-height: 1; color: rgba(6,47,135,0.042); pointer-events: none; user-select: none; }
         /* Horizontal layout on tablet+ */
         @media (min-width: 580px) {
           .service-card { flex-direction: row; align-items: stretch; }
-          .card-img-wrap { width: 42%; max-width: 300px; aspect-ratio: auto; min-height: 220px; }
+          .card-img-wrap { width: 44%; max-width: 340px; aspect-ratio: auto; min-height: 250px; }
         }
         /* 2-col grid on large screens */
         @media (min-width: 1100px) { .grid-services { grid-template-columns: repeat(2, 1fr); } }
@@ -786,105 +786,132 @@ export default async function SedePage({ params }) {
 
       {/* ── Services grid ── */}
       <section style={{
-        background: "linear-gradient(180deg, #eef1fc 0%, #e4e9fa 100%)",
-        padding: "5rem 1.5rem", position: "relative",
+        background: "#f7f8fc",
+        padding: "6rem 1.5rem", position: "relative", overflow: "hidden",
       }}>
+        {/* Decorative blobs */}
         <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 40px, rgba(6,47,135,0.025) 40px, rgba(6,47,135,0.025) 41px)",
+          position: "absolute", top: -160, right: -120, pointerEvents: "none",
+          width: 500, height: 500, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(6,47,135,0.06) 0%, transparent 68%)",
+        }} />
+        <div style={{
+          position: "absolute", bottom: -120, left: -140, pointerEvents: "none",
+          width: 420, height: 420, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(194,213,1,0.08) 0%, transparent 68%)",
         }} />
 
         <div style={{ maxWidth: 1260, margin: "0 auto", position: "relative" }}>
-          <div className="services-header" style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-            <span style={{
-              color: "#062F87", fontSize: "0.72rem", fontWeight: 600,
-              letterSpacing: "0.18em", textTransform: "uppercase",
-            }}>
-              Portafolio de Servicios
-            </span>
+          {/* Section header */}
+          <div className="services-header" style={{ textAlign: "center", marginBottom: "4.5rem" }}>
             <div style={{
-              width: 48, height: 3,
-              background: "linear-gradient(90deg, #C2D501, #d4e818)",
-              borderRadius: 2, margin: "0.75rem auto 1rem",
-            }} />
-            <h2 className="display-font" style={{
-              fontSize: "clamp(1.7rem, 3.5vw, 2.6rem)",
-              fontWeight: 600, color: "#062F87",
+              display: "inline-flex", alignItems: "center", gap: 8,
+              background: "rgba(6,47,135,0.07)", border: "1px solid rgba(6,47,135,0.14)",
+              borderRadius: 20, padding: "5px 18px", marginBottom: "1.4rem",
+              color: "#062F87", fontSize: "0.72rem", fontWeight: 700,
+              letterSpacing: "0.16em", textTransform: "uppercase",
             }}>
-              Nuestros servicios
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#C2D501", display: "inline-block", flexShrink: 0 }} />
+              Portafolio de Servicios
+            </div>
+            <h2 className="display-font" style={{
+              fontSize: "clamp(2rem, 4vw, 3.2rem)",
+              fontWeight: 700, color: "#062F87", lineHeight: 1.1,
+              display: "block", marginBottom: "1rem",
+            }}>
+              Nuestros Servicios
             </h2>
             <p style={{
-              color: "#4A5A80", fontSize: "0.95rem", lineHeight: 1.7,
-              maxWidth: 520, margin: "0.75rem auto 0",
+              color: "#4A5A80", fontSize: "0.95rem", lineHeight: 1.78,
+              maxWidth: 500, margin: "0 auto",
             }}>
-              Tecnología de punta y talento humano especializado para su bienestar.
+              Tecnología de punta y talento humano especializado, comprometidos con su bienestar.
             </p>
           </div>
 
           <div className="grid-services services-grid" style={{
-            display: "grid", gridTemplateColumns: "1fr", gap: "2rem",
+            display: "grid", gridTemplateColumns: "1fr", gap: "1.75rem",
           }}>
-            {sede.sections.map((section) => {
+            {sede.sections.map((section, idx) => {
               const Icon = ICONS[section.icon] || FaCheckCircle;
               const imgSrc = IMAGE_MAP[`${slug}-${section.icon}`];
+              const numLabel = String(idx + 1).padStart(2, "0");
 
               return (
                 <div key={section.title} className="service-card" style={{
-                  background: "#fff", borderRadius: 20, overflow: "hidden",
-                  boxShadow: "0 4px 28px rgba(6,47,135,0.07), 0 1px 4px rgba(6,47,135,0.04)",
-                  border: "1px solid rgba(6,47,135,0.06)",
+                  background: "#fff", borderRadius: 18, overflow: "hidden",
+                  boxShadow: "0 2px 16px rgba(6,47,135,0.06), 0 8px 48px rgba(6,47,135,0.05)",
                 }}>
                   {/* Image */}
                   <div className="card-img-wrap">
                     {imgSrc ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={imgSrc}
-                        alt={section.title}
-                        className="card-img"
-                      />
-                    ) : null}
+                      <img src={imgSrc} alt={section.title} className="card-img" />
+                    ) : (
+                      <div style={{ width: "100%", height: "100%", background: "linear-gradient(145deg,#062F87,#1347bf)" }} />
+                    )}
+                    {/* Service number badge */}
+                    <div style={{
+                      position: "absolute", top: 12, left: 12, zIndex: 2,
+                      background: "rgba(4,16,68,0.72)", backdropFilter: "blur(10px)",
+                      border: "1px solid rgba(255,255,255,0.14)",
+                      borderRadius: 8, padding: "3px 10px",
+                      color: "#C2D501", fontSize: "0.72rem", fontWeight: 700,
+                      letterSpacing: "0.1em", fontFamily: "monospace",
+                    }}>
+                      {numLabel}
+                    </div>
+                    {/* Bottom fade */}
+                    <div style={{
+                      position: "absolute", bottom: 0, left: 0, right: 0, height: 80,
+                      background: "linear-gradient(to top, rgba(4,16,68,0.42), transparent)",
+                    }} />
                   </div>
 
                   {/* Content */}
                   <div className="card-body" style={{
-                    padding: "1.4rem 1.5rem",
-                    display: "flex", flexDirection: "column", gap: "0.9rem",
+                    padding: "1.6rem 1.8rem",
+                    display: "flex", flexDirection: "column", gap: "1rem",
                   }}>
+                    {/* Watermark number */}
+                    <div className="card-num">{numLabel}</div>
+
                     {/* Icon + title */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
                       <div style={{
-                        width: 42, height: 42, borderRadius: 10, flexShrink: 0,
-                        background: "linear-gradient(135deg, #eef1ff 0%, #dde3ff 100%)",
-                        border: "1.5px solid rgba(6,47,135,0.12)",
+                        width: 48, height: 48, borderRadius: 14, flexShrink: 0,
+                        background: "linear-gradient(135deg, #062F87 0%, #1A52CC 100%)",
+                        boxShadow: "0 4px 18px rgba(6,47,135,0.3)",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        color: "#062F87", fontSize: "1.15rem",
+                        color: "#C2D501", fontSize: "1.25rem",
                       }}>
                         <Icon />
                       </div>
                       <h3 className="display-font" style={{
-                        color: "#062F87", fontSize: "1.08rem", fontWeight: 600, lineHeight: 1.28,
+                        color: "#062F87", fontSize: "1.18rem", fontWeight: 700,
+                        lineHeight: 1.22, paddingTop: "0.3rem",
                       }}>
                         {section.title}
                       </h3>
                     </div>
 
                     <p style={{
-                      color: "#4A5A80", fontSize: "0.875rem", lineHeight: 1.72,
-                      borderLeft: "3px solid #C2D501", paddingLeft: "0.75rem",
+                      color: "#4A5A80", fontSize: "0.875rem", lineHeight: 1.78,
+                      borderLeft: "3px solid #C2D501", paddingLeft: "0.85rem", margin: 0,
                     }}>
                       {section.desc}
                     </p>
 
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
                       {section.items.map((item) => (
                         <span key={item} style={{
-                          display: "inline-flex", alignItems: "center", gap: 5,
-                          background: "#f0f3ff", border: "1px solid rgba(6,47,135,0.1)",
-                          borderRadius: 20, padding: "3px 10px",
+                          display: "inline-flex", alignItems: "center", gap: 6,
+                          background: "linear-gradient(135deg, #f0f3ff, #e8edff)",
+                          border: "1px solid rgba(6,47,135,0.11)",
+                          borderRadius: 7, padding: "5px 12px",
                           color: "#062F87", fontSize: "0.77rem", fontWeight: 500,
                         }}>
-                          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#C2D501", flexShrink: 0 }} />
+                          <FaCheckCircle style={{ color: "#C2D501", fontSize: "0.62rem", flexShrink: 0 }} />
                           {item}
                         </span>
                       ))}

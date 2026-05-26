@@ -74,21 +74,21 @@ export default function SedeAnimations() {
         }
       );
 
-      // ── Service cards: batched for smoother stagger ───────────────────
+      // ── Service cards: pre-hide then batch-reveal (no CSS transform conflict) ──
+      gsap.set(".service-card", { autoAlpha: 0, y: 28 });
+
       ScrollTrigger.batch(".service-card", {
-        start: "top 88%",
+        start: "top 90%",
         once: true,
         onEnter: (batch) =>
-          gsap.fromTo(batch,
-            { autoAlpha: 0, y: 44, scale: 0.97 },
-            {
-              autoAlpha: 1, y: 0, scale: 1,
-              stagger: 0.09,
-              duration: 0.82,
-              ease: "power3.out",
-              overwrite: true,
-            }
-          ),
+          gsap.to(batch, {
+            autoAlpha: 1, y: 0,
+            stagger: 0.07,
+            duration: 0.6,
+            ease: "power2.out",
+            overwrite: "auto",
+            clearProps: "transform",
+          }),
       });
 
       // ── Contact band ─────────────────────────────────────────────────────
