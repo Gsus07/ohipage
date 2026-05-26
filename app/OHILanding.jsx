@@ -311,6 +311,118 @@ const GlobalStyles = () => (
     /* ── Scroll Reveal ─────────────────────── */
     /* Initial hidden state — GSAP takes over on hydration */
     [data-reveal] { opacity: 0; }
+
+    /* ── Custom scrollbar ─────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #010c2a; }
+    ::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+    /* ── Page preloader ───────────────────────── */
+    .page-loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #010c2a;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.9rem;
+    }
+    .loader-logo-img { opacity: 0; transform: translateY(14px); }
+    .loader-tagline  { opacity: 0; }
+    .loader-bar {
+      width: 200px; height: 2px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 1px; overflow: hidden;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--navy-mid), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+    }
+
+    /* ── Marquee / trust ticker ───────────────── */
+    @keyframes marqueeAnim {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-wrap { overflow: hidden; }
+    .marquee-track {
+      display: flex; width: max-content;
+      animation: marqueeAnim 38s linear infinite;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 0 2.4rem;
+      color: rgba(255,255,255,0.52);
+      font-size: 0.79rem; font-weight: 500; letter-spacing: 0.06em;
+      white-space: nowrap; cursor: default;
+    }
+    .marquee-sep { color: rgba(194,213,1,0.32); margin-left: 0.6rem; font-size: 0.72rem; }
+
+    /* ── Sede visual link cards ───────────────── */
+    .sede-vcard {
+      display: block; text-decoration: none;
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 22px rgba(6,47,135,0.08), 0 0 0 1px rgba(6,47,135,0.07);
+      transition: box-shadow 0.4s ease, transform 0.35s ease;
+      background: #fff;
+    }
+    .sede-vcard:hover {
+      box-shadow: 0 28px 72px rgba(6,47,135,0.22), 0 0 0 1px rgba(6,47,135,0.14);
+      transform: translateY(-6px);
+    }
+    .sede-vcard:hover .sede-vcard-arr { transform: translateX(5px); }
+    .sede-vcard-arr { display: inline-flex; transition: transform 0.25s ease; }
+    .sede-vcard-body { padding: 1.5rem 1.6rem 1.7rem; }
+
+    /* ── Stat glow ────────────────────────────── */
+    .stat-glow { filter: drop-shadow(0 0 22px rgba(194,213,1,0.32)); }
+
+    /* ── Logo tile pattern (navy sections) ────── */
+    /* mix-blend-mode:screen makes the white PNG background glow white   */
+    /* while the navy logo shapes become invisible → negative-space tile  */
+    .logo-tile-bg {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url('/LOGOS/LOGO.PNG');
+      background-repeat: repeat;
+      background-size: 82px 82px;
+      mix-blend-mode: screen;
+      opacity: 0.055;
+      -webkit-mask-image: radial-gradient(ellipse 75% 95% at 100% 0%, black 0%, black 12%, rgba(0,0,0,0.6) 40%, transparent 72%);
+      mask-image:         radial-gradient(ellipse 75% 95% at 100% 0%, black 0%, black 12%, rgba(0,0,0,0.6) 40%, transparent 72%);
+    }
+    .logo-tile-bg-bl {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url('/LOGOS/LOGO.PNG');
+      background-repeat: repeat;
+      background-size: 82px 82px;
+      mix-blend-mode: screen;
+      opacity: 0.055;
+      -webkit-mask-image: radial-gradient(ellipse 65% 80% at 0% 100%, black 0%, black 12%, rgba(0,0,0,0.5) 42%, transparent 70%);
+      mask-image:         radial-gradient(ellipse 65% 80% at 0% 100%, black 0%, black 12%, rgba(0,0,0,0.5) 42%, transparent 70%);
+    }
+    .logo-tile-bg-center {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url('/LOGOS/LOGO.PNG');
+      background-repeat: repeat;
+      background-size: 70px 70px;
+      mix-blend-mode: screen;
+      opacity: 0.042;
+      -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 0%, rgba(0,0,0,0.4) 50%, transparent 80%);
+      mask-image:         radial-gradient(ellipse 50% 50% at 50% 50%, black 0%, rgba(0,0,0,0.4) 50%, transparent 80%);
+    }
+
+    /* ── Hero glow orbs ───────────────────────── */
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(18px, -22px) scale(1.06); }
+      66%       { transform: translate(-12px, 14px) scale(0.96); }
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+      animation: orbFloat 14s ease-in-out infinite;
+    }
   `}</style>
 );
 
@@ -370,10 +482,10 @@ const PILLARS = [
 ];
 
 const STATS = [
-  { value: "+20",  label: "Años de experiencia" },
-  { value: "3",    label: "Sedes en Valledupar" },
-  { value: "+15",  label: "Especialidades médicas" },
-  { value: "24/7", label: "Atención en urgencias" },
+  { value: "+20",  count: 20,   prefix: "+", suffix: "",   label: "Años de experiencia" },
+  { value: "3",    count: 3,    prefix: "",  suffix: "",   label: "Sedes en Valledupar" },
+  { value: "+15",  count: 15,   prefix: "+", suffix: "",   label: "Especialidades médicas" },
+  { value: "24/7", count: null, prefix: "",  suffix: "/7", label: "Atención en urgencias" },
 ];
 
 const TESTIMONIALS = [
@@ -452,6 +564,19 @@ const SEDES = [
   },
 ];
 
+const MARQUEE_ITEMS = [
+  { icon: FaAward,          text: "+20 Años de trayectoria" },
+  { icon: BiBuildings,      text: "3 Sedes en Valledupar" },
+  { icon: FaStethoscope,    text: "+15 Especialidades médicas" },
+  { icon: FaClock,          text: "Urgencias 24 / 7" },
+  { icon: FaBaby,           text: "UCI Neonatal pionera" },
+  { icon: FaShieldAlt,      text: "Alta complejidad certificada" },
+  { icon: MdBiotech,        text: "Tecnología de vanguardia" },
+  { icon: FaHeartbeat,      text: "Atención humanizada" },
+  { icon: FaUserMd,         text: "Equipo altamente especializado" },
+  { icon: RiHeartPulseLine, text: "Cuidados críticos adultos y pediátricos" },
+];
+
 // ─── WAVE SVG ─────────────────────────────────────────────────────────────────
 const WaveDown = ({ fill = "#F8F5EF", fromFill = "transparent" }) => (
   <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="wave-bottom w-full" preserveAspectRatio="none">
@@ -471,6 +596,7 @@ export default function OHILanding() {
   const [menuOpen, setMenuOpen]       = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [scrollProgress, setScrollProgress]       = useState(0);
+  const loaderRef = useRef(null);
 
   // Navbar scroll detection + progress bar
   useEffect(() => {
@@ -487,6 +613,18 @@ export default function OHILanding() {
   useEffect(() => {
     const t = setInterval(() => setActiveTestimonial(p => (p + 1) % TESTIMONIALS.length), 6000);
     return () => clearInterval(t);
+  }, []);
+
+  // Page preloader
+  useEffect(() => {
+    const loader = loaderRef.current;
+    if (!loader) return;
+    gsap.timeline()
+      .to(".loader-logo-img",  { opacity: 1, y: 0,       duration: 0.65, ease: "power2.out" })
+      .to(".loader-tagline",   { opacity: 1,             duration: 0.5  }, 0.5)
+      .fromTo(".loader-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "power2.inOut" }, 0.4)
+      .to(loader, { autoAlpha: 0, duration: 0.55, delay: 0.12, ease: "power2.in" })
+      .set(loader, { display: "none" });
   }, []);
 
   // Scroll reveal via GSAP ScrollTrigger.batch (one trigger per group, no per-element overhead)
@@ -510,12 +648,54 @@ export default function OHILanding() {
       ScrollTrigger.batch('[data-reveal="right"]', batchIn({ autoAlpha: 1, x: 0,     duration: 0.65, ease: "power3.out",   clearProps: "transform" }));
       ScrollTrigger.batch('[data-reveal="scale"]', batchIn({ autoAlpha: 1, scale: 1, duration: 0.6,  ease: "back.out(1.3)", clearProps: "transform" }));
       ScrollTrigger.batch('[data-reveal="fade"]',  batchIn({ autoAlpha: 1,           duration: 0.75, ease: "power2.out" }));
+
+      // Animated counters for stats
+      const counterEls = document.querySelectorAll("[data-count]");
+      if (counterEls.length) {
+        ScrollTrigger.create({
+          trigger: counterEls[0],
+          start: "top 85%",
+          once: true,
+          onEnter() {
+            counterEls.forEach(el => {
+              const target = +el.getAttribute("data-count");
+              if (!target) return;
+              const prefix = el.getAttribute("data-prefix") || "";
+              const suffix = el.getAttribute("data-suffix") || "";
+              const obj = { n: 0 };
+              gsap.to(obj, {
+                n: target, duration: 2.4, ease: "power2.out",
+                onUpdate() { el.textContent = prefix + Math.round(obj.n) + suffix; },
+              });
+            });
+          },
+        });
+      }
     });
     return () => ctx.revert();
   }, []);
 
   return (
     <>
+      {/* ─── PRELOADER ────────────────────────────────────────────────────── */}
+      <div ref={loaderRef} className="page-loader" aria-hidden="true">
+        <img
+          src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
+          alt=""
+          className="loader-logo-img"
+          style={{ height: 56, filter: "brightness(0) invert(1)" }}
+        />
+        <p
+          className="loader-tagline display-font"
+          style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.87rem", fontStyle: "italic", letterSpacing: "0.07em" }}
+        >
+          Donde la medicina se vuelve humana
+        </p>
+        <div className="loader-bar">
+          <div className="loader-bar-fill" />
+        </div>
+      </div>
+
       <GlobalStyles />
 
       {/* Scroll progress bar */}
@@ -635,12 +815,23 @@ export default function OHILanding() {
           <div className="absolute opacity-5 pointer-events-none" style={{ top: "-4%", right: "-2%", width: 320, height: 320, border: "1px solid #C2D501", borderRadius: "50%" }} />
           <div className="absolute opacity-10 pointer-events-none deco-ring" style={{ bottom: "12%", left: "-6%", width: 260, height: 260, border: "1px solid #C2D501", borderRadius: "50%" }} />
 
-          {/* Subtle pattern overlay */}
+          {/* Glow orbs */}
+          <div className="hero-orb" style={{ width: 500, height: 500, background: "rgba(11,63,173,0.45)", top: "-12%", right: "10%", animationDelay: "0s" }} />
+          <div className="hero-orb" style={{ width: 340, height: 340, background: "rgba(194,213,1,0.08)", bottom: "5%", left: "5%", animationDelay: "-5s" }} />
+          <div className="hero-orb" style={{ width: 260, height: 260, background: "rgba(6,47,135,0.5)", top: "30%", left: "20%", animationDelay: "-9s" }} />
+
+          {/* Subtle pattern overlay — logo tile */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-10"
+            aria-hidden="true"
             style={{
-              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px)",
-              backgroundSize: "32px 32px",
+              position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0,
+              backgroundImage: "url('/LOGOS/LOGO.PNG')",
+              backgroundRepeat: "repeat",
+              backgroundSize: "110px 110px",
+              mixBlendMode: "screen",
+              opacity: 0.038,
+              WebkitMaskImage: "radial-gradient(ellipse 85% 95% at 100% 100%, black 0%, black 10%, rgba(0,0,0,0.5) 45%, transparent 72%)",
+              maskImage:        "radial-gradient(ellipse 85% 95% at 100% 100%, black 0%, black 10%, rgba(0,0,0,0.5) 45%, transparent 72%)",
             }}
           />
 
@@ -798,11 +989,25 @@ export default function OHILanding() {
           <div className="absolute bottom-8 left-1/2 scroll-bounce" style={{ transform: "translateX(-50%)", color: "rgba(255,255,255,0.3)" }}>
             <FaChevronDown />
           </div>
+        </section>
 
-          {/* Wave bottom */}
-          <div className="absolute bottom-0 left-0 right-0">
-            <WaveDown fill="var(--cream)" />
+        {/* ─── TRUST MARQUEE ─────────────────────────────────────────── */}
+        <section style={{ background: "var(--navy)", overflow: "visible", position: "relative" }}>
+          <div className="logo-tile-bg-center" />
+          <div style={{ borderBottom: "1px solid rgba(194,213,1,0.13)", borderTop: "1px solid rgba(255,255,255,0.05)", padding: "13px 0" }}>
+            <div className="marquee-wrap">
+              <div className="marquee-track">
+                {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
+                  <span key={idx} className="marquee-item">
+                    <item.icon style={{ color: "var(--gold)", fontSize: "0.82rem", flexShrink: 0 }} />
+                    {item.text}
+                    <span className="marquee-sep">•</span>
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
+          <WaveDown fill="var(--cream)" />
         </section>
 
         {/* ─── SOBRE NOSOTROS ────────────────────────────────────────── */}
@@ -961,7 +1166,8 @@ export default function OHILanding() {
         </section>
 
         {/* ─── STATS BAND ────────────────────────────────────────────── */}
-        <section style={{ background: "var(--navy)" }}>
+        <section style={{ background: "var(--navy)", position: "relative", overflow: "hidden" }}>
+          <div className="logo-tile-bg" />
           <WaveUp fill="var(--navy)" />
           <div className="py-16 px-6">
             <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -979,7 +1185,10 @@ export default function OHILanding() {
                       <StatIcon style={{ color: "var(--gold)", fontSize: "1.3rem" }} />
                     </div>
                     <div
-                      className="display-font stat-num"
+                      className="display-font stat-num stat-glow"
+                      data-count={s.count ?? undefined}
+                      data-prefix={s.prefix}
+                      data-suffix={s.suffix}
                       style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", fontWeight: 600, color: "var(--gold-light)", lineHeight: 1 }}
                     >
                       {s.value}
@@ -1096,13 +1305,9 @@ export default function OHILanding() {
           <WaveUp fill="#062F87" />
           <div className="py-24 px-6 relative z-10">
 
-            {/* Subtle bg decoration */}
-            <div className="absolute inset-0 pointer-events-none opacity-5"
-              style={{
-                backgroundImage: "radial-gradient(circle, rgba(194,213,1,0.2) 1px, transparent 1px)",
-                backgroundSize: "40px 40px",
-              }}
-            />
+            {/* Subtle bg decoration — replaced by logo tile */}
+            <div className="logo-tile-bg" />
+            <div className="logo-tile-bg-bl" />
 
             <div className="max-w-6xl mx-auto relative">
               <div data-reveal="up" className="text-center mb-16">
@@ -1217,107 +1422,83 @@ export default function OHILanding() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
               {SEDES.map((sede, i) => (
-                <div
-                  key={sede.name}
-                  className="pillar-card"
+                <a
+                  key={sede.slug}
+                  href={`/sedes/${sede.slug}`}
+                  className="sede-vcard"
                   data-reveal="up"
-                  data-delay={String(i * 150 + 100)}
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(6,47,135,0.09)",
-                    borderRadius: 10,
-                    padding: "2rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1rem",
-                  }}
+                  data-delay={String(i * 120 + 80)}
                 >
-                  <div
-                    style={{
-                      width: 40, height: 40, borderRadius: 8,
-                      background: "rgba(6,47,135,0.06)",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "var(--teal)", fontSize: "1.1rem",
-                    }}
-                  >
-                    <BiBuildings />
-                  </div>
-                  <h3 className="display-font" style={{ fontSize: "1.3rem", fontWeight: 600, color: "var(--navy)" }}>
-                    {sede.name}
-                  </h3>
-                  <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", lineHeight: 1.65 }}>
-                    {sede.desc}
-                  </p>
-
-                  {/* Services tags */}
-                  {sede.services && (
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-                      {sede.services.map(s => (
-                        <span key={s} style={{
-                          background: "rgba(6,47,135,0.05)",
-                          border: "1px solid rgba(6,47,135,0.12)",
-                          color: "var(--teal)",
-                          fontSize: "0.75rem",
-                          fontWeight: 500,
-                          padding: "3px 10px",
-                          borderRadius: 20,
-                        }}>{s}</span>
-                      ))}
+                  {/* Gradient header */}
+                  <div style={{
+                    height: 136, position: "relative", overflow: "hidden",
+                    background: [
+                      "linear-gradient(145deg, #031647 0%, #062F87 55%, #0B3FAD 100%)",
+                      "linear-gradient(145deg, #062F87 0%, #0d4bbf 55%, #1A52CC 100%)",
+                      "linear-gradient(145deg, #020f30 0%, #053376 55%, #0B3FAD 100%)",
+                    ][i],
+                  }}>
+                    {/* Dot grid overlay */}
+                    <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+                    {/* Gold bottom accent */}
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg, transparent 0%, rgba(194,213,1,0.55) 40%, rgba(194,213,1,0.55) 60%, transparent 100%)" }} />
+                    {/* Sede number badge */}
+                    <div style={{ position: "absolute", top: "0.95rem", left: "1.2rem", fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>
+                      Sede {String(i + 1).padStart(2, "0")}
                     </div>
-                  )}
+                    {/* Watermark icon */}
+                    <div style={{ position: "absolute", right: "0.8rem", bottom: "-1rem", fontSize: "6rem", color: "rgba(255,255,255,0.05)", lineHeight: 1 }}>
+                      <FaHospitalAlt />
+                    </div>
+                    {/* Sede name */}
+                    <div style={{ position: "absolute", bottom: "1rem", left: "1.2rem", color: "#fff", fontSize: "1.08rem", fontWeight: 600, fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
+                      {sede.name}
+                    </div>
+                  </div>
 
-                  <div className="flex flex-col gap-2 mt-auto pt-2" style={{ borderTop: "1px solid rgba(6,47,135,0.07)" }}>
-                    <span className="flex items-start gap-2" style={{ color: "var(--text)", fontSize: "0.83rem" }}>
+                  {/* Card body */}
+                  <div className="sede-vcard-body">
+                    <p style={{ display: "flex", alignItems: "flex-start", gap: 7, color: "var(--text-muted)", fontSize: "0.81rem", lineHeight: 1.6, marginBottom: "1.1rem" }}>
                       <FaMapMarkerAlt style={{ color: "var(--gold)", marginTop: 3, flexShrink: 0 }} />
                       {sede.address}
-                    </span>
-                    <a
-                      href={`https://api.whatsapp.com/send?phone=${sede.whatsapp}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 no-underline"
-                      style={{ color: "var(--sage)", fontSize: "0.83rem", fontWeight: 500 }}
-                    >
-                      <FaWhatsapp style={{ fontSize: "1rem" }} />
-                      {sede.phone}
-                      {sede.ext && <span style={{ color: "var(--text-muted)", fontWeight: 400 }}> · {sede.ext}</span>}
-                    </a>
-                    {sede.surgery && (
-                      <a
-                        href={`https://api.whatsapp.com/send?phone=57${sede.surgery.replace(/\s/g,'')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 no-underline"
-                        style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}
+                    </p>
+                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.2rem", display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+                      {sede.services.slice(0, 4).map(s => (
+                        <li key={s} style={{ color: "var(--text)", fontSize: "0.81rem", display: "flex", alignItems: "center", gap: 8 }}>
+                          <span style={{ width: 5, height: 5, background: "var(--gold)", borderRadius: "50%", flexShrink: 0 }} />
+                          {s}
+                        </li>
+                      ))}
+                      {sede.services.length > 4 && (
+                        <li style={{ color: "var(--teal)", fontSize: "0.78rem", fontWeight: 500, paddingLeft: 13 }}>
+                          +{sede.services.length - 4} servicios más
+                        </li>
+                      )}
+                    </ul>
+                    <div style={{ borderTop: "1px solid rgba(6,47,135,0.08)", paddingTop: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span style={{ color: "var(--navy)", fontSize: "0.83rem", fontWeight: 600, display: "flex", alignItems: "center", gap: 6 }}>
+                        Ver sede completa
+                        <span className="sede-vcard-arr" style={{ color: "var(--gold)" }}>
+                          <FaArrowRight style={{ fontSize: "0.72rem" }} />
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={e => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(`https://api.whatsapp.com/send?phone=${sede.whatsapp}`, "_blank", "noopener,noreferrer");
+                        }}
+                        style={{ color: "var(--sage)", fontSize: "0.82rem", fontWeight: 500, display: "flex", alignItems: "center", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit" }}
                       >
-                        <FaPhone style={{ fontSize: "0.75rem" }} />
-                        Prog. Quirúrgica: {sede.surgery}
-                      </a>
-                    )}
+                        <FaWhatsapp />
+                        {sede.phone}
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Ver más detalles */}
-                  {sede.slug && (
-                    <a
-                      href={`/sedes/${sede.slug}`}
-                      style={{
-                        display: "inline-flex", alignItems: "center", gap: 6,
-                        marginTop: "0.75rem",
-                        color: "var(--navy)", fontSize: "0.82rem", fontWeight: 600,
-                        background: "rgba(6,47,135,0.06)",
-                        border: "1px solid rgba(6,47,135,0.15)",
-                        padding: "7px 16px", borderRadius: 6,
-                        transition: "background 0.2s",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Ver información completa
-                      <FaArrowRight style={{ fontSize: "0.7rem" }} />
-                    </a>
-                  )}
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -1424,13 +1605,9 @@ export default function OHILanding() {
           <WaveUp fill="var(--navy)" />
           <div className="py-24 px-6 relative z-10">
 
-            {/* Subtle background texture */}
-            <div className="absolute inset-0 pointer-events-none opacity-5"
-              style={{
-                backgroundImage: "radial-gradient(circle, rgba(194,213,1,0.2) 1px, transparent 1px)",
-                backgroundSize: "40px 40px",
-              }}
-            />
+            {/* Subtle background texture — replaced by logo tile */}
+            <div className="logo-tile-bg" />
+            <div className="logo-tile-bg-bl" />
 
             <div className="max-w-4xl mx-auto relative">
 
@@ -1507,7 +1684,8 @@ export default function OHILanding() {
         </section>
 
         {/* ─── FOOTER ────────────────────────────────────────────────── */}
-        <footer style={{ background: "#020b2e", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <footer style={{ background: "#020b2e", borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }}>
+          <div className="logo-tile-bg-bl" />
           <div className="max-w-6xl mx-auto px-6 py-12">
             <div className="flex flex-col md:flex-row items-start justify-between gap-10">
 
