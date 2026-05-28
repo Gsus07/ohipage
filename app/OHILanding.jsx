@@ -114,11 +114,44 @@ const GlobalStyles = () => (
       box-shadow: 0 20px 48px rgba(6,47,135,0.14);
       border-color: var(--gold) !important;
     }
-    .service-card:hover .s-icon {
-      transform: scale(1.18);
-      color: var(--gold) !important;
+    .service-card:hover .s-icon { color: var(--gold) !important; }
+    .s-icon { transition: color 0.3s ease; }
+
+    /* ── Service icon wrapper ────────────────── */
+    .s-icon-wrap {
+      width: 54px; height: 54px; border-radius: 13px;
+      background: linear-gradient(135deg, rgba(6,47,135,0.06) 0%, rgba(11,63,173,0.1) 100%);
+      border: 1px solid rgba(6,47,135,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem;
+      transition: background 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
     }
-    .s-icon { transition: transform 0.3s ease, color 0.3s ease; }
+    .service-card:hover .s-icon-wrap {
+      background: linear-gradient(135deg, rgba(194,213,1,0.12) 0%, rgba(194,213,1,0.05) 100%);
+      transform: scale(1.08);
+      box-shadow: 0 4px 18px rgba(194,213,1,0.18);
+    }
+
+    /* ── Eyebrow pill chips ──────────────────── */
+    .eyebrow-pill {
+      display: inline-flex; align-items: center;
+      background: rgba(6,47,135,0.07);
+      border: 1px solid rgba(6,47,135,0.14);
+      color: var(--teal);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 5px 14px 5px 10px; border-radius: 100px;
+    }
+    .eyebrow-pill::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-right: 8px;
+    }
+    .eyebrow-pill-dark {
+      background: rgba(194,213,1,0.08);
+      border: 1px solid rgba(194,213,1,0.22);
+      color: rgba(194,213,1,0.9);
+    }
+    .eyebrow-pill-dark::before { background: var(--gold); }
 
     /* ── Pillar cards ────────────────────────── */
     .pillar-card {
@@ -372,7 +405,9 @@ const GlobalStyles = () => (
       transform: translateY(-6px);
     }
     .sede-vcard:hover .sede-vcard-arr { transform: translateX(5px); }
+    .sede-vcard:hover .sede-vcard-media { transform: scale(1.06); }
     .sede-vcard-arr { display: inline-flex; transition: transform 0.25s ease; }
+    .sede-vcard-media { transition: transform 0.6s ease; }
     .sede-vcard-body { padding: 1.5rem 1.6rem 1.7rem; }
 
     /* ── Stat glow ────────────────────────────── */
@@ -513,6 +548,7 @@ const SEDES = [
   {
     name: "Sede Centro",
     slug: "sede-centro",
+    image: "/IMG/CENTRO/centro-entrada.webp",
     address: "Carrera 19 #14-47 San Vicente, Valledupar – Cesar",
     whatsapp: "573175708440",
     phone: "317 570 8440",
@@ -531,6 +567,7 @@ const SEDES = [
   {
     name: "Sede Santa Isabel",
     slug: "santa-isabel",
+    image: "/IMG/SANTA/SANTA-ISABEL-entrada.webp",
     address: "Av. Simón Bolívar #22-39, Valledupar – Cesar",
     whatsapp: "573175708440",
     phone: "317 570 8440",
@@ -549,6 +586,7 @@ const SEDES = [
   {
     name: "Banco de Sangre y Aféresis",
     slug: "banco-de-sangre",
+    image: "/IMG/BANCO/unidad movil.webp",
     address: "Calle 14 #18-97 San Vicente, Valledupar – Cesar",
     whatsapp: "573175708440",
     phone: "317 570 8440",
@@ -1018,9 +1056,7 @@ export default function OHILanding() {
 
               {/* Left: heading */}
               <div className="lg:w-2/5">
-                <span data-reveal="up" style={{ color: "var(--gold)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", display: "inline-block" }}>
-                  Quiénes somos
-                </span>
+                <span data-reveal="up" className="eyebrow-pill">Quiénes somos</span>
                 <div data-reveal="fade" data-delay="100" className="gold-line block mt-3 mb-6" />
                 <h2
                   data-reveal="up" data-delay="150"
@@ -1209,9 +1245,7 @@ export default function OHILanding() {
           <div className="max-w-6xl mx-auto">
 
             <div data-reveal="up" className="text-center mb-16">
-              <span style={{ color: "var(--gold)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                Lo que ofrecemos
-              </span>
+              <span className="eyebrow-pill">Lo que ofrecemos</span>
               <div className="gold-line block mt-3 mb-4 mx-auto" />
               <h2
                 data-reveal="up" data-delay="150"
@@ -1239,11 +1273,11 @@ export default function OHILanding() {
                     padding: "1.6rem 1.5rem",
                   }}
                 >
-                  <div
-                    className="s-icon"
-                    style={{ color: "var(--teal)", fontSize: "1.7rem", marginBottom: "0.9rem" }}
-                  >
-                    <svc.icon />
+                  <div className="s-icon-wrap">
+                    <svc.icon className="s-icon" style={{ color: "var(--teal)", fontSize: "1.5rem" }} />
+                  </div>
+                  <div aria-hidden="true" style={{ position: "absolute", top: "0.6rem", right: "0.8rem", fontSize: "2.8rem", fontWeight: 700, color: "rgba(6,47,135,0.04)", lineHeight: 1, fontFamily: "'Cormorant Garamond', serif", pointerEvents: "none", userSelect: "none" }}>
+                    {String(i + 1).padStart(2, "0")}
                   </div>
                   <h4 style={{ fontSize: "0.96rem", fontWeight: 600, color: "var(--navy)", marginBottom: "0.5rem", lineHeight: 1.3 }}>
                     {svc.label}
@@ -1311,9 +1345,7 @@ export default function OHILanding() {
 
             <div className="max-w-6xl mx-auto relative">
               <div data-reveal="up" className="text-center mb-16">
-                <span style={{ color: "var(--gold-light)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                  Nuestra diferencia
-                </span>
+                <span className="eyebrow-pill eyebrow-pill-dark">Nuestra diferencia</span>
                 <div className="gold-line block mt-3 mb-4 mx-auto" />
                 <h2 data-reveal="up" data-delay="150" className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 600, color: "#FFFFFF" }}>
                   ¿Por qué elegir OHI?
@@ -1333,8 +1365,13 @@ export default function OHILanding() {
                       borderRadius: 10,
                       padding: "2rem 1.5rem",
                       textAlign: "center",
+                      position: "relative",
+                      overflow: "hidden",
                     }}
                   >
+                    <div aria-hidden="true" style={{ position: "absolute", bottom: "-1.2rem", right: "0.3rem", fontSize: "8rem", fontWeight: 700, color: "rgba(255,255,255,0.038)", lineHeight: 1, fontFamily: "'Cormorant Garamond', serif", pointerEvents: "none" }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
                     <div
                       style={{
                         width: 52, height: 52, borderRadius: "50%",
@@ -1410,9 +1447,7 @@ export default function OHILanding() {
           <div className="max-w-6xl mx-auto">
 
             <div data-reveal="up" className="text-center mb-16">
-              <span style={{ color: "var(--gold)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                Dónde estamos
-              </span>
+              <span className="eyebrow-pill">Dónde estamos</span>
               <div className="gold-line block mt-3 mb-4 mx-auto" />
               <h2 data-reveal="up" data-delay="150" className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 600, color: "var(--navy)" }}>
                 Nuestras sedes
@@ -1431,15 +1466,18 @@ export default function OHILanding() {
                   data-reveal="up"
                   data-delay={String(i * 120 + 80)}
                 >
-                  {/* Gradient header */}
+                  {/* Image header */}
                   <div style={{
                     height: 136, position: "relative", overflow: "hidden",
-                    background: [
-                      "linear-gradient(145deg, #031647 0%, #062F87 55%, #0B3FAD 100%)",
-                      "linear-gradient(145deg, #062F87 0%, #0d4bbf 55%, #1A52CC 100%)",
-                      "linear-gradient(145deg, #020f30 0%, #053376 55%, #0B3FAD 100%)",
-                    ][i],
                   }}>
+                    <img
+                      src={sede.image}
+                      alt={sede.name}
+                      className="sede-vcard-media"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+                    />
+                    {/* Navy gradient overlay for readability */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,47,135,0.18) 0%, rgba(6,47,135,0.76) 100%)" }} />
                     {/* Dot grid overlay */}
                     <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
                     {/* Gold bottom accent */}
@@ -1515,9 +1553,7 @@ export default function OHILanding() {
           <div className="max-w-5xl mx-auto relative z-10">
 
             <div data-reveal="up" className="text-center mb-14">
-              <span style={{ color: "var(--gold)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                Historias reales
-              </span>
+              <span className="eyebrow-pill">Historias reales</span>
               <div className="gold-line block mt-3 mb-4 mx-auto" />
               <h2 data-reveal="up" data-delay="150" className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 600, color: "var(--navy)" }}>
                 Testimonios
@@ -1576,22 +1612,64 @@ export default function OHILanding() {
               </div>
             </div>
 
-            {/* Testimonial dots */}
-            <div className="flex justify-center gap-2">
+            {/* Testimonial navigation dots */}
+            <div className="flex justify-center gap-2 mb-8">
               {TESTIMONIALS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveTestimonial(i)}
                   style={{
                     width: i === activeTestimonial ? 28 : 10,
-                    height: 10,
-                    borderRadius: 5,
+                    height: 10, borderRadius: 5,
                     background: i === activeTestimonial ? "var(--gold)" : "rgba(6,47,135,0.18)",
-                    border: "none",
-                    cursor: "pointer",
+                    border: "none", cursor: "pointer",
                     transition: "width 0.3s ease, background 0.3s ease",
                   }}
                 />
+              ))}
+            </div>
+
+            {/* Mini testimonial preview cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {TESTIMONIALS.map((t, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveTestimonial(i)}
+                  style={{
+                    all: "unset", display: "block", boxSizing: "border-box",
+                    width: "100%", cursor: "pointer",
+                    background: i === activeTestimonial ? "rgba(6,47,135,0.05)" : "#FFFFFF",
+                    border: "1px solid " + (i === activeTestimonial ? "rgba(194,213,1,0.4)" : "rgba(6,47,135,0.09)"),
+                    borderLeft: i === activeTestimonial ? "3px solid var(--gold)" : "1px solid rgba(6,47,135,0.09)",
+                    borderRadius: 10, padding: "1rem 1.15rem",
+                    textAlign: "left",
+                    transition: "border-color 0.3s ease, background 0.3s ease",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "0.55rem" }}>
+                    <div style={{
+                      width: 30, height: 30, borderRadius: "50%", flexShrink: 0,
+                      background: i === activeTestimonial
+                        ? "linear-gradient(135deg, var(--navy-mid), var(--navy))"
+                        : "rgba(6,47,135,0.08)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: i === activeTestimonial ? "#fff" : "var(--navy)",
+                      fontWeight: 700, fontSize: "0.82rem",
+                    }}>
+                      {t.name.charAt(0)}
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontWeight: 600, fontSize: "0.78rem", color: "var(--navy)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {t.name}
+                      </div>
+                      <div style={{ fontSize: "0.7rem", color: "var(--gold)" }}>{t.role}</div>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: "0.76rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    {t.highlight}
+                  </p>
+                </button>
               ))}
             </div>
           </div>
@@ -1615,9 +1693,7 @@ export default function OHILanding() {
               <div className="flex flex-col gap-8">
 
                 <div data-reveal="left">
-                  <span style={{ color: "var(--gold)", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                    Estamos aquí
-                  </span>
+                  <span className="eyebrow-pill eyebrow-pill-dark">Estamos aquí</span>
                   <div className="gold-line block mt-3 mb-5" />
                   <h2 data-reveal="up" data-delay="150" className="display-font" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 600, color: "#FFFFFF", lineHeight: 1.2 }}>
                     Contáctanos
@@ -1627,10 +1703,34 @@ export default function OHILanding() {
                   </p>
                 </div>
 
+                {/* WhatsApp CTA */}
+                <a
+                  href="https://api.whatsapp.com/send?phone=573175708440"
+                  target="_blank" rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex", alignItems: "center", gap: "0.75rem",
+                    background: "linear-gradient(90deg, #C2D501 0%, #d4e818 100%)",
+                    color: "#062F87", padding: "1rem 2.2rem", borderRadius: 6,
+                    fontSize: "1rem", fontWeight: 700, textDecoration: "none",
+                    boxShadow: "0 8px 28px rgba(194,213,1,0.35)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                    alignSelf: "flex-start",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 36px rgba(194,213,1,0.5)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 8px 28px rgba(194,213,1,0.35)"; }}
+                >
+                  <FaWhatsapp style={{ fontSize: "1.25rem" }} />
+                  Agenda tu consulta ahora
+                </a>
+
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   {SEDES.map(sede => (
-                    <div key={sede.name}>
-                      <h4 style={{ color: "var(--gold-light)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.5rem", letterSpacing: "0.03em" }}>
+                    <div key={sede.name} style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.09)",
+                      borderRadius: 10, padding: "1.25rem 1.4rem",
+                    }}>
+                      <h4 style={{ color: "var(--gold-light)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.75rem", letterSpacing: "0.03em" }}>
                         {sede.name}
                       </h4>
                       <p className="flex items-start gap-2" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.84rem", lineHeight: 1.6 }}>

@@ -9,6 +9,7 @@ import { MdLocalHospital, MdBiotech, MdEmergency } from "react-icons/md";
 import { RiMicroscopeLine } from "react-icons/ri";
 import { BiDna } from "react-icons/bi";
 import SedeAnimations from "./SedeAnimations";
+import SedeNavbar from "./SedeNavbar";
 
 // ── DATA ──────────────────────────────────────────────────────────────────────
 
@@ -586,43 +587,8 @@ export default async function SedePage({ params }) {
 
       <SedeAnimations />
 
-      {/* ── Navbar ── */}
-      <nav style={{
-        position: "sticky", top: 0, zIndex: 100,
-        background: "#062F87",
-        padding: "0 1.5rem",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        height: 64, boxShadow: "0 2px 20px rgba(6,47,135,0.3)",
-      }}>
-        <a href="/#sedes" style={{
-          display: "flex", alignItems: "center", gap: 8,
-          color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", fontWeight: 500,
-        }}>
-          <FaArrowLeft style={{ fontSize: "0.8rem" }} />
-          Volver al inicio
-        </a>
-        <a href="/" style={{ display: "flex", alignItems: "center" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/LOGOS/LOGO OHI HORIZONTAL.PNG"
-            alt="OHI"
-            style={{ height: 36, filter: "brightness(0) invert(1)" }}
-          />
-        </a>
-        <a
-          href={`https://api.whatsapp.com/send?phone=${sede.whatsapp}`}
-          target="_blank" rel="noopener noreferrer"
-          style={{
-            display: "flex", alignItems: "center", gap: 6,
-            background: "#C2D501", color: "#062F87",
-            padding: "7px 16px", borderRadius: 4,
-            fontSize: "0.82rem", fontWeight: 700,
-          }}
-        >
-          <FaWhatsapp />
-          Contáctanos
-        </a>
-      </nav>
+      {/* ── Navbar (full navigation) ── */}
+      <SedeNavbar whatsapp={sede.whatsapp} />
 
       {/* ── Hero ── */}
       <section className="hero-section" style={{
