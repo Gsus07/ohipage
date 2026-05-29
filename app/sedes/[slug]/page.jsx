@@ -566,23 +566,27 @@ export default async function SedePage({ params }) {
         ul { list-style: none; }
         /* Hero elements start hidden — GSAP animates them in */
         .hero-badge, .hero-title, .hero-desc, .hero-chip, .hero-stat { opacity: 0; }
-        /* Card layout: stacked on mobile, horizontal on tablet+ */
-        .service-card { display: flex; flex-direction: column; transition: box-shadow 0.45s ease, border-color 0.35s ease; border-left: 4px solid transparent; will-change: transform, opacity; }
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 28px 80px rgba(6,47,135,0.16) !important; border-left-color: #C2D501; }
+        /* Card layout: stacked on mobile, editorial horizontal on tablet+ */
+        .service-card { display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; will-change: transform, opacity; }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 24px 80px rgba(6,47,135,0.14), 0 4px 0 0 #C2D501 !important; }
         .card-img-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0; background: linear-gradient(145deg,#062F87,#1347bf); }
-        .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.85s ease; }
-        .service-card:hover .card-img { transform: scale(1.06); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .service-card:hover .card-img { transform: scale(1.07); }
         .card-body { flex: 1; min-width: 0; position: relative; overflow: hidden; }
         .card-num { position: absolute; top: -1rem; right: 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 700; line-height: 1; color: rgba(6,47,135,0.042); pointer-events: none; user-select: none; }
-        /* Horizontal layout on tablet+ */
+        .icon-wrap { transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease !important; }
+        .service-card:hover .icon-wrap { background: linear-gradient(135deg, #C2D501 0%, #d4e818 100%) !important; color: #040f44 !important; box-shadow: 0 6px 22px rgba(194,213,1,0.4) !important; }
+        /* Horizontal & alternating editorial layout on tablet+ */
         @media (min-width: 580px) {
           .service-card { flex-direction: row; align-items: stretch; }
-          .card-img-wrap { width: 44%; max-width: 340px; aspect-ratio: auto; min-height: 250px; }
+          .card-img-wrap { width: 44%; max-width: 360px; aspect-ratio: auto; min-height: 260px; }
+          .service-card:nth-child(even) { flex-direction: row-reverse; }
         }
-        /* 2-col grid on large screens */
-        @media (min-width: 1100px) { .grid-services { grid-template-columns: repeat(2, 1fr); } }
         /* Stats strip dividers */
         .stat-item:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.1); }
+        /* Scroll animate line */
+        @keyframes scrollLine { 0%,100%{opacity:0.3;transform:scaleY(0.25)} 55%{opacity:1;transform:scaleY(1)} }
+        .scroll-line { display:block; width:1px; height:44px; background:linear-gradient(to bottom,#C2D501,rgba(194,213,1,0.15)); animation:scrollLine 2.2s ease-in-out infinite; transform-origin:top; }
 
         /* Logo tile background */
         .logo-tile { position: absolute; inset: 0; background-image: url('/LOGOS/LOGO.PNG'); background-size: 170px; background-repeat: repeat; opacity: 0.024; pointer-events: none; }
@@ -686,6 +690,14 @@ export default async function SedePage({ params }) {
           width: 38, height: 38, border: "1px solid rgba(255,255,255,0.08)",
           transform: "rotate(45deg)", pointerEvents: "none",
         }} />
+        {/* Large decorative background text */}
+        <div style={{
+          position: "absolute", bottom: "-4%", right: "-2%",
+          fontFamily: "'Cormorant Garamond', serif", fontWeight: 700,
+          fontSize: "clamp(9rem,22vw,20rem)", lineHeight: 0.85,
+          color: "rgba(194,213,1,0.038)", pointerEvents: "none",
+          userSelect: "none", whiteSpace: "nowrap", letterSpacing: "-0.06em",
+        }}>OHI</div>
 
         {/* Content */}
         <div style={{
@@ -693,7 +705,13 @@ export default async function SedePage({ params }) {
           display: "flex", alignItems: "center",
           padding: "5rem 1.5rem 3rem",
         }}>
-          <div style={{ maxWidth: 900, margin: "0 auto", width: "100%" }}>
+          <div style={{ maxWidth: 900, margin: "0 auto", width: "100%", position: "relative" }}>
+            {/* Left accent line */}
+            <div style={{
+              position: "absolute", left: -18, top: 0, bottom: "28%",
+              width: 3, borderRadius: 2,
+              background: "linear-gradient(to bottom, #C2D501, rgba(194,213,1,0.22) 65%, transparent 100%)",
+            }} />
             <div className="hero-badge epill-dark" style={{ marginBottom: "1.4rem" }}>
               OHI – Organización Humana Integral
             </div>
@@ -758,6 +776,16 @@ export default async function SedePage({ params }) {
                 WhatsApp
               </a>
             </div>
+
+            {/* Scroll explore indicator */}
+            <div style={{ marginTop: "2.8rem", display: "flex", alignItems: "center", gap: 10 }}>
+              <div className="scroll-line" />
+              <span style={{
+                color: "rgba(255,255,255,0.35)", fontSize: "0.6rem",
+                letterSpacing: "0.2em", textTransform: "uppercase",
+                writingMode: "vertical-rl", transform: "rotate(180deg)",
+              }}>Explorar</span>
+            </div>
           </div>
         </div>
 
@@ -806,6 +834,14 @@ export default async function SedePage({ params }) {
           width: 420, height: 420, borderRadius: "50%",
           background: "radial-gradient(circle, rgba(194,213,1,0.08) 0%, transparent 68%)",
         }} />
+        {/* Large background decorative text */}
+        <div style={{
+          position: "absolute", top: "2%", right: "-3%",
+          fontFamily: "'Cormorant Garamond', serif", fontWeight: 700,
+          fontSize: "clamp(7rem,16vw,14rem)", lineHeight: 1,
+          color: "rgba(6,47,135,0.028)", pointerEvents: "none",
+          userSelect: "none", whiteSpace: "nowrap", letterSpacing: "-0.04em",
+        }}>SERVICIOS</div>
 
         <div style={{ maxWidth: 1260, margin: "0 auto", position: "relative" }}>
           {/* Section header */}
@@ -878,7 +914,7 @@ export default async function SedePage({ params }) {
 
                     {/* Icon + title */}
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-                      <div style={{
+                      <div className="icon-wrap" style={{
                         width: 48, height: 48, borderRadius: 14, flexShrink: 0,
                         background: "linear-gradient(135deg, #062F87 0%, #1A52CC 100%)",
                         boxShadow: "0 4px 18px rgba(6,47,135,0.3)",
@@ -948,6 +984,14 @@ export default async function SedePage({ params }) {
           width: 240, height: 240, borderRadius: "50%",
           border: "1px solid rgba(255,255,255,0.05)", pointerEvents: "none",
         }} />
+        {/* Large decorative background text */}
+        <div style={{
+          position: "absolute", bottom: "-6%", left: "-1%",
+          fontFamily: "'Cormorant Garamond', serif", fontWeight: 700,
+          fontSize: "clamp(6rem,14vw,12rem)", lineHeight: 1,
+          color: "rgba(255,255,255,0.025)", pointerEvents: "none",
+          userSelect: "none", whiteSpace: "nowrap", letterSpacing: "-0.04em",
+        }}>CONTACTO</div>
 
         <div className="contact-content" style={{
           maxWidth: 900, margin: "0 auto",
