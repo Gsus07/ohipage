@@ -583,6 +583,35 @@ export default async function SedePage({ params }) {
         @media (min-width: 1100px) { .grid-services { grid-template-columns: repeat(2, 1fr); } }
         /* Stats strip dividers */
         .stat-item:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.1); }
+
+        /* Logo tile background */
+        .logo-tile { position: absolute; inset: 0; background-image: url('/LOGOS/LOGO.PNG'); background-size: 170px; background-repeat: repeat; opacity: 0.024; pointer-events: none; }
+
+        /* Ambient orbs */
+        @keyframes orbFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.05); } }
+        .hero-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+
+        /* Eyebrow pills */
+        .epill-dark { display: inline-flex; align-items: center; gap: 7px; background: rgba(194,213,1,0.12); border: 1px solid rgba(194,213,1,0.28); color: #C2D501; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; }
+        .epill-dark::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #C2D501; flex-shrink: 0; }
+        .epill-light { display: inline-flex; align-items: center; gap: 7px; background: rgba(6,47,135,0.07); border: 1px solid rgba(6,47,135,0.14); color: #062F87; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; }
+        .epill-light::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #C2D501; flex-shrink: 0; }
+
+        /* Gold decorative line */
+        .gold-line-center { display: block; width: 48px; height: 3px; background: linear-gradient(to right, #C2D501, #d4e818); border-radius: 2px; margin: 0.9rem auto 0; }
+
+        /* Glass card */
+        .glass-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.11); border-radius: 14px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+
+        /* Scroll progress bar */
+        .sede-progress-bar { position: fixed; top: 0; left: 0; height: 2.5px; background: linear-gradient(to right, #C2D501, #d4e818); z-index: 9999; pointer-events: none; border-radius: 0 2px 2px 0; box-shadow: 0 0 10px rgba(194,213,1,0.5); }
+
+        /* Section separator */
+        .wave-top-dark { position: absolute; top: 0; left: 0; right: 0; overflow: hidden; line-height: 0; }
+        .wave-top-dark svg { display: block; width: 100%; }
+
+        /* Featured stat accent */
+        .stat-value-accent { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: #C2D501; line-height: 1; letter-spacing: -0.02em; }
       `}</style>
 
       <SedeAnimations />
@@ -616,6 +645,26 @@ export default async function SedePage({ params }) {
           backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
           backgroundSize: "34px 34px",
         }} />
+        {/* Logo tile */}
+        <div className="logo-tile" />
+        {/* Ambient orbs */}
+        <div className="hero-orb" style={{
+          width: 520, height: 520, top: "-15%", right: "-10%",
+          background: "rgba(11,63,173,0.38)",
+          animation: "orbFloat 10s ease-in-out infinite",
+        }} />
+        <div className="hero-orb" style={{
+          width: 320, height: 320, bottom: "8%", left: "-8%",
+          background: "rgba(194,213,1,0.15)",
+          animation: "orbFloat 7s ease-in-out infinite",
+          animationDelay: "-3.5s",
+        }} />
+        <div className="hero-orb" style={{
+          width: 200, height: 200, top: "30%", right: "20%",
+          background: "rgba(194,213,1,0.08)",
+          animation: "orbFloat 9s ease-in-out infinite",
+          animationDelay: "-1.5s",
+        }} />
         {/* Floating geometric shapes (GSAP animates these) */}
         <div className="shape-circle-lg" style={{
           position: "absolute", top: "8%", right: "5%",
@@ -645,25 +694,19 @@ export default async function SedePage({ params }) {
           padding: "5rem 1.5rem 3rem",
         }}>
           <div style={{ maxWidth: 900, margin: "0 auto", width: "100%" }}>
-            <div className="hero-badge" style={{
-              display: "inline-block",
-              background: "rgba(194,213,1,0.13)",
-              border: "1px solid rgba(194,213,1,0.38)",
-              color: "#C2D501", fontSize: "0.72rem", fontWeight: 600,
-              letterSpacing: "0.18em", textTransform: "uppercase",
-              padding: "5px 16px", borderRadius: 20, marginBottom: "1.4rem",
-            }}>
+            <div className="hero-badge epill-dark" style={{ marginBottom: "1.4rem" }}>
               OHI – Organización Humana Integral
             </div>
 
             <h1 className="hero-title display-font" style={{
               fontSize: "clamp(2.4rem, 6vw, 4.2rem)",
               fontWeight: 700, color: "#fff",
-              lineHeight: 1.08, marginBottom: "1.5rem",
+              lineHeight: 1.08, marginBottom: "0.5rem",
               textShadow: "0 2px 24px rgba(0,0,0,0.35)",
             }}>
               {sede.name}
             </h1>
+            <div style={{ width: 56, height: 3, background: "linear-gradient(to right, #C2D501, #d4e818)", borderRadius: 2, marginBottom: "1.5rem" }} />
 
             <p className="hero-desc" style={{
               color: "rgba(255,255,255,0.82)", fontSize: "1.02rem",
@@ -723,23 +766,20 @@ export default async function SedePage({ params }) {
           <div style={{
             position: "relative", zIndex: 1,
             borderTop: "1px solid rgba(255,255,255,0.1)",
-            background: "rgba(4,16,68,0.55)",
-            backdropFilter: "blur(16px)",
+            background: "rgba(4,16,68,0.6)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
           }}>
-            <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", padding: "1.5rem" }}>
-              {highlights.map((h) => (
+            <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", padding: "1.4rem 1.5rem" }}>
+              {highlights.map((h, i) => (
                 <div key={h.label} className="hero-stat stat-item" style={{
                   flex: "1 1 0", textAlign: "center", padding: "0.5rem 1rem",
+                  borderRight: i < highlights.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
                 }}>
-                  <div className="display-font" style={{
-                    fontSize: "2.4rem", fontWeight: 700, color: "#C2D501",
-                    lineHeight: 1, letterSpacing: "-0.02em",
-                  }}>
-                    {h.value}
-                  </div>
+                  <div className="stat-value-accent">{h.value}</div>
                   <div style={{
-                    fontSize: "0.76rem", color: "rgba(255,255,255,0.6)",
-                    marginTop: "0.35rem", textTransform: "uppercase", letterSpacing: "0.07em",
+                    fontSize: "0.73rem", color: "rgba(255,255,255,0.58)",
+                    marginTop: "0.3rem", textTransform: "uppercase", letterSpacing: "0.07em",
                   }}>
                     {h.label}
                   </div>
@@ -770,16 +810,9 @@ export default async function SedePage({ params }) {
         <div style={{ maxWidth: 1260, margin: "0 auto", position: "relative" }}>
           {/* Section header */}
           <div className="services-header" style={{ textAlign: "center", marginBottom: "4.5rem" }}>
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              background: "rgba(6,47,135,0.07)", border: "1px solid rgba(6,47,135,0.14)",
-              borderRadius: 20, padding: "5px 18px", marginBottom: "1.4rem",
-              color: "#062F87", fontSize: "0.72rem", fontWeight: 700,
-              letterSpacing: "0.16em", textTransform: "uppercase",
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#C2D501", display: "inline-block", flexShrink: 0 }} />
+            <span className="epill-light" style={{ marginBottom: "1.2rem" }}>
               Portafolio de Servicios
-            </div>
+            </span>
             <h2 className="display-font" style={{
               fontSize: "clamp(2rem, 4vw, 3.2rem)",
               fontWeight: 700, color: "#062F87", lineHeight: 1.1,
@@ -787,9 +820,10 @@ export default async function SedePage({ params }) {
             }}>
               Nuestros Servicios
             </h2>
+            <span className="gold-line-center" />
             <p style={{
               color: "#4A5A80", fontSize: "0.95rem", lineHeight: 1.78,
-              maxWidth: 500, margin: "0 auto",
+              maxWidth: 500, margin: "1.2rem auto 0",
             }}>
               Tecnología de punta y talento humano especializado, comprometidos con su bienestar.
             </p>
@@ -893,85 +927,110 @@ export default async function SedePage({ params }) {
       {/* ── Contact band ── */}
       <section className="contact-section" style={{
         background: "linear-gradient(135deg, #040f44 0%, #062F87 100%)",
-        padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden",
+        padding: "5rem 1.5rem", position: "relative", overflow: "hidden",
       }}>
+        {/* Dot grid */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
         }} />
+        {/* Logo tile */}
+        <div className="logo-tile" style={{ opacity: 0.018 }} />
+        {/* Decorative ring */}
         <div style={{
           position: "absolute", top: -100, right: -100,
           width: 340, height: 340, borderRadius: "50%",
           border: "1px solid rgba(194,213,1,0.07)", pointerEvents: "none",
         }} />
+        <div style={{
+          position: "absolute", bottom: -80, left: -80,
+          width: 240, height: 240, borderRadius: "50%",
+          border: "1px solid rgba(255,255,255,0.05)", pointerEvents: "none",
+        }} />
 
         <div className="contact-content" style={{
           maxWidth: 900, margin: "0 auto",
-          display: "flex", flexWrap: "wrap",
-          gap: "2.5rem", justifyContent: "space-between", alignItems: "flex-start",
           position: "relative", zIndex: 1,
         }}>
-          <div style={{ flex: "1 1 280px" }}>
+          {/* OHI Logo + heading */}
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
+              alt="OHI"
+              style={{ height: 42, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.7, marginBottom: "1.2rem" }}
+            />
             <h3 className="display-font" style={{
-              color: "#fff", fontSize: "1.8rem", fontWeight: 600, marginBottom: "1.4rem",
+              color: "#fff", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 600, lineHeight: 1.2,
             }}>
               Contáctenos
             </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-              <span style={{
-                display: "flex", alignItems: "flex-start", gap: 8,
-                color: "rgba(255,255,255,0.8)", fontSize: "0.88rem",
-              }}>
-                <FaMapMarkerAlt style={{ color: "#C2D501", marginTop: 3, flexShrink: 0 }} />
-                {sede.address}
-              </span>
-              {sede.phones.map((p, i) => (
-                <span key={i} style={{
-                  display: "flex", alignItems: "center", gap: 8,
-                  color: "rgba(255,255,255,0.75)", fontSize: "0.85rem",
-                }}>
-                  <FaPhone style={{ color: "#C2D501", flexShrink: 0, fontSize: "0.75rem" }} />
-                  {p.label ? <strong style={{ color: "rgba(255,255,255,0.52)", fontWeight: 500 }}>{p.label}:&nbsp;</strong> : null}
-                  {p.value}
-                  {p.ext ? <span style={{ color: "rgba(255,255,255,0.42)" }}> {p.ext}</span> : null}
-                </span>
-              ))}
-            </div>
+            <div style={{ width: 48, height: 3, background: "linear-gradient(to right, #C2D501, #d4e818)", borderRadius: 2, margin: "0.8rem auto 0" }} />
           </div>
 
-          <div style={{
-            flex: "1 1 240px", display: "flex", flexDirection: "column",
-            gap: "1rem", justifyContent: "center",
-          }}>
-            <a
-              href={`https://api.whatsapp.com/send?phone=${sede.whatsapp}&text=Hola, me gustaría obtener información sobre ${encodeURIComponent(sede.name)}`}
-              target="_blank" rel="noopener noreferrer"
-              style={{
-                display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                background: "#C2D501", color: "#062F87",
-                padding: "14px 24px", borderRadius: 8,
-                fontSize: "0.95rem", fontWeight: 700,
-                boxShadow: "0 4px 20px rgba(194,213,1,0.28)",
-              }}
-            >
-              <FaWhatsapp style={{ fontSize: "1.1rem" }} />
-              Escribir por WhatsApp
-            </a>
-            <a
-              href="/#sedes"
-              style={{
-                display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                background: "transparent",
-                border: "1px solid rgba(255,255,255,0.22)",
-                color: "rgba(255,255,255,0.78)",
-                padding: "13px 24px", borderRadius: 8,
-                fontSize: "0.88rem", fontWeight: 500,
-              }}
-            >
-              <FaArrowLeft style={{ fontSize: "0.8rem" }} />
-              Ver todas las sedes
-            </a>
+          {/* Two-column layout */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem", justifyContent: "space-between", alignItems: "stretch" }}>
+            {/* Contact info glass card */}
+            <div className="glass-card" style={{ flex: "1 1 280px", padding: "1.8rem 2rem" }}>
+              <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "1.2rem" }}>Información de contacto</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+                <span style={{
+                  display: "flex", alignItems: "flex-start", gap: 10,
+                  color: "rgba(255,255,255,0.82)", fontSize: "0.88rem",
+                }}>
+                  <FaMapMarkerAlt style={{ color: "#C2D501", marginTop: 3, flexShrink: 0 }} />
+                  {sede.address}
+                </span>
+                {sede.phones.map((p, i) => (
+                  <span key={i} style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    color: "rgba(255,255,255,0.72)", fontSize: "0.85rem",
+                  }}>
+                    <FaPhone style={{ color: "#C2D501", flexShrink: 0, fontSize: "0.75rem" }} />
+                    {p.label ? <strong style={{ color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>{p.label}:&nbsp;</strong> : null}
+                    {p.value}
+                    {p.ext ? <span style={{ color: "rgba(255,255,255,0.38)" }}> {p.ext}</span> : null}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA buttons */}
+            <div style={{
+              flex: "1 1 220px", display: "flex", flexDirection: "column",
+              gap: "1rem", justifyContent: "center",
+            }}>
+              <a
+                href={`https://api.whatsapp.com/send?phone=${sede.whatsapp}&text=Hola, me gustaría obtener información sobre ${encodeURIComponent(sede.name)}`}
+                target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  background: "#C2D501", color: "#062F87",
+                  padding: "15px 28px", borderRadius: 10,
+                  fontSize: "0.95rem", fontWeight: 700,
+                  boxShadow: "0 6px 28px rgba(194,213,1,0.32)",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                }}
+              >
+                <FaWhatsapp style={{ fontSize: "1.1rem" }} />
+                Escribir por WhatsApp
+              </a>
+              <a
+                href="/#sedes"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  color: "rgba(255,255,255,0.78)",
+                  padding: "14px 28px", borderRadius: 10,
+                  fontSize: "0.88rem", fontWeight: 500,
+                }}
+              >
+                <FaArrowLeft style={{ fontSize: "0.8rem" }} />
+                Ver todas las sedes
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -979,11 +1038,29 @@ export default async function SedePage({ params }) {
       {/* ── Footer ── */}
       <footer style={{
         background: "#060c22",
-        padding: "1.4rem 1.5rem",
-        textAlign: "center",
-        color: "rgba(255,255,255,0.28)", fontSize: "0.78rem",
+        padding: "2.2rem 1.5rem",
+        position: "relative", overflow: "hidden",
       }}>
-        © 2025 OHI – Organización Humana Integral. Todos los derechos reservados.
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)",
+          backgroundSize: "22px 22px", pointerEvents: "none",
+        }} />
+        <div style={{
+          maxWidth: 900, margin: "0 auto", position: "relative", zIndex: 1,
+          display: "flex", flexWrap: "wrap", gap: "1rem",
+          alignItems: "center", justifyContent: "space-between",
+        }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
+            alt="OHI"
+            style={{ height: 30, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.45 }}
+          />
+          <p style={{ color: "rgba(255,255,255,0.28)", fontSize: "0.78rem", textAlign: "center" }}>
+            © 2026 OHI – Organización Humana Integral. Todos los derechos reservados.
+          </p>
+        </div>
       </footer>
     </>
   );

@@ -330,9 +330,38 @@ const GlobalStyles = () => (
     /* ── Photo gallery strip ─────────────────── */
     .gallery-item { overflow: hidden; cursor: default; }
     .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
     }
     .gallery-item:hover img { transform: scale(1.06); }
+
+    /* ── Magazine gallery grid ────────────────── */
+    .gal-mag {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 210px;
+    }
+    @media (min-width: 768px) {
+      .gal-mag {
+        grid-template-columns: 1.8fr 1fr 1fr;
+        grid-template-rows: 300px 300px;
+        grid-auto-rows: unset;
+        height: 600px;
+      }
+      .gal-mag > :first-child { grid-row: 1 / 3; }
+    }
+    .gal-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(4,10,35,0.94) 0%, rgba(4,10,35,0.07) 52%, transparent 100%);
+      transition: opacity 0.35s ease;
+    }
+    .gallery-item:hover .gal-overlay { opacity: 0.68; }
+    .gal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.2rem 1.5rem 1.5rem; }
+
+    /* ── Service featured banner ──────────────── */
+    .svc-featured { position: relative; border-radius: 12px; overflow: hidden; cursor: default; }
+    .svc-featured-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; display: block; }
+    .svc-featured:hover .svc-featured-img { transform: scale(1.04); }
 
     /* ── Hero image frame ─────────────────────── */
     .hero-img-wrap {
@@ -848,6 +877,15 @@ export default function OHILanding() {
           className="hero-bg relative flex flex-col items-center justify-center overflow-hidden"
           style={{ minHeight: "100vh", paddingTop: 80 }}
         >
+          {/* Ambient architectural photo — faint layer under the animated gradient */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
+            <img
+              src="/IMG/CENTRO/OHI-entrada.webp"
+              alt=""
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.14 }}
+            />
+          </div>
+
           {/* Decorative rings */}
           <div className="absolute opacity-5 pointer-events-none" style={{ top: "-10%", right: "-8%", width: 480, height: 480, border: "1px solid #fff", borderRadius: "50%" }} />
           <div className="absolute opacity-5 pointer-events-none" style={{ top: "-4%", right: "-2%", width: 320, height: 320, border: "1px solid #C2D501", borderRadius: "50%" }} />
@@ -1027,6 +1065,37 @@ export default function OHILanding() {
           <div className="absolute bottom-8 left-1/2 scroll-bounce" style={{ transform: "translateX(-50%)", color: "rgba(255,255,255,0.3)" }}>
             <FaChevronDown />
           </div>
+
+          {/* Trust strip — glassmorphism bar at hero bottom */}
+          <div
+            className="absolute bottom-0 left-0 right-0 hidden md:block"
+            style={{
+              background: "rgba(6,47,135,0.55)",
+              backdropFilter: "blur(18px)",
+              WebkitBackdropFilter: "blur(18px)",
+              borderTop: "1px solid rgba(194,213,1,0.18)",
+              zIndex: 10,
+            }}
+          >
+            <div className="max-w-6xl mx-auto px-8 py-4 flex items-center justify-between gap-4">
+              {[
+                { icon: FaAward,       value: "+20",   label: "Años de trayectoria" },
+                { icon: BiBuildings,   value: "3",     label: "Sedes en Valledupar" },
+                { icon: FaStethoscope, value: "+15",   label: "Especialidades médicas" },
+                { icon: FaClock,       value: "24/7",  label: "Urgencias disponibles" },
+                { icon: FaBaby,        value: "UCI",   label: "Neonatal pionera en la región" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3" style={{ flex: 1, minWidth: 0 }}>
+                  {i > 0 && <div style={{ width: 1, height: 28, background: "rgba(255,255,255,0.12)", flexShrink: 0, marginRight: 8 }} />}
+                  <item.icon style={{ color: "var(--gold)", fontSize: "1.15rem", flexShrink: 0 }} />
+                  <div>
+                    <div className="display-font" style={{ color: "#fff", fontWeight: 600, fontSize: "1.1rem", lineHeight: 1 }}>{item.value}</div>
+                    <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.71rem", marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* ─── TRUST MARQUEE ─────────────────────────────────────────── */}
@@ -1080,10 +1149,17 @@ export default function OHILanding() {
                   <img
                     src="/IMG/trabajadores.webp"
                     alt="Equipo profesional OHI"
-                    style={{ width: "100%", height: 230, objectFit: "cover", objectPosition: "center top", display: "block" }}
+                    style={{ width: "100%", height: 300, objectFit: "cover", objectPosition: "center top", display: "block", transition: "transform 0.7s ease" }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.04)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = ""; }}
                   />
-                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(6,47,135,0.75) 0%, transparent 100%)", padding: "1.4rem 1.2rem 1rem" }}>
-                    <p style={{ color: "rgba(255,255,255,0.92)", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>Nuestro equipo profesional</p>
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,47,135,0.82) 0%, rgba(6,47,135,0.08) 50%, transparent 100%)", pointerEvents: "none" }} />
+                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.6rem 1.4rem 1.2rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "0.3rem" }}>
+                      <div style={{ width: 20, height: 2, background: "var(--gold)" }} />
+                      <p style={{ color: "rgba(255,255,255,0.92)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>Nuestro equipo profesional</p>
+                    </div>
+                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.73rem" }}>Talento humano comprometido con el paciente</p>
                   </div>
                 </div>
 
@@ -1144,11 +1220,12 @@ export default function OHILanding() {
                       padding: item.image && !item.list ? 0 : "1.75rem",
                       gridColumn: item.list ? "1 / -1" : undefined,
                       display: item.list && item.image ? "flex" : "block",
+                      boxShadow: "0 2px 22px rgba(6,47,135,0.07)",
                     }}
                   >
                     {/* Top image — regular cards */}
                     {item.image && !item.list && (
-                      <div style={{ height: 155, overflow: "hidden" }}>
+                      <div style={{ height: 180, overflow: "hidden" }}>
                         <img
                           src={item.image}
                           alt={item.title}
@@ -1204,6 +1281,14 @@ export default function OHILanding() {
         {/* ─── STATS BAND ────────────────────────────────────────────── */}
         <section style={{ background: "var(--navy)", position: "relative", overflow: "hidden" }}>
           <div className="logo-tile-bg" />
+          {/* Ambient photo — very faint procedure room behind stats */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
+            <img
+              src="/IMG/servicios/Sala-Procedimiento-OHI.webp"
+              alt=""
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block", opacity: 0.07 }}
+            />
+          </div>
           <WaveUp fill="var(--navy)" />
           <div className="py-16 px-6">
             <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -1257,6 +1342,39 @@ export default function OHILanding() {
               <p data-reveal="up" data-delay="250" style={{ color: "var(--text-muted)", marginTop: "1rem", maxWidth: 520, margin: "1rem auto 0", fontSize: "0.97rem", lineHeight: 1.7 }}>
                 Contamos con una amplia red de servicios especializados para garantizar la atención integral que cada paciente merece.
               </p>
+            </div>
+
+            {/* Featured service — Urgencias 24/7 */}
+            <div
+              className="svc-featured"
+              data-reveal="up"
+              style={{ height: 230, marginBottom: "2.5rem", boxShadow: "0 20px 60px rgba(6,47,135,0.18)" }}
+            >
+              <img
+                className="svc-featured-img"
+                src="/IMG/servicios/Urgencias-24-CEMIC-OHI.webp"
+                alt="Urgencias 24/7 OHI"
+                style={{ position: "absolute", inset: 0, objectPosition: "center 30%" }}
+              />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(6,47,135,0.97) 0%, rgba(6,47,135,0.8) 38%, rgba(6,47,135,0.35) 65%, transparent 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, padding: "2.2rem 2.8rem", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 600 }}>
+                <span style={{ color: "var(--gold)", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.55rem" }}>
+                  Servicio destacado
+                </span>
+                <h3 className="display-font" style={{ color: "#fff", fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)", fontWeight: 600, marginBottom: "0.5rem", lineHeight: 1.15 }}>
+                  Urgencias 24/7
+                </h3>
+                <p style={{ color: "rgba(255,255,255,0.68)", fontSize: "0.88rem", lineHeight: 1.65, marginBottom: "1rem" }}>
+                  Atención inmediata con accesos diferenciados para adultos, maternidad, pediatría y politraumatizados — profesionales especializados disponibles las 24 horas.
+                </p>
+                <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                  {["Adultos", "Maternidad", "Pediatría", "Politrauma"].map(t => (
+                    <span key={t} style={{ background: "rgba(194,213,1,0.12)", border: "1px solid rgba(194,213,1,0.28)", color: "rgba(194,213,1,0.9)", fontSize: "0.7rem", fontWeight: 600, padding: "4px 12px", borderRadius: 20 }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -1399,43 +1517,39 @@ export default function OHILanding() {
         </section>
 
         {/* ─── GALERÍA CLÍNICA ───────────────────────────────────── */}
-        <section style={{ background: "var(--cream-dark)", overflow: "hidden" }}>
-          <div
-            className="grid grid-cols-1 md:grid-cols-3"
-            style={{ height: "clamp(280px, 35vw, 440px)" }}
-          >
+        <section style={{ background: "#060d22", overflow: "hidden" }}>
+          {/* Section header */}
+          <div data-reveal="up" style={{ padding: "3.5rem 1.5rem 2.2rem", textAlign: "center" }}>
+            <span className="eyebrow-pill eyebrow-pill-dark">Instalaciones</span>
+            <h2 className="display-font" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.4rem)", fontWeight: 600, color: "#FFFFFF", marginTop: "0.75rem", letterSpacing: "-0.01em" }}>
+              Infraestructura de primer nivel
+            </h2>
+          </div>
+
+          {/* Magazine grid */}
+          <div className="gal-mag">
             {[
-              { src: "/IMG/laboratorio.webp",      label: "Laboratorio Clínico",         sub: "Diagnóstico de alta complejidad" },
-              { src: "/IMG/bancosangre.webp",       label: "Banco de Sangre y Aféresis", sub: "Hemocomponentes seguros y certificados" },
-              { src: "/IMG/centralmezclas.webp",   label: "Central de Mezclas",          sub: "Medicamentos de alta complejidad" },
+              { src: "/IMG/servicios/UCI-OHI-1.webp",                        label: "UCI Adultos",        sub: "Cuidados intensivos de alta complejidad" },
+              { src: "/IMG/servicios/Cirugia-OHI-2.webp",                    label: "Cirugía",            sub: "Alta complejidad · salas plenamente equipadas" },
+              { src: "/IMG/servicios/Urgencias-OHI-1.webp",                  label: "Urgencias 24/7",     sub: "Atención inmediata especializada" },
+              { src: "/IMG/servicios/Hospitalizacion-adulto-OHI-1.webp",     label: "Hospitalización",   sub: "Adultos · materno-infantil" },
+              { src: "/IMG/servicios/Cardiologia-Clinica-OHI.webp",          label: "Cardiología",        sub: "Intervencionismo cardiovascular" },
             ].map((item, i) => (
               <div
                 key={item.label}
                 className="gallery-item"
                 data-reveal="fade"
-                data-delay={String(i * 150)}
-                style={{ position: "relative", height: "100%" }}
+                data-delay={String(i * 70)}
+                style={{ position: "relative" }}
               >
-                <img
-                  src={item.src}
-                  alt={item.label}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-                />
-                {/* Gradient overlay */}
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,47,135,0.82) 0%, rgba(6,47,135,0.1) 55%, transparent 100%)" }} />
-                {/* Vertical separator */}
-                {i < 2 && (
-                  <div style={{ position: "absolute", top: "15%", bottom: "15%", right: 0, width: 1, background: "rgba(194,213,1,0.3)" }} />
-                )}
-                {/* Label */}
-                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.5rem 1.6rem 1.6rem" }}>
-                  <div style={{ width: 28, height: 2, background: "var(--gold)", marginBottom: "0.6rem" }} />
-                  <p style={{ color: "#FFFFFF", fontSize: "1rem", fontWeight: 600, lineHeight: 1.3, marginBottom: "0.3rem" }}>
+                <img src={item.src} alt={item.label} />
+                <div className="gal-overlay" />
+                <div className="gal-label">
+                  <div style={{ width: 22, height: 2, background: "var(--gold)", marginBottom: "0.5rem" }} />
+                  <p style={{ color: "#FFFFFF", fontSize: i === 0 ? "1.1rem" : "0.9rem", fontWeight: 600, lineHeight: 1.25, marginBottom: "0.2rem" }}>
                     {item.label}
                   </p>
-                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.77rem", fontWeight: 400 }}>
-                    {item.sub}
-                  </p>
+                  <p style={{ color: "rgba(255,255,255,0.48)", fontSize: "0.72rem" }}>{item.sub}</p>
                 </div>
               </div>
             ))}
