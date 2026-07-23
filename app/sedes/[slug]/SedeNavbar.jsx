@@ -78,17 +78,20 @@ export default function SedeNavbar({ whatsapp }) {
             <a
               key={l.href}
               href={l.href}
+              className="sede-nav-link"
               style={{
-                color: "rgba(255,255,255,0.82)",
+                position: "relative",
+                color: "rgba(255,255,255,0.85)",
                 fontSize: "0.87rem",
-                fontWeight: 400,
+                fontWeight: 500,
                 textDecoration: "none",
                 letterSpacing: "0.01em",
-                transition: "color 0.2s",
+                transition: "color 0.25s cubic-bezier(0.16,1,0.3,1)",
                 whiteSpace: "nowrap",
+                padding: "4px 0",
               }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#C2D501")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.82)")}
+              onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
             >
               {l.label}
             </a>
@@ -96,26 +99,29 @@ export default function SedeNavbar({ whatsapp }) {
         </div>
 
         {/* Right side: WA button + mobile toggle */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexShrink: 0 }}>
           <a
             href={`https://api.whatsapp.com/send?phone=${whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="sede-nav-cta"
             style={{
               display: "flex",
               alignItems: "center",
               gap: 6,
-              background: "#C2D501",
+              background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)",
               color: "#062F87",
-              padding: "7px 16px",
-              borderRadius: 4,
-              fontSize: "0.83rem",
+              padding: "8px 18px",
+              borderRadius: 6,
+              fontSize: "0.85rem",
               fontWeight: 700,
               textDecoration: "none",
               whiteSpace: "nowrap",
+              boxShadow: "0 2px 12px rgba(194,213,1,0.25)",
+              transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease",
             }}
           >
-            <FaWhatsapp style={{ fontSize: "0.95rem" }} />
+            <FaWhatsapp style={{ fontSize: "1.05rem" }} />
             <span className="sede-nav-cta-text">Contáctanos</span>
           </a>
 
@@ -175,6 +181,21 @@ export default function SedeNavbar({ whatsapp }) {
 
       {/* Scoped responsive styles */}
       <style>{`
+        .sede-nav-link::after {
+          content: '';
+          position: absolute; bottom: 0; left: 0;
+          width: 0; height: 1.5px;
+          background: linear-gradient(90deg, #C2D501, #d4e818);
+          transition: width 0.3s cubic-bezier(0.16,1,0.3,1);
+          border-radius: 1px;
+        }
+        .sede-nav-link:hover::after { width: 100%; }
+
+        .sede-nav-cta:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 18px rgba(194,213,1,0.4);
+        }
+
         .sede-nav-desktop { display: none; }
         .sede-nav-toggle  { display: flex; }
         @media (min-width: 768px) {

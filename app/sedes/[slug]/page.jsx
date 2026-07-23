@@ -560,30 +560,69 @@ export default async function SedePage({ params }) {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'DM Sans', sans-serif; color: #061A50; background: #fff; }
+        body {
+          font-family: 'DM Sans', sans-serif; color: #061A50; background: #fff;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
         .display-font { font-family: 'Cormorant Garamond', serif; }
         a { text-decoration: none; }
         ul { list-style: none; }
+        ::selection { background: rgba(194,213,1,0.3); color: #062F87; }
+
         /* Hero elements start hidden — GSAP animates them in */
         .hero-badge, .hero-title, .hero-desc, .hero-chip, .hero-stat { opacity: 0; }
+
         /* Card layout: stacked on mobile, editorial horizontal on tablet+ */
-        .service-card { display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; will-change: transform, opacity; }
-        .service-card:hover { transform: translateY(-4px); box-shadow: 0 24px 80px rgba(6,47,135,0.14), 0 4px 0 0 #C2D501 !important; }
-        .card-img-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0; background: linear-gradient(145deg,#062F87,#1347bf); }
-        .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); }
-        .service-card:hover .card-img { transform: scale(1.07); }
+        .service-card {
+          display: flex; flex-direction: column;
+          transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s ease;
+          will-change: transform, opacity;
+        }
+        .service-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 28px 80px rgba(6,47,135,0.15), 0 4px 0 0 #C2D501 !important;
+        }
+        .card-img-wrap {
+          position: relative; width: 100%; aspect-ratio: 16/10;
+          overflow: hidden; flex-shrink: 0;
+          background: linear-gradient(145deg,#062F87,#1347bf);
+        }
+        .card-img {
+          width: 100%; height: 100%; object-fit: cover; display: block;
+          transition: transform 1s cubic-bezier(0.16,1,0.3,1), filter 0.8s ease;
+        }
+        .service-card:hover .card-img {
+          transform: scale(1.08);
+          filter: brightness(1.04);
+        }
         .card-body { flex: 1; min-width: 0; position: relative; overflow: hidden; }
-        .card-num { position: absolute; top: -1rem; right: 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 700; line-height: 1; color: rgba(6,47,135,0.042); pointer-events: none; user-select: none; }
-        .icon-wrap { transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease !important; }
-        .service-card:hover .icon-wrap { background: linear-gradient(135deg, #C2D501 0%, #d4e818 100%) !important; color: #040f44 !important; box-shadow: 0 6px 22px rgba(194,213,1,0.4) !important; }
+        .card-num {
+          position: absolute; top: -1rem; right: 0.6rem;
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 6.5rem; font-weight: 700; line-height: 1;
+          color: rgba(6,47,135,0.038); pointer-events: none; user-select: none;
+        }
+        .icon-wrap {
+          transition: all 0.4s cubic-bezier(0.16,1,0.3,1) !important;
+        }
+        .service-card:hover .icon-wrap {
+          background: linear-gradient(135deg, #C2D501 0%, #d4e818 100%) !important;
+          color: #040f44 !important;
+          box-shadow: 0 8px 28px rgba(194,213,1,0.4) !important;
+          transform: scale(1.08) rotate(-3deg);
+        }
+
         /* Horizontal & alternating editorial layout on tablet+ */
         @media (min-width: 580px) {
           .service-card { flex-direction: row; align-items: stretch; }
           .card-img-wrap { width: 44%; max-width: 360px; aspect-ratio: auto; min-height: 260px; }
           .service-card:nth-child(even) { flex-direction: row-reverse; }
         }
+
         /* Stats strip dividers */
         .stat-item:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.1); }
+
         /* Scroll animate line */
         @keyframes scrollLine { 0%,100%{opacity:0.3;transform:scaleY(0.25)} 55%{opacity:1;transform:scaleY(1)} }
         .scroll-line { display:block; width:1px; height:44px; background:linear-gradient(to bottom,#C2D501,rgba(194,213,1,0.15)); animation:scrollLine 2.2s ease-in-out infinite; transform-origin:top; }
@@ -596,26 +635,82 @@ export default async function SedePage({ params }) {
         .hero-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
 
         /* Eyebrow pills */
-        .epill-dark { display: inline-flex; align-items: center; gap: 7px; background: rgba(194,213,1,0.12); border: 1px solid rgba(194,213,1,0.28); color: #C2D501; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; }
-        .epill-dark::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #C2D501; flex-shrink: 0; }
-        .epill-light { display: inline-flex; align-items: center; gap: 7px; background: rgba(6,47,135,0.07); border: 1px solid rgba(6,47,135,0.14); color: #062F87; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; }
-        .epill-light::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #C2D501; flex-shrink: 0; }
+        .epill-dark {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: rgba(194,213,1,0.1); border: 1px solid rgba(194,213,1,0.25);
+          color: #C2D501; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.14em; text-transform: uppercase;
+          padding: 6px 18px; border-radius: 20px;
+        }
+        .epill-dark::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #C2D501; flex-shrink: 0; box-shadow: 0 0 8px rgba(194,213,1,0.5); }
+        .epill-light {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: rgba(6,47,135,0.06); border: 1px solid rgba(6,47,135,0.12);
+          color: #062F87; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.14em; text-transform: uppercase;
+          padding: 6px 18px; border-radius: 20px;
+        }
+        .epill-light::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #C2D501; flex-shrink: 0; box-shadow: 0 0 8px rgba(194,213,1,0.4); }
 
         /* Gold decorative line */
         .gold-line-center { display: block; width: 48px; height: 3px; background: linear-gradient(to right, #C2D501, #d4e818); border-radius: 2px; margin: 0.9rem auto 0; }
 
         /* Glass card */
-        .glass-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.11); border-radius: 14px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+        .glass-card {
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.11);
+          border-radius: 16px;
+          backdrop-filter: blur(18px) saturate(1.3);
+          -webkit-backdrop-filter: blur(18px) saturate(1.3);
+          transition: all 0.35s ease;
+        }
+        .glass-card:hover {
+          border-color: rgba(194,213,1,0.2);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
 
         /* Scroll progress bar */
-        .sede-progress-bar { position: fixed; top: 0; left: 0; height: 2.5px; background: linear-gradient(to right, #C2D501, #d4e818); z-index: 9999; pointer-events: none; border-radius: 0 2px 2px 0; box-shadow: 0 0 10px rgba(194,213,1,0.5); }
+        .sede-progress-bar {
+          position: fixed; top: 0; left: 0; height: 3px;
+          background: linear-gradient(to right, #C2D501, #d4e818, #f7ff80);
+          z-index: 9999; pointer-events: none;
+          border-radius: 0 2px 2px 0;
+          box-shadow: 0 0 12px rgba(194,213,1,0.5), 0 0 3px rgba(194,213,1,0.3);
+        }
 
         /* Section separator */
         .wave-top-dark { position: absolute; top: 0; left: 0; right: 0; overflow: hidden; line-height: 0; }
         .wave-top-dark svg { display: block; width: 100%; }
 
         /* Featured stat accent */
-        .stat-value-accent { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: #C2D501; line-height: 1; letter-spacing: -0.02em; }
+        .stat-value-accent {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 2.8rem; font-weight: 700;
+          color: #C2D501; line-height: 1; letter-spacing: -0.02em;
+          filter: drop-shadow(0 0 12px rgba(194,213,1,0.3));
+        }
+
+        /* Service item chips */
+        .svc-chip {
+          display: inline-flex; align-items: center; gap: 6;
+          background: linear-gradient(135deg, #f0f3ff, #e8edff);
+          border: 1px solid rgba(6,47,135,0.1);
+          border-radius: 8px; padding: 6px 13px;
+          color: #062F87; font-size: 0.78rem; font-weight: 500;
+          transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+        }
+        .svc-chip:hover {
+          transform: translateY(-2px);
+          background: linear-gradient(135deg, #e8edff, #dce3ff);
+          box-shadow: 0 4px 12px rgba(6,47,135,0.08);
+          border-color: rgba(6,47,135,0.18);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #010c2a; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0B3FAD, #062F87); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #C2D501, #d4e818); }
       `}</style>
 
       <SedeAnimations />
@@ -633,14 +728,14 @@ export default async function SedePage({ params }) {
           position: "absolute", inset: 0,
           backgroundImage: heroImg ? `url(${heroImg})` : undefined,
           backgroundSize: "cover", backgroundPosition: "center",
-          background: heroImg ? undefined : "linear-gradient(135deg, #062F87 0%, #0B3FAD 60%, #1A52CC 100%)",
+          background: heroImg ? undefined : "linear-gradient(135deg, #010c2a 0%, #041a5c 20%, #062F87 40%, #0B3FAD 60%, #1347bf 80%, #062F87 100%)",
           willChange: "transform",
         }} />
         {/* Gradient overlay */}
         <div style={{
           position: "absolute", inset: 0,
           background: heroImg
-            ? "linear-gradient(135deg, rgba(4,16,68,0.94) 0%, rgba(6,47,135,0.87) 50%, rgba(10,58,162,0.64) 100%)"
+            ? "linear-gradient(135deg, rgba(1,12,42,0.95) 0%, rgba(4,26,92,0.85) 45%, rgba(6,47,135,0.7) 100%)"
             : "transparent",
         }} />
         {/* Dot grid */}
@@ -875,8 +970,9 @@ export default async function SedePage({ params }) {
 
               return (
                 <div key={section.title} className="service-card" style={{
-                  background: "#fff", borderRadius: 18, overflow: "hidden",
-                  boxShadow: "0 2px 16px rgba(6,47,135,0.06), 0 8px 48px rgba(6,47,135,0.05)",
+                  background: "#fff", borderRadius: 20, overflow: "hidden",
+                  boxShadow: "0 2px 16px rgba(6,47,135,0.06), 0 12px 48px rgba(6,47,135,0.06)",
+                  border: "1px solid rgba(6,47,135,0.05)",
                 }}>
                   {/* Image */}
                   <div className="card-img-wrap">
@@ -938,14 +1034,10 @@ export default async function SedePage({ params }) {
                       {section.desc}
                     </p>
 
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                       {section.items.map((item) => (
-                        <span key={item} style={{
+                        <span key={item} className="svc-chip" style={{
                           display: "inline-flex", alignItems: "center", gap: 6,
-                          background: "linear-gradient(135deg, #f0f3ff, #e8edff)",
-                          border: "1px solid rgba(6,47,135,0.11)",
-                          borderRadius: 7, padding: "5px 12px",
-                          color: "#062F87", fontSize: "0.77rem", fontWeight: 500,
                         }}>
                           <FaCheckCircle style={{ color: "#C2D501", fontSize: "0.62rem", flexShrink: 0 }} />
                           {item}
@@ -1050,22 +1142,22 @@ export default async function SedePage({ params }) {
                 target="_blank" rel="noopener noreferrer"
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  background: "#C2D501", color: "#062F87",
-                  padding: "15px 28px", borderRadius: 10,
+                  background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)", color: "#062F87",
+                  padding: "16px 30px", borderRadius: 12,
                   fontSize: "0.95rem", fontWeight: 700,
-                  boxShadow: "0 6px 28px rgba(194,213,1,0.32)",
-                  transition: "transform 0.2s, box-shadow 0.2s",
+                  boxShadow: "0 8px 32px rgba(194,213,1,0.35)",
+                  transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease",
                 }}
               >
-                <FaWhatsapp style={{ fontSize: "1.1rem" }} />
+                <FaWhatsapp style={{ fontSize: "1.15rem" }} />
                 Escribir por WhatsApp
               </a>
               <a
                 href="/#sedes"
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  background: "transparent",
-                  border: "1px solid rgba(255,255,255,0.22)",
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.2)",
                   color: "rgba(255,255,255,0.78)",
                   padding: "14px 28px", borderRadius: 10,
                   fontSize: "0.88rem", fontWeight: 500,

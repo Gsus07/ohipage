@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 import {
@@ -8,7 +8,7 @@ import {
   FaBars, FaTimes, FaQuoteLeft, FaAward, FaClock,
   FaHandsHelping, FaHospitalAlt, FaStethoscope, FaHeart,
   FaFacebookF, FaInstagram,
-  FaArrowRight, FaChevronDown, FaStar,
+  FaArrowRight, FaChevronDown, FaChevronUp, FaStar,
 } from "react-icons/fa";
 import { MdHealthAndSafety, MdBiotech, MdLocalHospital, MdVaccines } from "react-icons/md";
 import { RiHeartPulseLine, RiMicroscopeLine, RiSurgicalMaskLine } from "react-icons/ri";
@@ -20,8 +20,6 @@ gsap.registerPlugin(ScrollTrigger);
 // ─── GLOBAL STYLES ────────────────────────────────────────────────────────────
 const GlobalStyles = () => (
   <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
-
     *, *::before, *::after { box-sizing: border-box; }
 
     :root {
@@ -45,6 +43,8 @@ const GlobalStyles = () => (
       background: var(--cream);
       color: var(--text);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .display-font { font-family: 'Cormorant Garamond', Georgia, serif; }
@@ -52,12 +52,15 @@ const GlobalStyles = () => (
     /* ── Navbar ──────────────────────────────── */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+      transition: background 0.45s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.45s cubic-bezier(0.16,1,0.3,1),
+                  backdrop-filter 0.45s ease;
     }
     .navbar.scrolled {
-      background: rgba(13, 46, 78, 0.96) !important;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 1px 24px rgba(0,0,0,0.18);
+      background: rgba(4,16,68,0.92) !important;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      box-shadow: 0 1px 32px rgba(0,0,0,0.22), 0 0 0 1px rgba(194,213,1,0.06);
     }
 
     /* ── Hero ────────────────────────────────── */
@@ -67,22 +70,22 @@ const GlobalStyles = () => (
       100% { background-position: 0% 50%; }
     }
     .hero-bg {
-      background: linear-gradient(135deg, #010c2a 0%, #062F87 35%, #0B3FAD 65%, #062F87 100%);
-      background-size: 300% 300%;
-      animation: heroGradient 14s ease infinite;
+      background: linear-gradient(135deg, #010c2a 0%, #041a5c 20%, #062F87 40%, #0B3FAD 60%, #1347bf 80%, #062F87 100%);
+      background-size: 400% 400%;
+      animation: heroGradient 18s ease infinite;
     }
 
     /* ── Entry animations ────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(32px); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
 
-    .fade-up     { opacity: 0; animation: fadeUp 0.75s ease forwards; }
+    .fade-up     { opacity: 0; animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) forwards; }
     .delay-100   { animation-delay: 0.1s; }
     .delay-200   { animation-delay: 0.2s; }
     .delay-300   { animation-delay: 0.3s; }
@@ -95,79 +98,90 @@ const GlobalStyles = () => (
     /* ── Service cards ───────────────────────── */
     .service-card {
       position: relative;
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.4s ease,
+                  border-color 0.35s ease;
       cursor: default;
+      will-change: transform;
     }
     .service-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      background-size: 200% 100%;
       border-radius: 10px 10px 0 0;
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+      transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover::before {
+      transform: scaleX(1);
+      animation: goldShimmer 2s linear infinite;
+    }
     .service-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(6,47,135,0.14);
-      border-color: var(--gold) !important;
+      transform: translateY(-8px);
+      box-shadow: 0 24px 56px rgba(6,47,135,0.16), 0 4px 0 0 rgba(194,213,1,0.25);
+      border-color: rgba(194,213,1,0.35) !important;
     }
     .service-card:hover .s-icon { color: var(--gold) !important; }
-    .s-icon { transition: color 0.3s ease; }
+    .s-icon { transition: color 0.35s ease, transform 0.35s ease; }
+    .service-card:hover .s-icon { transform: scale(1.1); }
 
     /* ── Service icon wrapper ────────────────── */
     .s-icon-wrap {
-      width: 54px; height: 54px; border-radius: 13px;
-      background: linear-gradient(135deg, rgba(6,47,135,0.06) 0%, rgba(11,63,173,0.1) 100%);
+      width: 56px; height: 56px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(6,47,135,0.06) 0%, rgba(11,63,173,0.12) 100%);
       border: 1px solid rgba(6,47,135,0.1);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 1.1rem;
-      transition: background 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+      transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .service-card:hover .s-icon-wrap {
-      background: linear-gradient(135deg, rgba(194,213,1,0.12) 0%, rgba(194,213,1,0.05) 100%);
-      transform: scale(1.08);
-      box-shadow: 0 4px 18px rgba(194,213,1,0.18);
+      background: linear-gradient(135deg, rgba(194,213,1,0.15) 0%, rgba(194,213,1,0.06) 100%);
+      transform: scale(1.1) rotate(-3deg);
+      box-shadow: 0 6px 22px rgba(194,213,1,0.22);
+      border-color: rgba(194,213,1,0.35);
     }
 
     /* ── Eyebrow pill chips ──────────────────── */
     .eyebrow-pill {
       display: inline-flex; align-items: center;
-      background: rgba(6,47,135,0.07);
-      border: 1px solid rgba(6,47,135,0.14);
+      background: rgba(6,47,135,0.06);
+      border: 1px solid rgba(6,47,135,0.12);
       color: var(--teal);
       font-size: 0.72rem; font-weight: 600;
       letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 5px 14px 5px 10px; border-radius: 100px;
+      padding: 6px 16px 6px 11px; border-radius: 100px;
+      transition: all 0.3s ease;
     }
     .eyebrow-pill::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
       background: var(--gold); flex-shrink: 0; margin-right: 8px;
+      box-shadow: 0 0 8px rgba(194,213,1,0.5);
     }
     .eyebrow-pill-dark {
       background: rgba(194,213,1,0.08);
       border: 1px solid rgba(194,213,1,0.22);
       color: rgba(194,213,1,0.9);
     }
-    .eyebrow-pill-dark::before { background: var(--gold); }
+    .eyebrow-pill-dark::before { background: var(--gold); box-shadow: 0 0 8px rgba(194,213,1,0.6); }
 
     /* ── Pillar cards ────────────────────────── */
     .pillar-card {
-      transition: box-shadow 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
     }
     .pillar-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(6,47,135,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(6,47,135,0.14);
     }
     .pillar-card-dark {
-      transition: box-shadow 0.3s ease, border-color 0.35s ease !important;
+      transition: all 0.4s cubic-bezier(0.16,1,0.3,1) !important;
     }
     .pillar-card-dark:hover {
-      transform: translateY(-6px) !important;
-      box-shadow: 0 24px 56px rgba(0,0,0,0.35), 0 0 0 1px rgba(194,213,1,0.4) !important;
-      border-color: rgba(194,213,1,0.4) !important;
+      transform: translateY(-8px) !important;
+      box-shadow: 0 28px 64px rgba(0,0,0,0.38), 0 0 0 1px rgba(194,213,1,0.45), 0 0 40px rgba(194,213,1,0.08) !important;
+      border-color: rgba(194,213,1,0.45) !important;
     }
 
     /* ── Stat counters ───────────────────────── */
@@ -179,43 +193,55 @@ const GlobalStyles = () => (
 
     /* ── Testimonial cards ───────────────────── */
     .testimonial-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
     }
     .testimonial-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 48px rgba(6,47,135,0.12);
+      transform: translateY(-5px);
+      box-shadow: 0 24px 56px rgba(6,47,135,0.14);
     }
 
     /* ── Buttons ─────────────────────────────── */
     .btn-primary {
       position: relative; overflow: hidden;
-      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    .btn-primary:hover::after { transform: translateX(100%); }
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(194,213,1,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(194,213,1,0.5), 0 0 16px rgba(194,213,1,0.2);
     }
     .btn-outline {
-      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
     .btn-outline:hover {
-      background: rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.1);
       border-color: rgba(255,255,255,0.65) !important;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
     }
 
     /* ── Nav links ───────────────────────────── */
     .nav-link {
       position: relative;
-      transition: color 0.2s ease;
+      transition: color 0.25s ease;
     }
     .nav-link::after {
       content: '';
       position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 1.5px;
-      background: var(--gold);
-      transition: width 0.3s ease;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
+      border-radius: 1px;
+      box-shadow: 0 0 6px rgba(194,213,1,0.3);
     }
+    .nav-link:hover { color: rgba(255,255,255,1) !important; }
     .nav-link:hover::after { width: 100%; }
 
     /* ── Wave / SVG decorators ───────────────── */
@@ -224,20 +250,20 @@ const GlobalStyles = () => (
 
     /* ── Form ────────────────────────────────── */
     .form-input {
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
       outline: none;
     }
     .form-input:focus {
       border-color: var(--navy) !important;
-      box-shadow: 0 0 0 3px rgba(6,47,135,0.15);
+      box-shadow: 0 0 0 4px rgba(6,47,135,0.12);
     }
 
     /* ── Scroll indicator ─────────────────────── */
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(8px); }
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50%       { transform: translateY(10px); opacity: 1; }
     }
-    .scroll-bounce { animation: bounce 1.8s ease infinite; }
+    .scroll-bounce { animation: bounce 2s ease infinite; }
 
     /* ── Gold accent line ─────────────────────── */
     @keyframes goldShimmer {
@@ -248,19 +274,20 @@ const GlobalStyles = () => (
       width: 48px; height: 2px;
       background: linear-gradient(90deg, var(--gold) 0%, #f7ff80 45%, var(--gold) 100%);
       background-size: 240px 100%;
-      animation: goldShimmer 3s linear infinite;
+      animation: goldShimmer 2.5s linear infinite;
       display: inline-block;
+      border-radius: 1px;
     }
 
     /* ── Mobile menu ─────────────────────────── */
     .mobile-menu {
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
     .mobile-menu.open {
       opacity: 1; transform: translateY(0); pointer-events: all;
     }
     .mobile-menu.closed {
-      opacity: 0; transform: translateY(-12px); pointer-events: none;
+      opacity: 0; transform: translateY(-16px); pointer-events: none;
     }
 
     /* ── Decorative circle ───────────────────── */
@@ -274,53 +301,57 @@ const GlobalStyles = () => (
 
     /* ── Floating WhatsApp ───────────────────── */
     @keyframes waPulse {
-      0%   { box-shadow: 0 0 0 0 rgba(194,213,1,0.55); }
-      70%  { box-shadow: 0 0 0 16px rgba(194,213,1,0); }
-      100% { box-shadow: 0 0 0 0 rgba(194,213,1,0); }
+      0%   { box-shadow: 0 4px 16px rgba(194,213,1,0.25), 0 0 0 0 rgba(194,213,1,0.45); }
+      70%  { box-shadow: 0 4px 16px rgba(194,213,1,0.25), 0 0 0 18px rgba(194,213,1,0); }
+      100% { box-shadow: 0 4px 16px rgba(194,213,1,0.25), 0 0 0 0 rgba(194,213,1,0); }
     }
     .wa-float {
       position: fixed; bottom: 28px; right: 28px; z-index: 1100;
-      width: 58px; height: 58px; border-radius: 50%;
-      background: #C2D501; color: #062F87;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, #C2D501 0%, #d4e818 100%);
+      color: #062F87;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem; text-decoration: none;
-      animation: waPulse 2.4s ease infinite;
-      transition: transform 0.2s ease, background 0.2s ease;
+      font-size: 1.85rem; text-decoration: none;
+      animation: waPulse 2.8s ease infinite;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), background 0.3s ease;
     }
-    .wa-float:hover { transform: scale(1.12); background: #d4e818; }
+    .wa-float:hover { transform: scale(1.14) rotate(-8deg); }
 
     /* ── Float badge ─────────────────────────── */
     @keyframes floatBadge {
       0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-5px); }
+      50%       { transform: translateY(-6px); }
     }
 
     /* ── Specialty tags ─────────────────────── */
     .spec-tag {
       cursor: default;
-      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
     }
     .spec-tag:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.03);
       background: rgba(6,47,135,0.14) !important;
       color: var(--navy) !important;
       border-color: rgba(6,47,135,0.3) !important;
+      box-shadow: 0 4px 14px rgba(6,47,135,0.1);
     }
 
     /* ── WhatsApp tooltip ───────────────────── */
     .wa-float::before {
       content: "¡Escríbenos!";
       position: absolute;
-      right: calc(100% + 12px); top: 50%;
-      transform: translateY(-50%) translateX(8px);
-      background: rgba(6,47,135,0.94);
-      color: #fff; font-size: 0.77rem; font-weight: 500;
-      padding: 6px 13px; border-radius: 6px;
+      right: calc(100% + 14px); top: 50%;
+      transform: translateY(-50%) translateX(10px);
+      background: rgba(4,16,68,0.94);
+      color: #fff; font-size: 0.78rem; font-weight: 500;
+      padding: 7px 14px; border-radius: 8px;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.22s ease, transform 0.22s ease;
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
       pointer-events: none;
       font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      backdrop-filter: blur(8px);
     }
     .wa-float:hover::before {
       opacity: 1;
@@ -331,74 +362,99 @@ const GlobalStyles = () => (
     .gallery-item { overflow: hidden; cursor: default; }
     .gallery-item img {
       width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s ease;
     }
-    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.05);
+    }
 
     /* ── Magazine gallery grid ────────────────── */
     .gal-mag {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-auto-rows: 210px;
+      grid-auto-rows: 220px;
+      gap: 3px;
     }
     @media (min-width: 768px) {
       .gal-mag {
         grid-template-columns: 1.8fr 1fr 1fr;
-        grid-template-rows: 300px 300px;
+        grid-template-rows: 310px 310px;
         grid-auto-rows: unset;
-        height: 600px;
+        height: 620px;
+        gap: 4px;
       }
       .gal-mag > :first-child { grid-row: 1 / 3; }
     }
     .gal-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(4,10,35,0.94) 0%, rgba(4,10,35,0.07) 52%, transparent 100%);
-      transition: opacity 0.35s ease;
+      background: linear-gradient(to top, rgba(4,10,35,0.92) 0%, rgba(4,10,35,0.12) 45%, transparent 100%);
+      transition: opacity 0.45s ease;
     }
-    .gallery-item:hover .gal-overlay { opacity: 0.68; }
-    .gal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.2rem 1.5rem 1.5rem; }
+    .gallery-item:hover .gal-overlay { opacity: 0.72; }
+    .gal-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.4rem 1.6rem 1.6rem;
+      transform: translateY(4px);
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .gallery-item:hover .gal-label { transform: translateY(0); }
 
     /* ── Service featured banner ──────────────── */
-    .svc-featured { position: relative; border-radius: 12px; overflow: hidden; cursor: default; }
-    .svc-featured-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; display: block; }
-    .svc-featured:hover .svc-featured-img { transform: scale(1.04); }
+    .svc-featured { position: relative; border-radius: 14px; overflow: hidden; cursor: default; }
+    .svc-featured-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); display: block; }
+    .svc-featured:hover .svc-featured-img { transform: scale(1.05); }
 
     /* ── Hero image frame ─────────────────────── */
     .hero-img-wrap {
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
       box-shadow: 0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(194,213,1,0.15);
+      transition: box-shadow 0.5s ease;
+    }
+    .hero-img-wrap:hover {
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(194,213,1,0.25);
     }
 
     /* ── Scroll Reveal ─────────────────────── */
-    /* Initial hidden state — GSAP takes over on hydration */
     [data-reveal] { opacity: 0; }
 
     /* ── Custom scrollbar ─────────────────────── */
-    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #010c2a; }
-    ::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--navy-mid), var(--navy));
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--gold), var(--gold-light));
+    }
 
     /* ── Page preloader ───────────────────────── */
     .page-loader {
       position: fixed; inset: 0; z-index: 9999;
-      background: #010c2a;
+      background: linear-gradient(135deg, #010c2a 0%, #041a5c 100%);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 1.9rem;
+      gap: 2rem;
+    }
+    @keyframes logoShimmer {
+      0% { filter: brightness(0) invert(1) drop-shadow(0 0 0px transparent); }
+      50% { filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(194,213,1,0.35)); }
+      100% { filter: brightness(0) invert(1) drop-shadow(0 0 0px transparent); }
     }
     .loader-logo-img { opacity: 0; transform: translateY(14px); }
     .loader-tagline  { opacity: 0; }
     .loader-bar {
-      width: 200px; height: 2px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 1px; overflow: hidden;
+      width: 220px; height: 2.5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px; overflow: hidden;
     }
     .loader-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--navy-mid), var(--gold));
+      background: linear-gradient(90deg, var(--navy-mid), var(--gold), var(--gold-light));
       transform: scaleX(0); transform-origin: left;
+      border-radius: 2px;
     }
 
     /* ── Marquee / trust ticker ───────────────── */
@@ -409,42 +465,42 @@ const GlobalStyles = () => (
     .marquee-wrap { overflow: hidden; }
     .marquee-track {
       display: flex; width: max-content;
-      animation: marqueeAnim 38s linear infinite;
+      animation: marqueeAnim 36s linear infinite;
     }
     .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
     .marquee-item {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 0 2.4rem;
-      color: rgba(255,255,255,0.52);
+      color: rgba(255,255,255,0.5);
       font-size: 0.79rem; font-weight: 500; letter-spacing: 0.06em;
       white-space: nowrap; cursor: default;
+      transition: color 0.3s ease;
     }
+    .marquee-item:hover { color: rgba(255,255,255,0.85); }
     .marquee-sep { color: rgba(194,213,1,0.32); margin-left: 0.6rem; font-size: 0.72rem; }
 
     /* ── Sede visual link cards ───────────────── */
     .sede-vcard {
       display: block; text-decoration: none;
-      border-radius: 14px; overflow: hidden;
-      box-shadow: 0 4px 22px rgba(6,47,135,0.08), 0 0 0 1px rgba(6,47,135,0.07);
-      transition: box-shadow 0.4s ease, transform 0.35s ease;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(6,47,135,0.08), 0 0 0 1px rgba(6,47,135,0.06);
+      transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
       background: #fff;
     }
     .sede-vcard:hover {
-      box-shadow: 0 28px 72px rgba(6,47,135,0.22), 0 0 0 1px rgba(6,47,135,0.14);
-      transform: translateY(-6px);
+      box-shadow: 0 32px 80px rgba(6,47,135,0.2), 0 0 0 1px rgba(194,213,1,0.2);
+      transform: translateY(-8px);
     }
-    .sede-vcard:hover .sede-vcard-arr { transform: translateX(5px); }
-    .sede-vcard:hover .sede-vcard-media { transform: scale(1.06); }
-    .sede-vcard-arr { display: inline-flex; transition: transform 0.25s ease; }
-    .sede-vcard-media { transition: transform 0.6s ease; }
-    .sede-vcard-body { padding: 1.5rem 1.6rem 1.7rem; }
+    .sede-vcard:hover .sede-vcard-arr { transform: translateX(6px); }
+    .sede-vcard:hover .sede-vcard-media { transform: scale(1.08); }
+    .sede-vcard-arr { display: inline-flex; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+    .sede-vcard-media { transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .sede-vcard-body { padding: 1.6rem 1.7rem 1.8rem; }
 
     /* ── Stat glow ────────────────────────────── */
-    .stat-glow { filter: drop-shadow(0 0 22px rgba(194,213,1,0.32)); }
+    .stat-glow { filter: drop-shadow(0 0 24px rgba(194,213,1,0.35)); }
 
     /* ── Logo tile pattern (navy sections) ────── */
-    /* mix-blend-mode:screen makes the white PNG background glow white   */
-    /* while the navy logo shapes become invisible → negative-space tile  */
     .logo-tile-bg {
       position: absolute; inset: 0; pointer-events: none; z-index: 0;
       background-image: url('/LOGOS/LOGO.PNG');
@@ -486,6 +542,35 @@ const GlobalStyles = () => (
       position: absolute; border-radius: 50%;
       filter: blur(90px); pointer-events: none;
       animation: orbFloat 14s ease-in-out infinite;
+    }
+
+    /* ── Scroll to top button ────────────────── */
+    @keyframes scrollTopPulse {
+      0%, 100% { box-shadow: 0 2px 12px rgba(6,47,135,0.2); }
+      50% { box-shadow: 0 4px 20px rgba(6,47,135,0.35); }
+    }
+    .scroll-top-btn {
+      position: fixed; bottom: 100px; right: 28px; z-index: 1050;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(6,47,135,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(194,213,1,0.2);
+      color: var(--gold); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+      animation: scrollTopPulse 3s ease infinite;
+    }
+    .scroll-top-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      background: rgba(6,47,135,1);
+      border-color: rgba(194,213,1,0.45);
+    }
+
+    /* ── Testimonial crossfade ───────────────── */
+    .testimonial-content {
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
     }
   `}</style>
 );
@@ -663,12 +748,14 @@ export default function OHILanding() {
   const [menuOpen, setMenuOpen]       = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [scrollProgress, setScrollProgress]       = useState(0);
+  const [showScrollTop, setShowScrollTop]         = useState(false);
   const loaderRef = useRef(null);
 
-  // Navbar scroll detection + progress bar
+  // Navbar scroll detection + progress bar + scroll-to-top
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
+      setShowScrollTop(window.scrollY > 400);
       const el = document.documentElement;
       setScrollProgress((el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100);
     };
@@ -687,10 +774,11 @@ export default function OHILanding() {
     const loader = loaderRef.current;
     if (!loader) return;
     gsap.timeline()
-      .to(".loader-logo-img",  { opacity: 1, y: 0,       duration: 0.65, ease: "power2.out" })
-      .to(".loader-tagline",   { opacity: 1,             duration: 0.5  }, 0.5)
-      .fromTo(".loader-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "power2.inOut" }, 0.4)
-      .to(loader, { autoAlpha: 0, duration: 0.55, delay: 0.12, ease: "power2.in" })
+      .to(".loader-logo-img",  { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: "back.out(1.4)" })
+      .to(".loader-tagline",   { opacity: 1, y: 0,  duration: 0.55, ease: "power2.out" }, 0.45)
+      .fromTo(".loader-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power2.inOut" }, 0.4)
+      .to(".loader-logo-img", { filter: "brightness(0) invert(1) drop-shadow(0 0 14px rgba(194,213,1,0.3))", duration: 0.4 }, "-=0.5")
+      .to(loader, { autoAlpha: 0, duration: 0.6, delay: 0.1, ease: "power3.in" })
       .set(loader, { display: "none" });
   }, []);
 
@@ -746,15 +834,17 @@ export default function OHILanding() {
     <>
       {/* ─── PRELOADER ────────────────────────────────────────────────────── */}
       <div ref={loaderRef} className="page-loader" aria-hidden="true">
+        {/* Dot grid decorative bg */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
         <img
           src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
           alt=""
           className="loader-logo-img"
-          style={{ height: 56, filter: "brightness(0) invert(1)" }}
+          style={{ height: 60, filter: "brightness(0) invert(1)" }}
         />
         <p
           className="loader-tagline display-font"
-          style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.87rem", fontStyle: "italic", letterSpacing: "0.07em" }}
+          style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.92rem", fontStyle: "italic", letterSpacing: "0.08em", fontWeight: 300 }}
         >
           Donde la medicina se vuelve humana
         </p>
@@ -771,9 +861,11 @@ export default function OHILanding() {
         style={{
           position: "fixed", top: 0, left: 0, zIndex: 1002,
           height: 3, width: `${scrollProgress}%`,
-          background: "linear-gradient(90deg, #C2D501, #d4e818)",
+          background: "linear-gradient(90deg, #C2D501, #d4e818, #f7ff80)",
           transition: "width 0.1s linear",
           pointerEvents: "none",
+          boxShadow: scrollProgress > 0 ? "0 0 12px rgba(194,213,1,0.5), 0 0 3px rgba(194,213,1,0.3)" : "none",
+          borderRadius: "0 2px 2px 0",
         }}
       />
 
@@ -811,14 +903,15 @@ export default function OHILanding() {
                 href="#contacto"
                 className="btn-primary"
                 style={{
-                  background: "#C2D501",
+                  background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)",
                   color: "#062F87",
-                  padding: "9px 22px",
-                  borderRadius: 4,
+                  padding: "9px 24px",
+                  borderRadius: 6,
                   fontSize: "0.87rem",
                   fontWeight: 700,
                   textDecoration: "none",
                   letterSpacing: "0.02em",
+                  boxShadow: "0 2px 12px rgba(194,213,1,0.25)",
                 }}
               >
                 Agenda tu consulta
@@ -860,10 +953,11 @@ export default function OHILanding() {
               href="#contacto"
               onClick={() => setMenuOpen(false)}
               style={{
-                background: "#C2D501",
-                color: "#062F87", padding: "10px 20px", borderRadius: 4,
+                background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)",
+                color: "#062F87", padding: "12px 20px", borderRadius: 8,
                 fontSize: "0.9rem", fontWeight: 700, textDecoration: "none",
                 textAlign: "center", marginTop: "0.5rem",
+                boxShadow: "0 4px 16px rgba(194,213,1,0.3)",
               }}
             >
               Agenda tu consulta
@@ -964,16 +1058,18 @@ export default function OHILanding() {
                     href="#servicios"
                     className="btn-primary"
                     style={{
-                      background: "#C2D501",
+                      background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)",
                       color: "#062F87",
-                      padding: "14px 32px",
-                      borderRadius: 4,
+                      padding: "15px 34px",
+                      borderRadius: 8,
                       fontWeight: 700,
                       fontSize: "0.95rem",
                       textDecoration: "none",
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: 10,
+                      boxShadow: "0 4px 20px rgba(194,213,1,0.35)",
+                      letterSpacing: "0.01em",
                     }}
                   >
                     Conoce nuestros servicios <FaArrowRight style={{ fontSize: "0.85rem" }} />
@@ -982,13 +1078,15 @@ export default function OHILanding() {
                     href="#contacto"
                     className="btn-outline"
                     style={{
-                      border: "1.5px solid rgba(255,255,255,0.35)",
-                      color: "rgba(255,255,255,0.85)",
-                      padding: "14px 32px",
-                      borderRadius: 4,
-                      fontWeight: 400,
+                      border: "1.5px solid rgba(255,255,255,0.3)",
+                      color: "rgba(255,255,255,0.9)",
+                      padding: "15px 34px",
+                      borderRadius: 8,
+                      fontWeight: 500,
                       fontSize: "0.95rem",
                       textDecoration: "none",
+                      backdropFilter: "blur(8px)",
+                      WebkitBackdropFilter: "blur(8px)",
                     }}
                   >
                     Contáctanos
@@ -2019,6 +2117,17 @@ export default function OHILanding() {
         >
           <FaWhatsapp />
         </a>
+
+        {/* ─── SCROLL TO TOP ──────────────────────────────────────── */}
+        {showScrollTop && (
+          <button
+            className="scroll-top-btn"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Volver arriba"
+          >
+            <FaChevronUp />
+          </button>
+        )}
 
       </div>
     </>
