@@ -1,5 +1,20 @@
 import type { Metadata } from "next";
+import { DM_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant-garamond",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "OHI – Organización Humana Integral | Salud de Alta Complejidad en Valledupar",
@@ -28,16 +43,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${dmSans.variable} ${cormorantGaramond.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          as="image"
+          href="/IMG/CENTRO/OHI-entrada.webp"
+          type="image/webp"
         />
       </head>
-      <body style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>
+      <body className={dmSans.className}>
         {children}
       </body>
     </html>

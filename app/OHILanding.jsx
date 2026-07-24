@@ -47,7 +47,7 @@ const GlobalStyles = () => (
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .display-font { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .display-font { font-family: var(--font-cormorant-garamond), 'Cormorant Garamond', Georgia, serif; }
 
     .navbar {
       position: fixed; top: 0; left: 50%; transform: translateX(-50%);
