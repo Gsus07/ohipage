@@ -848,9 +848,13 @@ export default function OHILanding() {
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
         <img
           src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
-          alt=""
+          alt="OHI Logo"
+          width={180}
+          height={60}
+          fetchPriority="high"
+          decoding="async"
           className="loader-logo-img"
-          style={{ height: 60, filter: "brightness(0) invert(1)" }}
+          style={{ height: 60, width: "auto", filter: "brightness(0) invert(1)" }}
         />
         <p
           className="loader-tagline display-font"
@@ -879,6 +883,10 @@ export default function OHILanding() {
         }}
       />
 
+      <a href="#main-content" className="sr-only focus:not-sr-only">
+        Saltar al contenido principal
+      </a>
+
       <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", background: "var(--cream)", color: "var(--text)" }}>
 
         {/* ─── NAVBAR ────────────────────────────────────────────────── */}
@@ -889,10 +897,14 @@ export default function OHILanding() {
           <div className="mx-auto px-6 lg:px-10 py-3 flex items-center justify-between" style={{ maxWidth: 1100, transition: "padding 0.6s ease" }}>
 
             {/* Logo */}
-            <a href="#inicio" className="flex items-center no-underline">
+            <a href="#inicio" aria-label="Ir al inicio - Organización Humana Integral" className="flex items-center no-underline">
               <img
                 src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
                 alt="OHI - Organización Humana Integral"
+                width={180}
+                height={42}
+                fetchPriority="high"
+                decoding="async"
                 style={{ height: 42, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)" }}
               />
             </a>
@@ -932,6 +944,8 @@ export default function OHILanding() {
             <button
               className="md:hidden"
               onClick={() => setMenuOpen(o => !o)}
+              aria-label={menuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+              aria-expanded={menuOpen}
               style={{ color: "#fff", background: "none", border: "none", cursor: "pointer", fontSize: "1.4rem" }}
             >
               {menuOpen ? <FaTimes /> : <FaBars />}
@@ -975,6 +989,7 @@ export default function OHILanding() {
           </div>
         </nav>
 
+        <main id="main-content">
         {/* ─── HERO ──────────────────────────────────────────────────── */}
         <section
           id="inicio"
@@ -985,7 +1000,11 @@ export default function OHILanding() {
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
             <img
               src="/IMG/CENTRO/OHI-entrada.webp"
-              alt="Clínica OHI"
+              alt="Clínica OHI Valledupar"
+              width={1400}
+              height={900}
+              fetchPriority="high"
+              decoding="async"
               className="ken-burns"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.28 }}
             />
@@ -1045,7 +1064,7 @@ export default function OHILanding() {
                 <p
                   className="fade-up delay-300"
                   style={{
-                    color: "rgba(255,255,255,0.72)",
+                    color: "rgba(255,255,255,0.88)",
                     fontSize: "clamp(1rem, 1.8vw, 1.12rem)",
                     fontWeight: 300,
                     lineHeight: 1.7,
@@ -1117,6 +1136,9 @@ export default function OHILanding() {
                   <img
                     src="/IMG/enfermera%20y%20ni%C3%B1o.webp"
                     alt="Atención humanizada OHI"
+                    width={500}
+                    height={520}
+                    decoding="async"
                     style={{ width: "100%", height: 520, objectFit: "cover", objectPosition: "center", display: "block" }}
                   />
                   {/* Gradient overlay — left blend with hero bg */}
@@ -1164,7 +1186,7 @@ export default function OHILanding() {
           </div>
 
           {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 scroll-bounce" style={{ transform: "translateX(-50%)", color: "rgba(255,255,255,0.3)" }}>
+          <div className="absolute bottom-8 left-1/2 scroll-bounce" aria-label="Desplazarse hacia abajo" style={{ transform: "translateX(-50%)", color: "rgba(255,255,255,0.6)" }}>
             <FaChevronDown />
           </div>
 
@@ -1220,7 +1242,7 @@ export default function OHILanding() {
         </section>
 
         {/* ─── SOBRE NOSOTROS ────────────────────────────────────────── */}
-        <section id="somos" className="relative py-24 px-6" style={{ background: "var(--cream)" }}>
+        <section id="somos" className="relative py-24 px-6 cv-auto" style={{ background: "var(--cream)" }}>
           <div className="max-w-6xl mx-auto">
 
             <div className="flex flex-col lg:flex-row gap-16 items-start">
@@ -1251,7 +1273,10 @@ export default function OHILanding() {
                   <img
                     src="/IMG/trabajadores.webp"
                     alt="Equipo profesional OHI"
+                    width={600}
+                    height={300}
                     loading="lazy"
+                    decoding="async"
                     style={{ width: "100%", height: 300, objectFit: "cover", objectPosition: "center top", display: "block", transition: "transform 0.7s ease" }}
                     onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.04)"; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = ""; }}
@@ -1920,7 +1945,7 @@ export default function OHILanding() {
                   <h2 data-reveal="up" data-delay="150" className="display-font text-gradient-gold" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 600, lineHeight: 1.2 }}>
                     Contáctanos
                   </h2>
-                  <p data-reveal="up" data-delay="250" style={{ color: "rgba(255,255,255,0.6)", marginTop: "1rem", lineHeight: 1.8, fontSize: "0.93rem", maxWidth: 560 }}>
+                  <p data-reveal="up" data-delay="250" style={{ color: "rgba(255,255,255,0.85)", marginTop: "1rem", lineHeight: 1.8, fontSize: "0.93rem", maxWidth: 560 }}>
                     Nuestro equipo está disponible para orientarte y agendar tu consulta. Acércate a la sede más cercana o escríbenos.
                   </p>
                 </div>
@@ -1975,26 +2000,27 @@ export default function OHILanding() {
 
                 <div className="flex items-center gap-3 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
                   {[
-                    { href: "https://www.facebook.com/", icon: FaFacebookF },
-                    { href: "https://www.instagram.com/", icon: FaInstagram },
-                    { href: "https://api.whatsapp.com/send?phone=573175708440", icon: FaWhatsapp },
+                    { href: "https://www.facebook.com/", icon: FaFacebookF, label: "Visitar Facebook de OHI" },
+                    { href: "https://www.instagram.com/", icon: FaInstagram, label: "Visitar Instagram de OHI" },
+                    { href: "https://api.whatsapp.com/send?phone=573175708440", icon: FaWhatsapp, label: "Contactar por WhatsApp" },
                   ].map((social) => (
                     <a
                       key={social.href}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={social.label}
                       style={{
-                        width: 36, height: 36, borderRadius: "50%",
+                        width: 44, height: 44, borderRadius: "50%",
                         background: "rgba(255,255,255,0.08)",
                         border: "1px solid rgba(255,255,255,0.12)",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        color: "rgba(255,255,255,0.6)", fontSize: "0.9rem",
+                        color: "rgba(255,255,255,0.85)", fontSize: "0.95rem",
                         textDecoration: "none",
                         transition: "background 0.2s ease, color 0.2s ease",
                       }}
                       onMouseEnter={e => { e.currentTarget.style.background = "rgba(194,213,1,0.2)"; e.currentTarget.style.color = "var(--gold-light)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.color = "rgba(255,255,255,0.6)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.color = "rgba(255,255,255,0.85)"; }}
                     >
                       <social.icon />
                     </a>
@@ -2004,6 +2030,7 @@ export default function OHILanding() {
             </div>
           </div>
         </section>
+        </main>
 
         {/* ─── FOOTER ────────────────────────────────────────────────── */}
         <footer className="mesh-bg-contact" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }}>
@@ -2017,10 +2044,14 @@ export default function OHILanding() {
                   <img
                     src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
                     alt="OHI - Organización Humana Integral"
+                    width={180}
+                    height={44}
+                    loading="lazy"
+                    decoding="async"
                     style={{ height: 44, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", marginBottom: "0.75rem" }}
                   />
                 </div>
-                <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", lineHeight: 1.7 }}>
+                <p style={{ color: "rgba(255,255,255,0.80)", fontSize: "0.82rem", lineHeight: 1.7 }}>
                   Institución líder en servicios de salud de mediana y alta complejidad en Valledupar, Cesar.
                 </p>
               </div>
@@ -2035,9 +2066,9 @@ export default function OHILanding() {
                     <a
                       key={l.href}
                       href={l.href}
-                      style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.85rem", textDecoration: "none", transition: "color 0.2s" }}
+                      style={{ color: "rgba(255,255,255,0.80)", fontSize: "0.85rem", textDecoration: "none", transition: "color 0.2s" }}
                       onMouseEnter={e => { e.currentTarget.style.color = "var(--gold-light)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.45)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.80)"; }}
                     >
                       {l.label}
                     </a>
@@ -2051,7 +2082,7 @@ export default function OHILanding() {
                   Contacto
                 </h5>
                 <div className="flex flex-col gap-2">
-                  <span className="flex items-start gap-2" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.83rem" }}>
+                  <span className="flex items-start gap-2" style={{ color: "rgba(255,255,255,0.80)", fontSize: "0.83rem" }}>
                     <FaMapMarkerAlt style={{ color: "var(--gold)", marginTop: 3, flexShrink: 0 }} />
                     Valledupar, Cesar – Colombia
                   </span>
@@ -2060,7 +2091,8 @@ export default function OHILanding() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 no-underline"
-                    style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.83rem" }}
+                    aria-label="Llamar o escribir por WhatsApp al 317 570 8440"
+                    style={{ color: "rgba(255,255,255,0.80)", fontSize: "0.83rem" }}
                   >
                     <FaWhatsapp style={{ color: "var(--sage)" }} />
                     317 570 8440
@@ -2069,7 +2101,8 @@ export default function OHILanding() {
                     href="https://ohi.buk.co/trabaja-con-nosotros"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.83rem", textDecoration: "none" }}
+                    aria-label="Ver ofertas laborales en BUK"
+                    style={{ color: "rgba(255,255,255,0.80)", fontSize: "0.83rem", textDecoration: "none" }}
                   >
                     Ofertas laborales
                   </a>
@@ -2091,9 +2124,9 @@ export default function OHILanding() {
                     <a
                       key={label}
                       href={href}
-                      style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.83rem", textDecoration: "none", transition: "color 0.2s" }}
-                      onMouseEnter={e => { e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.4)"; }}
+                      style={{ color: "rgba(255,255,255,0.80)", fontSize: "0.83rem", textDecoration: "none", transition: "color 0.2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.color = "rgba(255,255,255,1)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.80)"; }}
                     >
                       {label}
                     </a>
@@ -2107,10 +2140,10 @@ export default function OHILanding() {
               className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-10 pt-6"
               style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
             >
-              <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.77rem" }}>
+              <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.77rem" }}>
                 © 2025 OHI – Organización Humana Integral. Todos los derechos reservados.
               </p>
-              <p style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.77rem" }}>
+              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.77rem" }}>
                 Valledupar, Cesar – Colombia
               </p>
             </div>
@@ -2123,7 +2156,7 @@ export default function OHILanding() {
           target="_blank"
           rel="noopener noreferrer"
           className="wa-float"
-          aria-label="Contáctanos por WhatsApp"
+          aria-label="Contactar por WhatsApp a Organización Humana Integral"
         >
           <FaWhatsapp />
         </a>
@@ -2133,7 +2166,7 @@ export default function OHILanding() {
           <button
             className="scroll-top-btn"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            aria-label="Volver arriba"
+            aria-label="Volver arriba en la página"
           >
             <FaChevronUp />
           </button>

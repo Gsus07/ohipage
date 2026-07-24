@@ -22,8 +22,10 @@ const POLICIES = [
 export default function PoliticasPage() {
   return (
     <>
+      <a href="#main-content" className="sr-only focus:not-sr-only">
+        Saltar al contenido principal
+      </a>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
           font-family: 'DM Sans', sans-serif;
@@ -155,7 +157,7 @@ export default function PoliticasPage() {
 
         .back-link {
           display: inline-flex; align-items: center; gap: 8px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.88);
           font-size: 0.88rem; font-weight: 500;
           text-decoration: none;
           transition: color 0.25s ease;
@@ -176,245 +178,250 @@ export default function PoliticasPage() {
         }
       `}</style>
 
-      {/* ── HERO ── */}
-      <section style={{
-        position: "relative",
-        minHeight: "48vh",
-        display: "flex",
-        alignItems: "center",
-        overflow: "hidden",
-        background: "linear-gradient(135deg, #010c2a 0%, #041a5c 20%, #062F87 45%, #0B3FAD 70%, #1347bf 90%, #062F87 100%)",
-      }}>
-        {/* Dot grid */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
-          backgroundSize: "34px 34px",
-        }} />
-        {/* Logo tile */}
-        <div style={{
-          position: "absolute", inset: 0,
-          backgroundImage: "url('/LOGOS/LOGO.PNG')",
-          backgroundSize: "170px", backgroundRepeat: "repeat",
-          opacity: 0.02, pointerEvents: "none",
-        }} />
-        {/* Ambient orbs */}
-        <div className="hero-orb" style={{
-          width: 300, height: 300,
-          background: "radial-gradient(circle, rgba(194,213,1,0.12), transparent 70%)",
-          top: "-5%", right: "10%",
-          animation: "orbFloat 8s ease-in-out infinite",
-        }} />
-        <div className="hero-orb" style={{
-          width: 200, height: 200,
-          background: "radial-gradient(circle, rgba(6,47,135,0.25), transparent 70%)",
-          bottom: "-10%", left: "5%",
-          animation: "orbFloat 10s ease-in-out infinite 2s",
-        }} />
-
-        <div style={{
-          position: "relative", zIndex: 2,
-          maxWidth: 1200, margin: "0 auto",
-          padding: "7rem 1.5rem 4rem",
-          width: "100%",
-        }}>
-          {/* Back link */}
-          <a href="/" className="back-link" style={{ marginBottom: "2rem", display: "inline-flex" }}>
-            <FaArrowLeft style={{ fontSize: "0.75rem" }} />
-            Volver al inicio
-          </a>
-
-          {/* Badge */}
-          <div className="hero-badge" style={{
-            display: "inline-flex", alignItems: "center", gap: 7,
-            background: "rgba(194,213,1,0.1)",
-            border: "1px solid rgba(194,213,1,0.25)",
-            color: "#C2D501",
-            fontSize: "0.72rem", fontWeight: 700,
-            letterSpacing: "0.14em", textTransform: "uppercase",
-            padding: "6px 18px", borderRadius: 20,
-            marginBottom: "1.5rem", marginTop: "1.5rem",
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: "50%",
-              background: "#C2D501",
-              boxShadow: "0 0 8px rgba(194,213,1,0.5)",
-              animation: "pulse 2s ease-in-out infinite",
-            }} />
-            Marco Legal
-          </div>
-
-          {/* Title */}
-          <h1 className="hero-title" style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-            fontWeight: 700,
-            color: "#fff",
-            lineHeight: 1.1,
-            marginBottom: "1rem",
-            maxWidth: 700,
-          }}>
-            Políticas de{" "}
-            <span style={{
-              background: "linear-gradient(135deg, #C2D501 0%, #d4e818 50%, #f7ff80 100%)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-            }}>
-              Protección de Datos
-            </span>
-          </h1>
-
-          {/* Desc */}
-          <p className="hero-desc" style={{
-            color: "rgba(255,255,255,0.65)",
-            fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
-            lineHeight: 1.7,
-            maxWidth: 600,
-          }}>
-            En OHI – Organización Humana Integral nos comprometemos con la transparencia
-            y el cumplimiento de la Ley 1581 de 2012 sobre protección de datos personales.
-            Consulta y descarga nuestras políticas vigentes.
-          </p>
-        </div>
-      </section>
-
-      {/* ── POLICIES ── */}
-      <section style={{
-        maxWidth: 1000,
-        margin: "0 auto",
-        padding: "4rem 1.5rem 2rem",
-      }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-          {POLICIES.map((policy, idx) => (
-            <div key={policy.title} className="policy-card" style={{
-              padding: "2rem 2.2rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.2rem",
-            }}>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "1.2rem" }}>
-                <div className="policy-icon-wrap">
-                  {policy.icon === "shield" ? <FaShieldAlt /> : <FaFilePdf />}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <h2 style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: "1.45rem",
-                    fontWeight: 700,
-                    color: "#062F87",
-                    lineHeight: 1.3,
-                    marginBottom: "0.5rem",
-                  }}>
-                    {policy.title}
-                  </h2>
-                  <p style={{
-                    color: "#4A5A80",
-                    fontSize: "0.9rem",
-                    lineHeight: 1.7,
-                  }}>
-                    {policy.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div style={{
-                display: "flex", flexWrap: "wrap", gap: "0.75rem",
-                paddingTop: "0.5rem",
-                borderTop: "1px solid rgba(6,47,135,0.06)",
-              }}>
-                <a
-                  href={policy.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-view"
-                >
-                  <FaFilePdf style={{ fontSize: "0.9rem" }} />
-                  Ver documento
-                </a>
-                <a
-                  href={policy.file}
-                  download
-                  className="btn-download"
-                >
-                  <FaDownload style={{ fontSize: "0.85rem" }} />
-                  Descargar PDF
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── INFO BANNER ── */}
-      <section className="info-banner" style={{
-        maxWidth: 1000,
-        margin: "0 auto",
-        padding: "0 1.5rem 4rem",
-      }}>
-        <div style={{
-          background: "linear-gradient(135deg, #010c2a 0%, #041a5c 50%, #062F87 100%)",
-          borderRadius: 20,
-          padding: "2.5rem 2.2rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-          gap: "1rem",
+      <main id="main-content">
+        {/* ── HERO ── */}
+        <section style={{
           position: "relative",
+          minHeight: "48vh",
+          display: "flex",
+          alignItems: "center",
           overflow: "hidden",
+          background: "linear-gradient(135deg, #010c2a 0%, #041a5c 20%, #062F87 45%, #0B3FAD 70%, #1347bf 90%, #062F87 100%)",
         }}>
           {/* Dot grid */}
           <div style={{
             position: "absolute", inset: 0, pointerEvents: "none",
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+            backgroundSize: "34px 34px",
+          }} />
+          {/* Logo tile */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "url('/LOGOS/LOGO.PNG')",
+            backgroundSize: "170px", backgroundRepeat: "repeat",
+            opacity: 0.02, pointerEvents: "none",
+          }} />
+          {/* Ambient orbs */}
+          <div className="hero-orb" style={{
+            width: 300, height: 300,
+            background: "radial-gradient(circle, rgba(194,213,1,0.12), transparent 70%)",
+            top: "-5%", right: "10%",
+            animation: "orbFloat 8s ease-in-out infinite",
+          }} />
+          <div className="hero-orb" style={{
+            width: 200, height: 200,
+            background: "radial-gradient(circle, rgba(6,47,135,0.25), transparent 70%)",
+            bottom: "-10%", left: "5%",
+            animation: "orbFloat 10s ease-in-out infinite 2s",
           }} />
 
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <h3 style={{
+          <div style={{
+            position: "relative", zIndex: 2,
+            maxWidth: 1200, margin: "0 auto",
+            padding: "7rem 1.5rem 4rem",
+            width: "100%",
+          }}>
+            {/* Back link */}
+            <a href="/" className="back-link" aria-label="Volver al inicio de la página principal" style={{ marginBottom: "2rem", display: "inline-flex" }}>
+              <FaArrowLeft style={{ fontSize: "0.75rem" }} />
+              Volver al inicio
+            </a>
+
+            {/* Badge */}
+            <div className="hero-badge" style={{
+              display: "inline-flex", alignItems: "center", gap: 7,
+              background: "rgba(194,213,1,0.1)",
+              border: "1px solid rgba(194,213,1,0.25)",
+              color: "#C2D501",
+              fontSize: "0.72rem", fontWeight: 700,
+              letterSpacing: "0.14em", textTransform: "uppercase",
+              padding: "6px 18px", borderRadius: 20,
+              marginBottom: "1.5rem", marginTop: "1.5rem",
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: "50%",
+                background: "#C2D501",
+                boxShadow: "0 0 8px rgba(194,213,1,0.5)",
+                animation: "pulse 2s ease-in-out infinite",
+              }} />
+              Marco Legal
+            </div>
+
+            {/* Title */}
+            <h1 className="hero-title" style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "1.5rem",
+              fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
               fontWeight: 700,
               color: "#fff",
-              marginBottom: "0.5rem",
+              lineHeight: 1.1,
+              marginBottom: "1rem",
+              maxWidth: 700,
             }}>
-              ¿Tienes dudas sobre tus datos personales?
-            </h3>
-            <p style={{
-              color: "rgba(255,255,255,0.6)",
-              fontSize: "0.92rem",
+              Políticas de{" "}
+              <span style={{
+                background: "linear-gradient(135deg, #C2D501 0%, #d4e818 50%, #f7ff80 100%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                color: "transparent",
+              }}>
+                Protección de Datos
+              </span>
+            </h1>
+
+            {/* Desc */}
+            <p className="hero-desc" style={{
+              color: "rgba(255,255,255,0.85)",
+              fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
               lineHeight: 1.7,
-              maxWidth: 520,
-              margin: "0 auto 1.5rem",
+              maxWidth: 600,
             }}>
-              Si deseas ejercer tus derechos de acceso, rectificación, supresión o
-              revocatoria de la autorización, contáctanos directamente.
+              En OHI – Organización Humana Integral nos comprometemos con la transparencia
+              y el cumplimiento de la Ley 1581 de 2012 sobre protección de datos personales.
+              Consulta y descarga nuestras políticas vigentes.
             </p>
-            <a
-              href="https://api.whatsapp.com/send?phone=573175708440&text=Hola, tengo una consulta sobre el tratamiento de datos personales"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)",
-                color: "#062F87",
-                padding: "14px 28px",
-                borderRadius: 10,
-                fontSize: "0.95rem",
-                fontWeight: 700,
-                textDecoration: "none",
-                boxShadow: "0 6px 24px rgba(194,213,1,0.3)",
-                transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease",
-              }}
-            >
-              <FaWhatsapp style={{ fontSize: "1.1rem" }} />
-              Escribir por WhatsApp
-            </a>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ── POLICIES ── */}
+        <section style={{
+          maxWidth: 1000,
+          margin: "0 auto",
+          padding: "4rem 1.5rem 2rem",
+        }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+            {POLICIES.map((policy) => (
+              <div key={policy.title} className="policy-card" style={{
+                padding: "2rem 2.2rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.2rem",
+              }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "1.2rem" }}>
+                  <div className="policy-icon-wrap">
+                    {policy.icon === "shield" ? <FaShieldAlt /> : <FaFilePdf />}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h2 style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "1.45rem",
+                      fontWeight: 700,
+                      color: "#062F87",
+                      lineHeight: 1.3,
+                      marginBottom: "0.5rem",
+                    }}>
+                      {policy.title}
+                    </h2>
+                    <p style={{
+                      color: "#334155",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.7,
+                    }}>
+                      {policy.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div style={{
+                  display: "flex", flexWrap: "wrap", gap: "0.75rem",
+                  paddingTop: "0.5rem",
+                  borderTop: "1px solid rgba(6,47,135,0.06)",
+                }}>
+                  <a
+                    href={policy.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-view"
+                    aria-label={`Ver documento ${policy.title} en formato PDF`}
+                  >
+                    <FaFilePdf style={{ fontSize: "0.9rem" }} />
+                    Ver documento
+                  </a>
+                  <a
+                    href={policy.file}
+                    download
+                    className="btn-download"
+                    aria-label={`Descargar ${policy.title} en PDF`}
+                  >
+                    <FaDownload style={{ fontSize: "0.85rem" }} />
+                    Descargar PDF
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── INFO BANNER ── */}
+        <section className="info-banner" style={{
+          maxWidth: 1000,
+          margin: "0 auto",
+          padding: "0 1.5rem 4rem",
+        }}>
+          <div style={{
+            background: "linear-gradient(135deg, #010c2a 0%, #041a5c 50%, #062F87 100%)",
+            borderRadius: 20,
+            padding: "2.5rem 2.2rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            gap: "1rem",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            {/* Dot grid */}
+            <div style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }} />
+
+            <div style={{ position: "relative", zIndex: 2 }}>
+              <h3 style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.5rem",
+                fontWeight: 700,
+                color: "#fff",
+                marginBottom: "0.5rem",
+              }}>
+                ¿Tienes dudas sobre tus datos personales?
+              </h3>
+              <p style={{
+                color: "rgba(255,255,255,0.85)",
+                fontSize: "0.92rem",
+                lineHeight: 1.7,
+                maxWidth: 520,
+                margin: "0 auto 1.5rem",
+              }}>
+                Si deseas ejercer tus derechos de acceso, rectificación, supresión o
+                revocatoria de la autorización, contáctanos directamente.
+              </p>
+              <a
+                href="https://api.whatsapp.com/send?phone=573175708440&text=Hola, tengo una consulta sobre el tratamiento de datos personales"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Consultar sobre tratamiento de datos por WhatsApp"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8,
+                  background: "linear-gradient(135deg, #C2D501 0%, #d4e818 100%)",
+                  color: "#062F87",
+                  padding: "14px 28px",
+                  borderRadius: 10,
+                  fontSize: "0.95rem",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  boxShadow: "0 6px 24px rgba(194,213,1,0.3)",
+                  transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease",
+                }}
+              >
+                <FaWhatsapp style={{ fontSize: "1.1rem" }} />
+                Escribir por WhatsApp
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
 
       {/* ── FOOTER ── */}
       <footer style={{
@@ -423,15 +430,19 @@ export default function PoliticasPage() {
         textAlign: "center",
         borderTop: "1px solid rgba(255,255,255,0.05)",
       }}>
-        <a href="/" style={{ display: "inline-block", marginBottom: "1rem" }}>
+        <a href="/" aria-label="Ir a la página principal de OHI" style={{ display: "inline-block", marginBottom: "1rem" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/LOGOS/LOGO OHI HORIZONTAL.PNG"
-            alt="OHI"
-            style={{ height: 36, filter: "brightness(0) invert(1)", opacity: 0.5 }}
+            alt="OHI - Organización Humana Integral"
+            width={160}
+            height={36}
+            loading="lazy"
+            decoding="async"
+            style={{ height: 36, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.8 }}
           />
         </a>
-        <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.77rem" }}>
+        <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.77rem" }}>
           © 2025 OHI – Organización Humana Integral. Todos los derechos reservados.
         </p>
       </footer>

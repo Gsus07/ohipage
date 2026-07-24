@@ -557,8 +557,10 @@ export default async function SedePage({ params }) {
 
   return (
     <>
+      <a href="#main-content" className="sr-only focus:not-sr-only">
+        Saltar al contenido principal
+      </a>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
           font-family: 'DM Sans', sans-serif; color: #061A50; background: #fff;
@@ -735,8 +737,9 @@ export default async function SedePage({ params }) {
       {/* ── Navbar (full navigation) ── */}
       <SedeNavbar whatsapp={sede.whatsapp} />
 
-      {/* ── Hero ── */}
-      <section className="hero-section" style={{
+      <main id="main-content">
+        {/* ── Hero ── */}
+        <section className="hero-section" style={{
         position: "relative", minHeight: "92vh",
         display: "flex", flexDirection: "column", overflow: "hidden",
       }}>
@@ -1167,6 +1170,7 @@ export default async function SedePage({ params }) {
           </div>
         </div>
       </section>
+      </main>
 
       {/* ── Footer ── */}
       <footer className="mesh-bg-contact" style={{
@@ -1186,10 +1190,14 @@ export default async function SedePage({ params }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
-            alt="OHI"
-            style={{ height: 30, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.45 }}
+            alt="OHI - Organización Humana Integral"
+            width={150}
+            height={30}
+            loading="lazy"
+            decoding="async"
+            style={{ height: 30, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.8 }}
           />
-          <p style={{ color: "rgba(255,255,255,0.28)", fontSize: "0.78rem", textAlign: "center" }}>
+          <p style={{ color: "rgba(255,255,255,0.78)", fontSize: "0.78rem", textAlign: "center" }}>
             © 2026 OHI – Organización Humana Integral. Todos los derechos reservados.
           </p>
         </div>
