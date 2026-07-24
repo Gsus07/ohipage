@@ -581,7 +581,7 @@ export default async function SedePage({ params }) {
         }
         .service-card:hover {
           transform: translateY(-6px);
-          box-shadow: 0 28px 80px rgba(6,47,135,0.15), 0 4px 0 0 #C2D501 !important;
+          box-shadow: 0 20px 48px rgba(0,0,0,0.1), 0 3px 0 0 #C2D501 !important;
         }
         .card-img-wrap {
           position: relative; width: 100%; aspect-ratio: 16/10;
@@ -628,7 +628,7 @@ export default async function SedePage({ params }) {
         .scroll-line { display:block; width:1px; height:44px; background:linear-gradient(to bottom,#C2D501,rgba(194,213,1,0.15)); animation:scrollLine 2.2s ease-in-out infinite; transform-origin:top; }
 
         /* Logo tile background */
-        .logo-tile { position: absolute; inset: 0; background-image: url('/LOGOS/LOGO.PNG'); background-size: 170px; background-repeat: repeat; opacity: 0.024; pointer-events: none; }
+        .logo-tile { position: absolute; inset: 0; background-image: url('/LOGOS/LOGO.PNG'); background-size: 170px; background-repeat: repeat; opacity: 0.012; pointer-events: none; }
 
         /* Ambient orbs */
         @keyframes orbFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.05); } }
@@ -658,15 +658,15 @@ export default async function SedePage({ params }) {
         /* Glass card */
         .glass-card {
           background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.11);
-          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px;
           backdrop-filter: blur(18px) saturate(1.3);
           -webkit-backdrop-filter: blur(18px) saturate(1.3);
           transition: all 0.35s ease;
         }
         .glass-card:hover {
           border-color: rgba(194,213,1,0.2);
-          box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         /* Scroll progress bar */
@@ -735,7 +735,7 @@ export default async function SedePage({ params }) {
         <div style={{
           position: "absolute", inset: 0,
           background: heroImg
-            ? "linear-gradient(135deg, rgba(1,12,42,0.95) 0%, rgba(4,26,92,0.85) 45%, rgba(6,47,135,0.7) 100%)"
+            ? "linear-gradient(135deg, rgba(1,12,42,0.85) 0%, rgba(4,26,92,0.7) 45%, rgba(6,47,135,0.5) 100%)"
             : "transparent",
         }} />
         {/* Dot grid */}
@@ -764,27 +764,7 @@ export default async function SedePage({ params }) {
           animation: "orbFloat 9s ease-in-out infinite",
           animationDelay: "-1.5s",
         }} />
-        {/* Floating geometric shapes (GSAP animates these) */}
-        <div className="shape-circle-lg" style={{
-          position: "absolute", top: "8%", right: "5%",
-          width: 260, height: 260, borderRadius: "50%",
-          border: "1px solid rgba(194,213,1,0.13)", pointerEvents: "none",
-        }} />
-        <div className="shape-circle-sm" style={{
-          position: "absolute", top: "22%", right: "13%",
-          width: 140, height: 140, borderRadius: "50%",
-          border: "1px solid rgba(255,255,255,0.07)", pointerEvents: "none",
-        }} />
-        <div className="shape-diamond" style={{
-          position: "absolute", bottom: "24%", left: "4%",
-          width: 72, height: 72, border: "1px solid rgba(194,213,1,0.12)",
-          transform: "rotate(45deg)", pointerEvents: "none",
-        }} />
-        <div className="shape-diamond-sm" style={{
-          position: "absolute", top: "20%", left: "2%",
-          width: 38, height: 38, border: "1px solid rgba(255,255,255,0.08)",
-          transform: "rotate(45deg)", pointerEvents: "none",
-        }} />
+
         {/* Large decorative background text */}
         <div style={{
           position: "absolute", bottom: "-4%", right: "-2%",

@@ -110,7 +110,7 @@ const GlobalStyles = () => (
       top: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
       background-size: 200% 100%;
-      border-radius: 10px 10px 0 0;
+      border-radius: 14px 14px 0 0;
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
@@ -120,9 +120,9 @@ const GlobalStyles = () => (
       animation: goldShimmer 2s linear infinite;
     }
     .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 56px rgba(6,47,135,0.16), 0 4px 0 0 rgba(194,213,1,0.25);
-      border-color: rgba(194,213,1,0.35) !important;
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.1), 0 3px 0 0 rgba(194,213,1,0.3);
+      border-color: rgba(194,213,1,0.3) !important;
     }
     .service-card:hover .s-icon { color: var(--gold) !important; }
     .s-icon { transition: color 0.35s ease, transform 0.35s ease; }
@@ -172,16 +172,16 @@ const GlobalStyles = () => (
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
     }
     .pillar-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(6,47,135,0.14);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
     }
     .pillar-card-dark {
       transition: all 0.4s cubic-bezier(0.16,1,0.3,1) !important;
     }
     .pillar-card-dark:hover {
-      transform: translateY(-8px) !important;
-      box-shadow: 0 28px 64px rgba(0,0,0,0.38), 0 0 0 1px rgba(194,213,1,0.45), 0 0 40px rgba(194,213,1,0.08) !important;
-      border-color: rgba(194,213,1,0.45) !important;
+      transform: translateY(-6px) !important;
+      box-shadow: 0 24px 56px rgba(0,0,0,0.3), 0 0 0 1px rgba(194,213,1,0.35) !important;
+      border-color: rgba(194,213,1,0.35) !important;
     }
 
     /* ── Stat counters ───────────────────────── */
@@ -196,8 +196,8 @@ const GlobalStyles = () => (
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
     }
     .testimonial-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 24px 56px rgba(6,47,135,0.14);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.08);
     }
 
     /* ── Buttons ─────────────────────────────── */
@@ -388,7 +388,7 @@ const GlobalStyles = () => (
     }
     .gal-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(4,10,35,0.92) 0%, rgba(4,10,35,0.12) 45%, transparent 100%);
+      background: linear-gradient(to top, rgba(4,10,35,0.72) 0%, rgba(4,10,35,0.08) 45%, transparent 100%);
       transition: opacity 0.45s ease;
     }
     .gallery-item:hover .gal-overlay { opacity: 0.72; }
@@ -401,19 +401,19 @@ const GlobalStyles = () => (
     .gallery-item:hover .gal-label { transform: translateY(0); }
 
     /* ── Service featured banner ──────────────── */
-    .svc-featured { position: relative; border-radius: 14px; overflow: hidden; cursor: default; }
+    .svc-featured { position: relative; border-radius: 18px; overflow: hidden; cursor: default; }
     .svc-featured-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.16,1,0.3,1); display: block; }
-    .svc-featured:hover .svc-featured-img { transform: scale(1.05); }
+    .svc-featured:hover .svc-featured-img { transform: scale(1.04); }
 
     /* ── Hero image frame ─────────────────────── */
     .hero-img-wrap {
-      border-radius: 18px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(194,213,1,0.15);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
       transition: box-shadow 0.5s ease;
     }
     .hero-img-wrap:hover {
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(194,213,1,0.25);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.35);
     }
 
     /* ── Scroll Reveal ─────────────────────── */
@@ -482,17 +482,19 @@ const GlobalStyles = () => (
     /* ── Sede visual link cards ───────────────── */
     .sede-vcard {
       display: block; text-decoration: none;
-      border-radius: 16px; overflow: hidden;
-      box-shadow: 0 4px 24px rgba(6,47,135,0.08), 0 0 0 1px rgba(6,47,135,0.06);
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
       transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
       background: #fff;
+      border: 1px solid rgba(6,47,135,0.06);
     }
     .sede-vcard:hover {
-      box-shadow: 0 32px 80px rgba(6,47,135,0.2), 0 0 0 1px rgba(194,213,1,0.2);
-      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+      transform: translateY(-6px);
+      border-color: rgba(194,213,1,0.2);
     }
     .sede-vcard:hover .sede-vcard-arr { transform: translateX(6px); }
-    .sede-vcard:hover .sede-vcard-media { transform: scale(1.08); }
+    .sede-vcard:hover .sede-vcard-media { transform: scale(1.06); }
     .sede-vcard-arr { display: inline-flex; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
     .sede-vcard-media { transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
     .sede-vcard-body { padding: 1.6rem 1.7rem 1.8rem; }
@@ -507,7 +509,7 @@ const GlobalStyles = () => (
       background-repeat: repeat;
       background-size: 82px 82px;
       mix-blend-mode: screen;
-      opacity: 0.055;
+      opacity: 0.025;
       -webkit-mask-image: radial-gradient(ellipse 75% 95% at 100% 0%, black 0%, black 12%, rgba(0,0,0,0.6) 40%, transparent 72%);
       mask-image:         radial-gradient(ellipse 75% 95% at 100% 0%, black 0%, black 12%, rgba(0,0,0,0.6) 40%, transparent 72%);
     }
@@ -517,7 +519,7 @@ const GlobalStyles = () => (
       background-repeat: repeat;
       background-size: 82px 82px;
       mix-blend-mode: screen;
-      opacity: 0.055;
+      opacity: 0.025;
       -webkit-mask-image: radial-gradient(ellipse 65% 80% at 0% 100%, black 0%, black 12%, rgba(0,0,0,0.5) 42%, transparent 70%);
       mask-image:         radial-gradient(ellipse 65% 80% at 0% 100%, black 0%, black 12%, rgba(0,0,0,0.5) 42%, transparent 70%);
     }
@@ -527,7 +529,7 @@ const GlobalStyles = () => (
       background-repeat: repeat;
       background-size: 70px 70px;
       mix-blend-mode: screen;
-      opacity: 0.042;
+      opacity: 0.022;
       -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 0%, rgba(0,0,0,0.4) 50%, transparent 80%);
       mask-image:         radial-gradient(ellipse 50% 50% at 50% 50%, black 0%, rgba(0,0,0,0.4) 50%, transparent 80%);
     }
@@ -971,24 +973,18 @@ export default function OHILanding() {
           className="hero-bg relative flex flex-col items-center justify-center overflow-hidden"
           style={{ minHeight: "100vh", paddingTop: 80 }}
         >
-          {/* Ambient architectural photo — faint layer under the animated gradient */}
+          {/* Ambient architectural photo — visible layer under the animated gradient */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
             <img
               src="/IMG/CENTRO/OHI-entrada.webp"
               alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.14 }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.28 }}
             />
           </div>
 
-          {/* Decorative rings */}
-          <div className="absolute opacity-5 pointer-events-none" style={{ top: "-10%", right: "-8%", width: 480, height: 480, border: "1px solid #fff", borderRadius: "50%" }} />
-          <div className="absolute opacity-5 pointer-events-none" style={{ top: "-4%", right: "-2%", width: 320, height: 320, border: "1px solid #C2D501", borderRadius: "50%" }} />
-          <div className="absolute opacity-10 pointer-events-none deco-ring" style={{ bottom: "12%", left: "-6%", width: 260, height: 260, border: "1px solid #C2D501", borderRadius: "50%" }} />
-
           {/* Glow orbs */}
-          <div className="hero-orb" style={{ width: 500, height: 500, background: "rgba(11,63,173,0.45)", top: "-12%", right: "10%", animationDelay: "0s" }} />
-          <div className="hero-orb" style={{ width: 340, height: 340, background: "rgba(194,213,1,0.08)", bottom: "5%", left: "5%", animationDelay: "-5s" }} />
-          <div className="hero-orb" style={{ width: 260, height: 260, background: "rgba(6,47,135,0.5)", top: "30%", left: "20%", animationDelay: "-9s" }} />
+          <div className="hero-orb" style={{ width: 500, height: 500, background: "rgba(11,63,173,0.35)", top: "-12%", right: "10%", animationDelay: "0s" }} />
+          <div className="hero-orb" style={{ width: 340, height: 340, background: "rgba(194,213,1,0.06)", bottom: "5%", left: "5%", animationDelay: "-5s" }} />
 
           {/* Subtle pattern overlay — logo tile */}
           <div
@@ -999,7 +995,7 @@ export default function OHILanding() {
               backgroundRepeat: "repeat",
               backgroundSize: "110px 110px",
               mixBlendMode: "screen",
-              opacity: 0.038,
+              opacity: 0.018,
               WebkitMaskImage: "radial-gradient(ellipse 85% 95% at 100% 100%, black 0%, black 10%, rgba(0,0,0,0.5) 45%, transparent 72%)",
               maskImage:        "radial-gradient(ellipse 85% 95% at 100% 100%, black 0%, black 10%, rgba(0,0,0,0.5) 45%, transparent 72%)",
             }}
@@ -1116,7 +1112,7 @@ export default function OHILanding() {
                     style={{ width: "100%", height: 520, objectFit: "cover", objectPosition: "center", display: "block" }}
                   />
                   {/* Gradient overlay — left blend with hero bg */}
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(6,47,135,0.35) 0%, transparent 40%)" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(6,47,135,0.2) 0%, transparent 35%)" }} />
                   {/* Bottom caption */}
                   <div
                     style={{
@@ -1251,7 +1247,7 @@ export default function OHILanding() {
                     onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.04)"; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = ""; }}
                   />
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,47,135,0.82) 0%, rgba(6,47,135,0.08) 50%, transparent 100%)", pointerEvents: "none" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,47,135,0.65) 0%, rgba(6,47,135,0.05) 50%, transparent 100%)", pointerEvents: "none" }} />
                   <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.6rem 1.4rem 1.2rem" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: "0.3rem" }}>
                       <div style={{ width: 20, height: 2, background: "var(--gold)" }} />
@@ -1312,13 +1308,13 @@ export default function OHILanding() {
                     data-delay={String(i * 100 + 100)}
                     style={{
                       background: "#FFFFFF",
-                      border: "1px solid rgba(6,47,135,0.08)",
-                      borderRadius: 8,
+                      border: "1px solid rgba(6,47,135,0.06)",
+                      borderRadius: 14,
                       overflow: "hidden",
                       padding: item.image && !item.list ? 0 : "1.75rem",
                       gridColumn: item.list ? "1 / -1" : undefined,
                       display: item.list && item.image ? "flex" : "block",
-                      boxShadow: "0 2px 22px rgba(6,47,135,0.07)",
+                      boxShadow: "0 2px 16px rgba(0,0,0,0.05)",
                     }}
                   >
                     {/* Top image — regular cards */}
@@ -1384,7 +1380,7 @@ export default function OHILanding() {
             <img
               src="/IMG/servicios/Sala-Procedimiento-OHI.webp"
               alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block", opacity: 0.07 }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block", opacity: 0.18 }}
             />
           </div>
           <WaveUp fill="var(--navy)" />
@@ -1446,7 +1442,7 @@ export default function OHILanding() {
             <div
               className="svc-featured"
               data-reveal="up"
-              style={{ height: 230, marginBottom: "2.5rem", boxShadow: "0 20px 60px rgba(6,47,135,0.18)" }}
+              style={{ height: 230, marginBottom: "2.5rem", boxShadow: "0 16px 48px rgba(0,0,0,0.12)" }}
             >
               <img
                 className="svc-featured-img"
@@ -1454,7 +1450,7 @@ export default function OHILanding() {
                 alt="Urgencias 24/7 OHI"
                 style={{ position: "absolute", inset: 0, objectPosition: "center 30%" }}
               />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(6,47,135,0.97) 0%, rgba(6,47,135,0.8) 38%, rgba(6,47,135,0.35) 65%, transparent 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(6,47,135,0.92) 0%, rgba(6,47,135,0.72) 38%, rgba(6,47,135,0.25) 65%, transparent 100%)" }} />
               <div style={{ position: "absolute", inset: 0, padding: "2.2rem 2.8rem", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 600 }}>
                 <span style={{ color: "var(--gold)", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.55rem" }}>
                   Servicio destacado
@@ -1484,8 +1480,8 @@ export default function OHILanding() {
                   data-delay={String(Math.min(i * 60, 360))}
                   style={{
                     background: "#FFFFFF",
-                    border: "1px solid rgba(6,47,135,0.09)",
-                    borderRadius: 10,
+                    border: "1px solid rgba(6,47,135,0.06)",
+                    borderRadius: 14,
                     padding: "1.6rem 1.5rem",
                   }}
                 >
@@ -1510,8 +1506,8 @@ export default function OHILanding() {
               style={{
                 marginTop: "4rem",
                 background: "#FFFFFF",
-                border: "1px solid rgba(6,47,135,0.09)",
-                borderRadius: 10,
+                border: "1px solid rgba(6,47,135,0.06)",
+                borderRadius: 14,
                 padding: "2rem 2.5rem",
               }}
             >
@@ -1577,8 +1573,8 @@ export default function OHILanding() {
                     data-delay={String(i * 100 + 100)}
                     style={{
                       background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      borderRadius: 10,
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: 14,
                       padding: "2rem 1.5rem",
                       textAlign: "center",
                       position: "relative",
@@ -1680,7 +1676,7 @@ export default function OHILanding() {
                 >
                   {/* Image header */}
                   <div style={{
-                    height: 136, position: "relative", overflow: "hidden",
+                    height: 160, position: "relative", overflow: "hidden",
                   }}>
                     <img
                       src={sede.image}
@@ -1689,9 +1685,9 @@ export default function OHILanding() {
                       style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
                     />
                     {/* Navy gradient overlay for readability */}
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,47,135,0.18) 0%, rgba(6,47,135,0.76) 100%)" }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,47,135,0.08) 0%, rgba(6,47,135,0.55) 100%)" }} />
                     {/* Dot grid overlay */}
-                    <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+                    <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
                     {/* Gold bottom accent */}
                     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg, transparent 0%, rgba(194,213,1,0.55) 40%, rgba(194,213,1,0.55) 60%, transparent 100%)" }} />
                     {/* Sede number badge */}
@@ -1778,8 +1774,8 @@ export default function OHILanding() {
               className="testimonial-card"
               style={{
                 background: "#FFFFFF",
-                border: "1px solid rgba(6,47,135,0.09)",
-                borderRadius: 12,
+                border: "1px solid rgba(6,47,135,0.06)",
+                borderRadius: 14,
                 padding: "clamp(1.5rem, 4vw, 3rem)",
                 marginBottom: "2rem",
                 position: "relative",
@@ -1852,9 +1848,9 @@ export default function OHILanding() {
                     all: "unset", display: "block", boxSizing: "border-box",
                     width: "100%", cursor: "pointer",
                     background: i === activeTestimonial ? "rgba(6,47,135,0.05)" : "#FFFFFF",
-                    border: "1px solid " + (i === activeTestimonial ? "rgba(194,213,1,0.4)" : "rgba(6,47,135,0.09)"),
-                    borderLeft: i === activeTestimonial ? "3px solid var(--gold)" : "1px solid rgba(6,47,135,0.09)",
-                    borderRadius: 10, padding: "1rem 1.15rem",
+                    border: "1px solid " + (i === activeTestimonial ? "rgba(194,213,1,0.35)" : "rgba(6,47,135,0.06)"),
+                    borderLeft: i === activeTestimonial ? "3px solid var(--gold)" : "1px solid rgba(6,47,135,0.06)",
+                    borderRadius: 14, padding: "1rem 1.15rem",
                     textAlign: "left",
                     transition: "border-color 0.3s ease, background 0.3s ease",
                   }}
@@ -1939,8 +1935,8 @@ export default function OHILanding() {
                   {SEDES.map(sede => (
                     <div key={sede.name} style={{
                       background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.09)",
-                      borderRadius: 10, padding: "1.25rem 1.4rem",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                      borderRadius: 14, padding: "1.25rem 1.4rem",
                     }}>
                       <h4 style={{ color: "var(--gold-light)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.75rem", letterSpacing: "0.03em" }}>
                         {sede.name}
@@ -2073,10 +2069,10 @@ export default function OHILanding() {
                 </h5>
                 <div className="flex flex-col gap-2">
                   {[
-                    ["Tratamiento de Datos", "#"],
+                    ["Tratamiento de Datos", "/politicas"],
                     ["PQRS", "/peticion-queja-reclamo-sugerencia-y-felicitaciones/"],
                     ["Participación Social en Salud", "/ppss/"],
-                    ["Línea Ética y Transparencia", "#"],
+                    ["Línea Ética y Transparencia", "/politicas"],
                   ].map(([label, href]) => (
                     <a
                       key={label}
