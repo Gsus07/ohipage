@@ -876,7 +876,7 @@ export default async function SedePage({ params }) {
             <div style={{ marginTop: "2.8rem", display: "flex", alignItems: "center", gap: 10 }}>
               <div className="scroll-line" />
               <span style={{
-                color: "rgba(255,255,255,0.35)", fontSize: "0.6rem",
+                color: "rgba(255,255,255,0.85)", fontSize: "0.6rem",
                 letterSpacing: "0.2em", textTransform: "uppercase",
                 writingMode: "vertical-rl", transform: "rotate(180deg)",
               }}>Explorar</span>
@@ -901,7 +901,7 @@ export default async function SedePage({ params }) {
                 }}>
                   <div className="stat-value-accent">{h.value}</div>
                   <div style={{
-                    fontSize: "0.73rem", color: "rgba(255,255,255,0.58)",
+                    fontSize: "0.73rem", color: "rgba(255,255,255,0.85)",
                     marginTop: "0.3rem", textTransform: "uppercase", letterSpacing: "0.07em",
                   }}>
                     {h.label}
@@ -1109,7 +1109,7 @@ export default async function SedePage({ params }) {
           <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem", justifyContent: "space-between", alignItems: "stretch" }}>
             {/* Contact info glass card */}
             <div className="glass-card" style={{ flex: "1 1 280px", padding: "1.8rem 2rem" }}>
-              <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "1.2rem" }}>Información de contacto</p>
+              <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "1.2rem" }}>Información de contacto</p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
                 <span style={{
                   display: "flex", alignItems: "flex-start", gap: 10,
@@ -1124,9 +1124,9 @@ export default async function SedePage({ params }) {
                     color: "rgba(255,255,255,0.72)", fontSize: "0.85rem",
                   }}>
                     <FaPhone style={{ color: "#C2D501", flexShrink: 0, fontSize: "0.75rem" }} />
-                    {p.label ? <strong style={{ color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>{p.label}:&nbsp;</strong> : null}
+                    {p.label ? <strong style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>{p.label}:&nbsp;</strong> : null}
                     {p.value}
-                    {p.ext ? <span style={{ color: "rgba(255,255,255,0.38)" }}> {p.ext}</span> : null}
+                    {p.ext ? <span style={{ color: "rgba(255,255,255,0.85)" }}> {p.ext}</span> : null}
                   </span>
                 ))}
               </div>

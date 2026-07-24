@@ -45,12 +45,6 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${dmSans.variable} ${cormorantGaramond.variable}`}>
       <head>
-        <link
-          rel="preload"
-          as="image"
-          href="/IMG/CENTRO/OHI-entrada.webp"
-          type="image/webp"
-        />
       </head>
       <body className={dmSans.className}>
         {children}

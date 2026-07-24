@@ -229,7 +229,7 @@ const GlobalStyles = () => (
     }
     .btn-outline:hover {
       background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.65) !important;
+      border-color: rgba(255,255,255,0.85) !important;
       transform: translateY(-3px) scale(1.02);
       box-shadow: 0 4px 20px rgba(255,255,255,0.1);
     }
@@ -479,7 +479,7 @@ const GlobalStyles = () => (
     .marquee-item {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 0 2.4rem;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
       font-size: 0.79rem; font-weight: 500; letter-spacing: 0.06em;
       white-space: nowrap; cursor: default;
       transition: color 0.3s ease;
@@ -858,7 +858,7 @@ export default function OHILanding() {
         />
         <p
           className="loader-tagline display-font"
-          style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.92rem", fontStyle: "italic", letterSpacing: "0.08em", fontWeight: 300 }}
+          style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.92rem", fontStyle: "italic", letterSpacing: "0.08em", fontWeight: 300 }}
         >
           Donde la medicina se vuelve humana
         </p>
@@ -1101,7 +1101,7 @@ export default function OHILanding() {
                     href="#contacto"
                     className="btn-outline"
                     style={{
-                      border: "1.5px solid rgba(255,255,255,0.3)",
+                      border: "1.5px solid rgba(255,255,255,0.85)",
                       color: "rgba(255,255,255,0.9)",
                       padding: "15px 34px",
                       borderRadius: 8,
@@ -1122,7 +1122,7 @@ export default function OHILanding() {
                     "Sede Centro · Carrera 19 #14-47",
                     "Sede Santa Isabel · Av. Simón Bolívar #22-39",
                   ].map(loc => (
-                    <span key={loc} className="flex items-center gap-2" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.78rem", fontWeight: 300 }}>
+                    <span key={loc} className="flex items-center gap-2" style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.78rem", fontWeight: 300 }}>
                       <FaMapMarkerAlt style={{ color: "var(--gold)", fontSize: "0.7rem" }} />
                       {loc}
                     </span>
@@ -1220,7 +1220,7 @@ export default function OHILanding() {
                   <item.icon style={{ color: "var(--gold)", fontSize: "1.15rem", flexShrink: 0 }} />
                   <div>
                     <div className="display-font" style={{ color: "#fff", fontWeight: 600, fontSize: "1.1rem", lineHeight: 1 }}>{item.value}</div>
-                    <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.71rem", marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.label}</div>
+                    <div style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.71rem", marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.label}</div>
                   </div>
                 </div>
               ))}
@@ -1293,7 +1293,7 @@ export default function OHILanding() {
                       <div style={{ width: 20, height: 2, background: "var(--gold)" }} />
                       <p style={{ color: "rgba(255,255,255,0.92)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>Nuestro equipo profesional</p>
                     </div>
-                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.73rem" }}>Talento humano comprometido con el paciente</p>
+                    <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.73rem" }}>Talento humano comprometido con el paciente</p>
                   </div>
                 </div>
 
@@ -1451,7 +1451,7 @@ export default function OHILanding() {
                     >
                       {s.value}
                     </div>
-                    <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.82rem", fontWeight: 400, marginTop: "0.5rem", letterSpacing: "0.03em" }}>
+                    <div style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.82rem", fontWeight: 400, marginTop: "0.5rem", letterSpacing: "0.03em" }}>
                       {s.label}
                     </div>
                   </div>
@@ -1502,7 +1502,7 @@ export default function OHILanding() {
                 <h3 className="display-font" style={{ color: "#fff", fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)", fontWeight: 600, marginBottom: "0.5rem", lineHeight: 1.15 }}>
                   Urgencias 24/7
                 </h3>
-                <p style={{ color: "rgba(255,255,255,0.68)", fontSize: "0.88rem", lineHeight: 1.65, marginBottom: "1rem" }}>
+                <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.88rem", lineHeight: 1.65, marginBottom: "1rem" }}>
                   Atención inmediata con accesos diferenciados para adultos, maternidad, pediatría y politraumatizados — profesionales especializados disponibles las 24 horas.
                 </p>
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
@@ -1643,7 +1643,7 @@ export default function OHILanding() {
                     <h4 className="display-font" style={{ fontSize: "1.1rem", fontWeight: 600, color: "#FFFFFF", marginBottom: "0.7rem", lineHeight: 1.3 }}>
                       {p.title}
                     </h4>
-                    <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.87rem", lineHeight: 1.7 }}>
+                    <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.87rem", lineHeight: 1.7 }}>
                       {p.desc}
                     </p>
                   </div>
@@ -1687,7 +1687,7 @@ export default function OHILanding() {
                   <p style={{ color: "#FFFFFF", fontSize: i === 0 ? "1.1rem" : "0.9rem", fontWeight: 600, lineHeight: 1.25, marginBottom: "0.2rem" }}>
                     {item.label}
                   </p>
-                  <p style={{ color: "rgba(255,255,255,0.48)", fontSize: "0.72rem" }}>{item.sub}</p>
+                  <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.72rem" }}>{item.sub}</p>
                 </div>
               </div>
             ))}
@@ -1735,7 +1735,7 @@ export default function OHILanding() {
                     {/* Gold bottom accent */}
                     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg, transparent 0%, rgba(194,213,1,0.55) 40%, rgba(194,213,1,0.55) 60%, transparent 100%)" }} />
                     {/* Sede number badge */}
-                    <div style={{ position: "absolute", top: "0.95rem", left: "1.2rem", fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>
+                    <div style={{ position: "absolute", top: "0.95rem", left: "1.2rem", fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", fontWeight: 600 }}>
                       Sede {String(i + 1).padStart(2, "0")}
                     </div>
                     {/* Watermark icon */}
@@ -1989,7 +1989,7 @@ export default function OHILanding() {
                       <h4 style={{ color: "var(--gold-light)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.75rem", letterSpacing: "0.03em" }}>
                         {sede.name}
                       </h4>
-                      <p className="flex items-start gap-2" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.84rem", lineHeight: 1.6 }}>
+                      <p className="flex items-start gap-2" style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.84rem", lineHeight: 1.6 }}>
                         <FaMapMarkerAlt style={{ color: "var(--gold)", marginTop: 3, flexShrink: 0 }} />
                         {sede.address}
                       </p>
@@ -1998,7 +1998,7 @@ export default function OHILanding() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 no-underline mt-1"
-                        style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.84rem" }}
+                        style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.84rem" }}
                       >
                         <FaWhatsapp style={{ color: "var(--sage)" }} />
                         {sede.phone}
@@ -2067,7 +2067,7 @@ export default function OHILanding() {
 
               {/* Quick links */}
               <div>
-                <h5 style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
+                <h5 style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
                   Navegación
                 </h5>
                 <div className="flex flex-col gap-2">
@@ -2087,7 +2087,7 @@ export default function OHILanding() {
 
               {/* Contact */}
               <div>
-                <h5 style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
+                <h5 style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
                   Contacto
                 </h5>
                 <div className="flex flex-col gap-2">
@@ -2120,7 +2120,7 @@ export default function OHILanding() {
 
               {/* Legal */}
               <div>
-                <h5 style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
+                <h5 style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
                   Políticas
                 </h5>
                 <div className="flex flex-col gap-2">
@@ -2152,7 +2152,7 @@ export default function OHILanding() {
               <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.77rem" }}>
                 © 2025 OHI – Organización Humana Integral. Todos los derechos reservados.
               </p>
-              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.77rem" }}>
+              <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.77rem" }}>
                 Valledupar, Cesar – Colombia
               </p>
             </div>
