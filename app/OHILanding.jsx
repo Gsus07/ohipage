@@ -850,7 +850,7 @@ export default function OHILanding() {
           src="/LOGOS/LOGO%20OHI%20HORIZONTAL.PNG"
           alt="OHI Logo"
           width={180}
-          height={60}
+          height={85}
           fetchPriority="high"
           decoding="async"
           className="loader-logo-img"
@@ -1186,9 +1186,15 @@ export default function OHILanding() {
           </div>
 
           {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 scroll-bounce" aria-label="Desplazarse hacia abajo" style={{ transform: "translateX(-50%)", color: "rgba(255,255,255,0.6)" }}>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: window.innerHeight, behavior: "smooth" })}
+            className="absolute bottom-8 left-1/2 scroll-bounce"
+            aria-label="Desplazarse hacia abajo"
+            style={{ background: "none", border: "none", cursor: "pointer", transform: "translateX(-50%)", color: "rgba(255,255,255,0.7)" }}
+          >
             <FaChevronDown />
-          </div>
+          </button>
 
           {/* Trust strip — glassmorphism bar at hero bottom */}
           <div
@@ -1860,10 +1866,12 @@ export default function OHILanding() {
 
             {/* Testimonial navigation dots */}
             <div className="flex justify-center gap-2 mb-8">
-              {TESTIMONIALS.map((_, i) => (
+              {TESTIMONIALS.map((t, i) => (
                 <button
-                  key={i}
+                  key={t.name}
+                  type="button"
                   onClick={() => setActiveTestimonial(i)}
+                  aria-label={`Ver testimonio de ${t.name} (${i + 1} de ${TESTIMONIALS.length})`}
                   style={{
                     width: i === activeTestimonial ? 28 : 10,
                     height: 10, borderRadius: 5,
@@ -1879,9 +1887,10 @@ export default function OHILanding() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {TESTIMONIALS.map((t, i) => (
                 <button
-                  key={i}
+                  key={t.name}
                   type="button"
                   onClick={() => setActiveTestimonial(i)}
+                  aria-label={`Ver opinión de ${t.name}`}
                   style={{
                     all: "unset", display: "block", boxSizing: "border-box",
                     width: "100%", cursor: "pointer",
