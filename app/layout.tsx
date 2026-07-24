@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   keywords:
     "OHI, salud, Valledupar, clínica, urgencias, UCI, cirugía, alta complejidad, Cesar, Colombia",
   authors: [{ name: "OHI – Organización Humana Integral" }],
+  icons: {
+    icon: "/LOGOS/LOGO.PNG",
+    shortcut: "/LOGOS/LOGO.PNG",
+    apple: "/LOGOS/LOGO.PNG",
+  },
   openGraph: {
     title: "OHI – Organización Humana Integral",
     description:
