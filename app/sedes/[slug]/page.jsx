@@ -659,14 +659,21 @@ export default async function SedePage({ params }) {
         /* Gold decorative line */
         .gold-line-center { display: block; width: 48px; height: 3px; background: linear-gradient(to right, #C2D501, #d4e818); border-radius: 2px; margin: 0.9rem auto 0; }
 
-        /* Glass card */
+        /* Glass card 2.0 */
         .glass-card {
+          position: relative;
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.08);
           border-radius: 14px;
-          backdrop-filter: blur(18px) saturate(1.3);
-          -webkit-backdrop-filter: blur(18px) saturate(1.3);
-          transition: all 0.35s ease;
+          backdrop-filter: blur(24px) saturate(1.4);
+          -webkit-backdrop-filter: blur(24px) saturate(1.4);
+          box-shadow: inset 0 1px 1px rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.08);
+          transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+        }
+        .glass-card::before {
+          content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+          background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+          opacity: 0.025;
         }
         .glass-card:hover {
           border-color: rgba(194,213,1,0.2);
@@ -1162,8 +1169,7 @@ export default async function SedePage({ params }) {
       </section>
 
       {/* ── Footer ── */}
-      <footer style={{
-        background: "#060c22",
+      <footer className="mesh-bg-contact" style={{
         padding: "2.2rem 1.5rem",
         position: "relative", overflow: "hidden",
       }}>

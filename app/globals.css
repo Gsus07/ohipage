@@ -61,3 +61,51 @@ body {
 img {
   image-rendering: auto;
 }
+
+/* ── Evolución Estética Pro (Global) ── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, #f7ff80 50%, var(--gold) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 12px rgba(194,213,1,0.25));
+}
+
+.text-gradient-navy {
+  background: linear-gradient(135deg, var(--navy) 0%, #1A52CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-2 {
+  position: relative;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.08);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+.glass-2::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  opacity: 0.025;
+  border-radius: inherit;
+}
+
+.mesh-bg-contact {
+  background: radial-gradient(at 0% 0%, rgba(11,63,173,0.4) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(194,213,1,0.15) 0px, transparent 50%),
+              var(--navy);
+  background-size: cover;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+.ken-burns {
+  animation: kenBurns 25s ease-in-out alternate infinite;
+}

@@ -22,29 +22,38 @@ export default function SedeNavbar({ whatsapp }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navBg = scrolled
-    ? "rgba(6,47,135,0.97)"
-    : "linear-gradient(to bottom, rgba(2,11,46,0.65) 0%, transparent 100%)";
-
   return (
     <nav
-      style={{
+      style={scrolled ? {
+        position: "fixed",
+        top: "1rem",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "96%",
+        maxWidth: 1100,
+        zIndex: 200,
+        background: "rgba(4,16,68,0.75)",
+        backdropFilter: "blur(24px) saturate(1.5)",
+        WebkitBackdropFilter: "blur(24px) saturate(1.5)",
+        boxShadow: "inset 0 1px 1px rgba(255,255,255,0.12), 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(194,213,1,0.15)",
+        borderRadius: 100,
+        transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
+      } : {
         position: "fixed",
         top: 0,
-        left: 0,
-        right: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "100%",
+        maxWidth: "100%",
+        borderRadius: 0,
         zIndex: 200,
-        background: navBg,
-        backdropFilter: scrolled ? "blur(14px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
-        boxShadow: scrolled ? "0 2px 24px rgba(6,47,135,0.35)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
-        transition: "background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease",
+        background: "linear-gradient(to bottom, rgba(2,11,46,0.65) 0%, transparent 100%)",
+        transition: "all 0.6s cubic-bezier(0.16,1,0.3,1)",
       }}
     >
       <div
         style={{
-          maxWidth: 1280,
+          maxWidth: 1100,
           margin: "0 auto",
           padding: "0 1.5rem",
           height: 64,

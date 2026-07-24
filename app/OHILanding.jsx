@@ -49,18 +49,24 @@ const GlobalStyles = () => (
 
     .display-font { font-family: 'Cormorant Garamond', Georgia, serif; }
 
-    /* ── Navbar ──────────────────────────────── */
     .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      transition: background 0.45s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.45s cubic-bezier(0.16,1,0.3,1),
-                  backdrop-filter 0.45s ease;
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 100%; border-radius: 0;
+      z-index: 1000;
+      transition: all 0.6s cubic-bezier(0.16,1,0.3,1);
     }
     .navbar.scrolled {
-      background: rgba(4,16,68,0.92) !important;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      box-shadow: 0 1px 32px rgba(0,0,0,0.22), 0 0 0 1px rgba(194,213,1,0.06);
+      top: 1rem;
+      width: 96%;
+      max-width: 1100px;
+      border-radius: 100px;
+      background: rgba(4,16,68,0.75) !important;
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.12), 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(194,213,1,0.15);
+    }
+    @media (max-width: 768px) {
+      .navbar.scrolled { border-radius: 24px; top: 0.5rem; width: 92%; }
     }
 
     /* ── Hero ────────────────────────────────── */
@@ -215,7 +221,7 @@ const GlobalStyles = () => (
     .btn-primary:hover::after { transform: translateX(100%); }
     .btn-primary:hover {
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 28px rgba(194,213,1,0.5), 0 0 16px rgba(194,213,1,0.2);
+      box-shadow: 0 8px 28px rgba(194,213,1,0.5), 0 0 24px rgba(194,213,1,0.4);
     }
     .btn-primary:active { transform: translateY(0) scale(0.97); }
     .btn-outline {
@@ -880,7 +886,7 @@ export default function OHILanding() {
           className={`navbar ${scrolled ? "scrolled" : ""}`}
           style={{ background: scrolled ? undefined : "transparent" }}
         >
-          <div className="max-w-7xl mx-auto px-6 lg:px-10 py-3 flex items-center justify-between">
+          <div className="mx-auto px-6 lg:px-10 py-3 flex items-center justify-between" style={{ maxWidth: 1100, transition: "padding 0.6s ease" }}>
 
             {/* Logo */}
             <a href="#inicio" className="flex items-center no-underline">
@@ -979,7 +985,8 @@ export default function OHILanding() {
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
             <img
               src="/IMG/CENTRO/OHI-entrada.webp"
-              alt=""
+              alt="Clínica OHI"
+              className="ken-burns"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.28 }}
             />
           </div>
@@ -1021,11 +1028,10 @@ export default function OHILanding() {
 
                 {/* Main headline */}
                 <h1
-                  className="display-font fade-up delay-200"
+                  className="display-font fade-up delay-200 text-gradient-gold"
                   style={{
                     fontSize: "clamp(2.8rem, 6vw, 5rem)",
                     fontWeight: 600,
-                    color: "#FFFFFF",
                     lineHeight: 1.1,
                     letterSpacing: "-0.01em",
                     marginBottom: "1.4rem",
@@ -1129,7 +1135,7 @@ export default function OHILanding() {
                   </div>
 
                   {/* Floating stat badges */}
-                  <div style={{ position: "absolute", top: "1.4rem", left: "-1.1rem", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                  <div style={{ position: "absolute", top: "1.4rem", left: "1.2rem", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
                     {[
                       { icon: FaAward,       label: "+20 años" },
                       { icon: FaClock,       label: "Urgencias 24/7" },
@@ -1225,8 +1231,8 @@ export default function OHILanding() {
                 <div data-reveal="fade" data-delay="100" className="gold-line block mt-3 mb-6" />
                 <h2
                   data-reveal="up" data-delay="150"
-                  className="display-font"
-                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 600, color: "var(--navy)", lineHeight: 1.15 }}
+                  className="display-font text-gradient-gold"
+                  style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 600, lineHeight: 1.15 }}
                 >
                   Organización<br />Humana Integral
                 </h2>
@@ -1498,7 +1504,7 @@ export default function OHILanding() {
                   <div aria-hidden="true" style={{ position: "absolute", top: "0.6rem", right: "0.8rem", fontSize: "2.8rem", fontWeight: 700, color: "rgba(6,47,135,0.04)", lineHeight: 1, fontFamily: "'Cormorant Garamond', serif", pointerEvents: "none", userSelect: "none" }}>
                     {String(i + 1).padStart(2, "0")}
                   </div>
-                  <h4 style={{ fontSize: "0.96rem", fontWeight: 600, color: "var(--navy)", marginBottom: "0.5rem", lineHeight: 1.3 }}>
+                  <h4 className="text-gradient-gold" style={{ fontSize: "0.96rem", fontWeight: 600, color: "var(--navy)", marginBottom: "0.5rem", lineHeight: 1.3 }}>
                     {svc.label}
                   </h4>
                   <p style={{ color: "var(--text-muted)", fontSize: "0.84rem", lineHeight: 1.65 }}>
@@ -1893,9 +1899,10 @@ export default function OHILanding() {
         {/* ─── CONTACTO ──────────────────────────────────────────────── */}
         <section
           id="contacto"
-          style={{ background: "var(--navy)", position: "relative", overflow: "hidden" }}
+          className="mesh-bg-contact"
+          style={{ position: "relative", overflow: "hidden" }}
         >
-          <WaveUp fill="var(--navy)" />
+          <WaveUp fill="transparent" />
           <div className="py-24 px-6 relative z-10">
 
             {/* Subtle background texture — replaced by logo tile */}
@@ -1910,7 +1917,7 @@ export default function OHILanding() {
                 <div data-reveal="left">
                   <span className="eyebrow-pill eyebrow-pill-dark">Estamos aquí</span>
                   <div className="gold-line block mt-3 mb-5" />
-                  <h2 data-reveal="up" data-delay="150" className="display-font" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 600, color: "#FFFFFF", lineHeight: 1.2 }}>
+                  <h2 data-reveal="up" data-delay="150" className="display-font text-gradient-gold" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 600, lineHeight: 1.2 }}>
                     Contáctanos
                   </h2>
                   <p data-reveal="up" data-delay="250" style={{ color: "rgba(255,255,255,0.6)", marginTop: "1rem", lineHeight: 1.8, fontSize: "0.93rem", maxWidth: 560 }}>
@@ -1999,7 +2006,7 @@ export default function OHILanding() {
         </section>
 
         {/* ─── FOOTER ────────────────────────────────────────────────── */}
-        <footer style={{ background: "#020b2e", borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }}>
+        <footer className="mesh-bg-contact" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", overflow: "hidden" }}>
           <div className="logo-tile-bg-bl" />
           <div className="max-w-6xl mx-auto px-6 py-12">
             <div className="flex flex-col md:flex-row items-start justify-between gap-10">
