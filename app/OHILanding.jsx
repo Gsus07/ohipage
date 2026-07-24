@@ -196,7 +196,7 @@ const GlobalStyles = () => (
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
     }
     .testimonial-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-4px) scale(1.01);
       box-shadow: 0 20px 48px rgba(0,0,0,0.08);
     }
 
@@ -214,18 +214,20 @@ const GlobalStyles = () => (
     }
     .btn-primary:hover::after { transform: translateX(100%); }
     .btn-primary:hover {
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.02);
       box-shadow: 0 8px 28px rgba(194,213,1,0.5), 0 0 16px rgba(194,213,1,0.2);
     }
+    .btn-primary:active { transform: translateY(0) scale(0.97); }
     .btn-outline {
       transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
     .btn-outline:hover {
       background: rgba(255,255,255,0.1);
       border-color: rgba(255,255,255,0.65) !important;
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.02);
       box-shadow: 0 4px 20px rgba(255,255,255,0.1);
     }
+    .btn-outline:active { transform: translateY(0) scale(0.97); }
 
     /* ── Nav links ───────────────────────────── */
     .nav-link {
@@ -490,7 +492,7 @@ const GlobalStyles = () => (
     }
     .sede-vcard:hover {
       box-shadow: 0 24px 64px rgba(0,0,0,0.12);
-      transform: translateY(-6px);
+      transform: translateY(-6px) scale(1.01);
       border-color: rgba(194,213,1,0.2);
     }
     .sede-vcard:hover .sede-vcard-arr { transform: translateX(6px); }
@@ -1243,6 +1245,7 @@ export default function OHILanding() {
                   <img
                     src="/IMG/trabajadores.webp"
                     alt="Equipo profesional OHI"
+                    loading="lazy"
                     style={{ width: "100%", height: 300, objectFit: "cover", objectPosition: "center top", display: "block", transition: "transform 0.7s ease" }}
                     onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.04)"; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = ""; }}
@@ -1323,6 +1326,7 @@ export default function OHILanding() {
                         <img
                           src={item.image}
                           alt={item.title}
+                          loading="lazy"
                           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.5s ease" }}
                         />
                       </div>
@@ -1334,6 +1338,7 @@ export default function OHILanding() {
                         <img
                           src={item.image}
                           alt={item.title}
+                          loading="lazy"
                           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                         />
                       </div>
@@ -1379,7 +1384,8 @@ export default function OHILanding() {
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
             <img
               src="/IMG/servicios/Sala-Procedimiento-OHI.webp"
-              alt=""
+              alt="Sala de Procedimientos"
+              loading="lazy"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block", opacity: 0.18 }}
             />
           </div>
@@ -1448,6 +1454,7 @@ export default function OHILanding() {
                 className="svc-featured-img"
                 src="/IMG/servicios/Urgencias-24-CEMIC-OHI.webp"
                 alt="Urgencias 24/7 OHI"
+                loading="lazy"
                 style={{ position: "absolute", inset: 0, objectPosition: "center 30%" }}
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(6,47,135,0.92) 0%, rgba(6,47,135,0.72) 38%, rgba(6,47,135,0.25) 65%, transparent 100%)" }} />
@@ -1636,7 +1643,7 @@ export default function OHILanding() {
                 data-delay={String(i * 70)}
                 style={{ position: "relative" }}
               >
-                <img src={item.src} alt={item.label} />
+                <img src={item.src} alt={item.label} loading="lazy" />
                 <div className="gal-overlay" />
                 <div className="gal-label">
                   <div style={{ width: 22, height: 2, background: "var(--gold)", marginBottom: "0.5rem" }} />

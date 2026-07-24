@@ -596,6 +596,10 @@ export default async function SedePage({ params }) {
           transform: scale(1.08);
           filter: brightness(1.04);
         }
+        .service-card:active {
+          transform: translateY(-2px) scale(0.98);
+          box-shadow: 0 12px 24px rgba(0,0,0,0.08) !important;
+        }
         .card-body { flex: 1; min-width: 0; position: relative; overflow: hidden; }
         .card-num {
           position: absolute; top: -1rem; right: 0.6rem;
@@ -668,6 +672,9 @@ export default async function SedePage({ params }) {
           border-color: rgba(194,213,1,0.2);
           box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
+        .glass-card:active {
+          transform: translateY(1px) scale(0.98);
+        }
 
         /* Scroll progress bar */
         .sede-progress-bar {
@@ -704,6 +711,9 @@ export default async function SedePage({ params }) {
           background: linear-gradient(135deg, #e8edff, #dce3ff);
           box-shadow: 0 4px 12px rgba(6,47,135,0.08);
           border-color: rgba(6,47,135,0.18);
+        }
+        .svc-chip:active {
+          transform: translateY(1px) scale(0.96);
         }
 
         /* Custom scrollbar */
@@ -958,7 +968,7 @@ export default async function SedePage({ params }) {
                   <div className="card-img-wrap">
                     {imgSrc ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={imgSrc} alt={section.title} className="card-img" />
+                      <img src={imgSrc} alt={section.title} className="card-img" loading="lazy" />
                     ) : (
                       <div style={{ width: "100%", height: "100%", background: "linear-gradient(145deg,#062F87,#1347bf)" }} />
                     )}

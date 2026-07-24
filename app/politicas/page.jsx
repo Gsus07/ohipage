@@ -126,6 +126,10 @@ export default function PoliticasPage() {
           transform: translateY(-2px);
           box-shadow: 0 6px 24px rgba(194,213,1,0.35);
         }
+        .btn-download:active {
+          transform: translateY(1px) scale(0.97);
+          box-shadow: 0 2px 12px rgba(194,213,1,0.25);
+        }
 
         .btn-view {
           display: inline-flex; align-items: center; gap: 8px;
@@ -145,6 +149,9 @@ export default function PoliticasPage() {
           background: rgba(6,47,135,0.04);
           transform: translateY(-2px);
         }
+        .btn-view:active {
+          transform: translateY(1px) scale(0.97);
+        }
 
         .back-link {
           display: inline-flex; align-items: center; gap: 8px;
@@ -155,6 +162,7 @@ export default function PoliticasPage() {
           animation: fadeIn 0.6s ease both;
         }
         .back-link:hover { color: #C2D501; }
+        .back-link:active { transform: scale(0.95); }
 
         /* Info banner */
         .info-banner {
